@@ -55,56 +55,28 @@ div {
 	background-color: #153947;
 	padding: 1px 0px;
 }
-#profile span {
-	position: absolute;
-	left: 0px;
-	bottom: 0px;
-	height: 5px;
-	width: 375px;
-	margin: auto;
-	padding: 0px;
-	padding-top: 3px;
-	background: linear-gradient(
-		90deg,
-		rgba(229, 46, 113, 1) 0%,
-		rgba(255, 137, 1, 1) 98%
-	);
-}
 #back {
 	position: absolute;
-	top: 1px;
+	top: 50%;
 	left: 50%;
-	transform: translate(-50%);
-	margin-left: -175px;
-	color: white;
-	background-color: inherit;
-	border: none;
-	font-size: 42px;
+	transform: translate(-50%, -50%);
+	margin-left: -170px;
+	fill: white;
 	cursor: pointer;
 }
 #back:hover {
-	color: black;
+	fill: black;
 }
 #restartbutt {
 	position: absolute;
 	top: 14px;
 	left: 50%;
 	margin-left: -175px;
-	color: #bebebe;
-	background-color: inherit;
-	border: none;
-	font-size: 30px;
+	fill: #bebebe;
 	cursor: pointer;
 }
 #restartbutt:hover {
-	background: linear-gradient(
-		90deg,
-		rgba(229, 46, 113, 1) 0%,
-		rgba(255, 137, 1, 1) 98%
-	);
-	background-clip: text;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+	fill: #ff5200;
 }
 #bmitip,
 #bmrtip,
@@ -114,12 +86,10 @@ div {
 #lbmtip,
 #tbwtip,
 #cancel {
-	background-color: rgba(0, 0, 0, 0);
-	color: #bebebe;
+	fill: #bebebe;
 	position: absolute;
-	right: 1px;
+	right: 7px;
 	top: 7px;
-	border: none;
 	cursor: pointer;
 }
 #bmitip:hover,
@@ -129,7 +99,7 @@ div {
 #bfptip:hover,
 #lbmtip:hover,
 #cancel:hover {
-	color: #ff5200;
+	fill: #ff5200;
 }
 #necktip {
 	position: absolute;
@@ -137,15 +107,13 @@ div {
 	top: 120px;
 	margin-left: 150px;
 	transform: translate(-50%);
-	background-color: transparent;
-	color: #bebebe;
-	border: none;
+	fill: #bebebe;
 	cursor: pointer;
 }
 #necktip:hover,
 #waisttip:hover,
 #hiptip:hover {
-	color: #ff5200;
+	fill: #ff5200;
 }
 #waisttip {
 	position: absolute;
@@ -153,9 +121,7 @@ div {
 	top: 230px;
 	transform: translate(-50%);
 	margin-left: 150px;
-	background-color: transparent;
-	color: #bebebe;
-	border: none;
+	fill: #bebebe;
 	cursor: pointer;
 }
 #hiptip {
@@ -164,9 +130,7 @@ div {
 	top: 340px;
 	transform: translate(-50%);
 	margin-left: 150px;
-	background-color: transparent;
-	color: #bebebe;
-	border: none;
+	fill: #bebebe;
 	cursor: pointer;
 }
 .topage1 {

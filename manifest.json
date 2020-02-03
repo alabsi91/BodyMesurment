@@ -3,9 +3,14 @@
     "name": "BODY MEASUREMENET CALACULATORS",
     "icons": [
         {
-            "src": "/favicon.png",
+            "src": "/fat.png",
             "type": "image/png",
             "sizes": "512x512"
+        },
+        {
+            "src": "/fat2.png",
+            "type": "image/png",
+            "sizes": "128x128"
         }
     ],
     "start_url": "https://bodymesurment.netlify.com/",
