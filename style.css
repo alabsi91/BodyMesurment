@@ -28,8 +28,8 @@ div {
 .calculator {
 	position: absolute;
 	left: 50%;
-	transform: translate(-50%);
-	top: 344px;
+	transform: translate(-50%, -50%);
+	top: 50%;
 	margin: auto;
 	font-size: 39px;
 	font-weight: BOLDER;
@@ -44,7 +44,7 @@ div {
 }
 #welcomePage {
 	position: relative;
-	height: 700px;
+	height: 100%;
 	padding: 0;
 }
 #profile {
@@ -136,7 +136,7 @@ div {
 .topage1 {
 	position: absolute;
 	left: 50%;
-	top: 90%;
+	top: 95%;
 	transform: translate(-50%);
 	margin: auto;
 	color: white;
@@ -167,7 +167,7 @@ div {
 .topage2 {
 	position: absolute;
 	left: 50%;
-	top: 90%;
+	top: 85%;
 	transform: translate(-50%);
 	color: white;
 	border: none;
@@ -191,10 +191,7 @@ div {
 	cursor: pointer;
 }
 #page2 .topage2 {
-	top: 102%;
-}
-#page3 .topage2 {
-	top: 99%;
+	top: 95%;
 }
 .skip {
 	color: rgba(229, 46, 113, 1);
@@ -515,7 +512,7 @@ i {
 	padding: 10px;
 	padding-left: 20px;
 	padding-right: 20px;
-	width: 325px;
+	width: 70%;
 	display: none;
 	font-family: sans-serif;
 	font-weight: normal;

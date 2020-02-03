@@ -9,7 +9,6 @@ if ('serviceWorker' in navigator) {
 		})
 	})
 }
-
 var user = {
 	gender:"",
 	age:0,
