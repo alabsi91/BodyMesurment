@@ -34,7 +34,7 @@ div {
 	margin: auto;
 	font-size: 39px;
 	font-weight: BOLDER;
-	background: linear-gradient(90deg, rgba(229,46,113,1) 0%, rgba(255,137,1,1) 98%);
+	background: linear-gradient(90deg, rgb(229, 46, 113) 0%, rgba(255,137,1,1) 98%);
 	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;

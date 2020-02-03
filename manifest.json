@@ -1,0 +1,15 @@
+{
+    "short_name": "bCalc",
+    "name": "BODY MEASUREMENET CALACULATORS",
+    "icons": [
+        {
+            "src": "/favicon.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/",
+    "background_color": "#071A23",
+    "display": "standalone",
+    "theme_color": "#e52e71"
+}
