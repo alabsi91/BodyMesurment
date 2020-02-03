@@ -10,6 +10,7 @@ const resourcesToPrecache = [
 
 self.addEventListener('install', event => {
     console.log('Install event');
+    self.skipWaiting();
     event.waitUntil(
         caches.open(cacheName)
         .then(cache => {
@@ -24,7 +25,7 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
     console.log('Fetch intercepted for ', event.request.url)
-    event.respondWith(caches.match(event, request)
+    event.respondWith(caches.match(event.request)
     .then(cachedResponse => {
         return cachedResponse || fetch(event.request)
     })

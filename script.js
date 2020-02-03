@@ -4,6 +4,7 @@ if ('serviceWorker' in navigator) {
 		navigator.serviceWorker.register('/sw.js')
 		.then( reg => {
 			console.log('Regestered ', reg.scope)
+			reg.update();
 		}).catch( err => {
 			console.log('Regesteration failed ', err)
 		})
