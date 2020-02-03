@@ -2,10 +2,8 @@
 const cacheName = 'cache-v1'
 const resourcesToPrecache = [
     '/',
-    'index.html',
     'style.css',
     'b1.jpg',
-    'https://fonts.googleapis.com/icon?family=Material+Icons',
     'https://fonts.googleapis.com/css?family=Fira+Sans&display=swap',
     'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js',
 ]
