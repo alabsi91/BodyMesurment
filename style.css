@@ -131,10 +131,9 @@ div {
 	position: absolute;
 	left: 50%;
 	bottom: 5%;
+	transform: translate(-50%);
 	width: 90%;
 	max-width: 350px;
-	transform: translate(-50%);
-	margin: auto;
 	color: white;
 	border: none;
 	border-radius: 15px;
@@ -163,6 +162,7 @@ div {
 .topage2 {
 	position: absolute;
 	left: 50%;
+	bottom: 5%;
 	transform: translate(-50%);
 	color: white;
 	border: none;
@@ -344,16 +344,19 @@ i {
 	position: relative;
 	padding: 0;
 	height: calc(100vh - 49px);
+	min-height: 650px;
 }
 #page2 {
 	position: relative;
 	padding: 0;
 	height: calc(100vh - 49px);
+	min-height: 610px;
 }
 #page3 {
 	position: relative;
 	padding: 0;
 	height: calc(100vh - 49px);
+	min-height: 610px;
 }
 #page3 h4 {
 	font-size: 14px;
