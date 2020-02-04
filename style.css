@@ -9,6 +9,7 @@ body {
 	margin: auto;
 	padding: 0px;
 	width: 100%;
+	max-width: 700px;
 	height: 418px;
 	background-image: url(b1.jpg);
 	background-position: center;
@@ -44,14 +45,14 @@ div {
 }
 #welcomePage {
 	position: relative;
-	height: 100%;
+	height: 100vh;
 	padding: 0;
 }
 #profile {
 	position: relative;
 	height: 47px;
 	width: 100%;
-	margin: auto;
+	margin: 0;
 	background-color: #153947;
 	padding: 1px 0px;
 }
@@ -60,7 +61,6 @@ div {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	margin-left: -170px;
 	fill: white;
 	cursor: pointer;
 }
@@ -71,7 +71,7 @@ div {
 	position: absolute;
 	top: 14px;
 	left: 50%;
-	margin-left: -175px;
+	transform: translate(-50%);
 	fill: #bebebe;
 	cursor: pointer;
 }
@@ -103,10 +103,8 @@ div {
 }
 #necktip {
 	position: absolute;
-	left: 50%;
-	top: 120px;
-	margin-left: 150px;
-	transform: translate(-50%);
+	right: 7px;
+	top: 35px;
 	fill: #bebebe;
 	cursor: pointer;
 }
@@ -117,26 +115,24 @@ div {
 }
 #waisttip {
 	position: absolute;
-	left: 50%;
-	top: 230px;
-	transform: translate(-50%);
-	margin-left: 150px;
+	right: 7px;
+	top: 143px;
 	fill: #bebebe;
 	cursor: pointer;
 }
 #hiptip {
 	position: absolute;
-	left: 50%;
-	top: 340px;
-	transform: translate(-50%);
-	margin-left: 150px;
+	right: 7px;
+	top: 253px;
 	fill: #bebebe;
 	cursor: pointer;
 }
 .topage1 {
 	position: absolute;
 	left: 50%;
-	top: 95%;
+	bottom: 5%;
+	width: 90%;
+	max-width: 350px;
 	transform: translate(-50%);
 	margin: auto;
 	color: white;
@@ -144,7 +140,7 @@ div {
 	border-radius: 15px;
 	font-weight: bold;
 	font-size: 20px;
-	padding: 16px 83px;
+	padding: 16px;
 	background: linear-gradient(
 		90deg,
 		rgba(229, 46, 113, 1) 0%,
@@ -167,7 +163,6 @@ div {
 .topage2 {
 	position: absolute;
 	left: 50%;
-	top: 85%;
 	transform: translate(-50%);
 	color: white;
 	border: none;
@@ -190,9 +185,6 @@ div {
 	color: black;
 	cursor: pointer;
 }
-#page2 .topage2 {
-	top: 95%;
-}
 .skip {
 	color: rgba(229, 46, 113, 1);
 	border: none;
@@ -202,7 +194,7 @@ div {
 	padding: 8px 40px;
 	background: white;
 	position: relative;
-	bottom: -48px;
+	margin-bottom: 18px;
 	cursor: pointer;
 }
 .skip:hover {
@@ -248,7 +240,8 @@ div {
 	font-weight: bold;
 	font-size: 14px;
 	margin: auto;
-	width: 301px;
+	width: 80%;
+	max-width: 300px;
 	height: 18px;
 	padding: 15px 10px;
 }
@@ -258,10 +251,11 @@ div {
 #page1 h2 {
 	position: relative;
 	left: 50%;
-	width: fit-content;
+	transform: translate(-50%);
+	width: 85%;
+	max-width: 315px;
 	text-align: left;
 	color: #27a3c9;
-	margin-left: -150px;
 	margin-bottom: 2px;
 	margin-top: 5px;
 	font-size: 20px;
@@ -270,15 +264,19 @@ div {
 	position: relative;
 	left: 50%;
 	transform: translate(-50%);
-	width: fit-content;
+	width: 85%;
+	max-width: 315px;
 	text-align: left;
 	color: #27a3c9;
-	margin-left: -110px;
 	margin-bottom: -1px;
 	font-size: 20px;
 }
 #page1 h3 {
+	position: relative;
 	text-align: center;
+	left: 50%;
+	transform: translate(-50%);
+	width: fit-content;
 	color: #27a3c9;
 	margin-bottom: 12px;
 	margin-top: 0px;
@@ -287,7 +285,8 @@ i {
 	position: absolute;
 	left: 50%;
 	transform: translate(-50%);
-	width: 354px;
+	width: 95%;
+	max-width: 360px;
 	height: 94px;
 	margin: auto;
 	background-color: #09232f;
@@ -295,23 +294,45 @@ i {
 	border-radius: 9px;
 }
 .ipg {
-	top: 16px;
-	height: 150px;
+	position: relative;
+	height: 50px;
+	width: 95%;
+	max-width: 360px;
+	margin: auto;
+	background-color: #09232f;
+	z-index: 0;
+	border-radius: 9px;
 }
 .ipg3 {
-	top: 181px;
-	height: 321px;
+	height: 215px;
+	position: relative;
+	width: 95%;
+	max-width: 360px;
+	margin: auto;
+	background-color: #09232f;
+	z-index: 0;
+	border-radius: 9px;
 }
 .ipg6 {
-	top: 103px;
-	height: 338px;
+	height: 240px;
+	position: relative;
+	width: 95%;
+	max-width: 360px;
+	margin: auto;
+	background-color: #09232f;
+	z-index: 0;
+	border-radius: 9px;
 }
 .ipg9 {
-	top: 27px;
-	left: 50%;
-	height: 429px;
-	width: 360px;
-	border-radius: 22px;
+	top: 35px;
+	height: 340px;
+	margin-bottom: 15px;
+	position: relative;
+	width: 95%;
+	max-width: 360px;
+	background-color: #09232f;
+	z-index: 0;
+	border-radius: 9px;
 }
 .checkbox1 {
 	text-align: center;
@@ -321,13 +342,18 @@ i {
 }
 #page1 {
 	position: relative;
+	padding: 0;
+	height: calc(100vh - 49px);
 }
 #page2 {
 	position: relative;
+	padding: 0;
+	height: calc(100vh - 49px);
 }
 #page3 {
 	position: relative;
-	text-align: center;
+	padding: 0;
+	height: calc(100vh - 49px);
 }
 #page3 h4 {
 	font-size: 14px;
@@ -356,7 +382,8 @@ i {
 	size: a3;
 	position: relative;
 	color: black;
-	width: 325px;
+	width: 95%;
+    max-width: 325px;
 	height: 170px;
 	margin: auto;
 	margin-top: 34.6px;
@@ -400,7 +427,8 @@ i {
 #card2 {
 	position: relative;
 	color: black;
-	width: 325px;
+	width: 95%;
+    max-width: 325px;
 	height: 300px;
 	margin: auto;
 	margin-top: 34.6px;
@@ -417,7 +445,8 @@ i {
 #card3 {
 	position: relative;
 	color: black;
-	width: 325px;
+	width: 95%;
+    max-width: 325px;
 	height: 150px;
 	margin: auto;
 	margin-top: 34.6px;
@@ -434,7 +463,8 @@ i {
 #card4 {
 	position: relative;
 	color: black;
-	width: 325px;
+	width: 95%;
+    max-width: 325px;
 	height: 150px;
 	margin: auto;
 	margin-top: 34.6px;
@@ -451,7 +481,8 @@ i {
 #card5 {
 	position: relative;
 	color: black;
-	width: 325px;
+	width: 95%;
+    max-width: 325px;
 	height: 401px;
 	margin: auto;
 	margin-top: 34.6px;
@@ -468,7 +499,8 @@ i {
 #card6 {
 	position: relative;
 	color: black;
-	width: 325px;
+	width: 95%;
+    max-width: 325px;
 	height: 343px;
 	margin: auto;
 	margin-top: 34.6px;
@@ -485,7 +517,8 @@ i {
 #card7 {
 	position: relative;
 	color: black;
-	width: 325px;
+	width: 95%;
+    max-width: 325px;
 	height: 78px;
 	margin: auto;
 	margin-top: 34.6px;
@@ -513,6 +546,7 @@ i {
 	padding-left: 20px;
 	padding-right: 20px;
 	width: 70%;
+	max-width: 350px;
 	display: none;
 	font-family: sans-serif;
 	font-weight: normal;
@@ -544,15 +578,24 @@ i {
 	color: black;
 }
 .container {
-	display: inline;
-	color: #ffffff;
-	position: relative;
-	left: -59px;
-	padding-top: 5px;
-	padding-left: 50px;
+	position: absolute;
+	left: 51%;
+    transform: translate(0%);
+	width: 145px;
 	cursor: pointer;
 	font-size: 17px;
-	font-weight: lighter;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	text-align: center;
+	-ms-user-select: none;
+}
+.containerLeft {
+	position: absolute;
+	right: 51%;
+    transform: translate(0%);
+	width: 145px;
+	cursor: pointer;
+	font-size: 17px;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	text-align: center;
@@ -568,14 +611,24 @@ i {
 	cursor: pointer;
 	margin-bottom: 3px;
 }
+.containerLeft input {
+	position: absolute;
+	opacity: 0;
+	-moz-opacity: 0;
+	-khtml-opacity: 0%;
+	-webkit-opacity: 0;
+	cursor: pointer;
+	margin-bottom: 3px;
+}
 /* Create a custom radio button */
 .checkmark {
 	position: absolute;
 	z-index: -1;
-	top: 0;
-	left: -9px;
+	top: -5px;
+	left: 50%;
+	transform: translate(-50%);
 	height: 32px;
-	width: 164px;
+	width: 145px;
 	background-color: #0d3342;
 	border-radius: 7px;
 }
@@ -583,8 +636,19 @@ i {
 .container:hover input ~ .checkmark {
 	background-color: #151313;
 }
+.containerLeft:hover input ~ .checkmark {
+	background-color: #151313;
+}
 /* When the radio button is checked, add a blue background */
 .container input:checked ~ .checkmark {
+	background-color: #f5af19;
+	background: linear-gradient(
+		90deg,
+		rgba(229, 46, 113, 1) 0%,
+		rgba(255, 137, 1, 1) 98%
+	);
+}
+.containerLeft input:checked ~ .checkmark {
 	background-color: #f5af19;
 	background: linear-gradient(
 		90deg,
@@ -602,8 +666,19 @@ i {
 .container input:checked ~ .checkmark:after {
 	display: block;
 }
+.containerLeft input:checked ~ .checkmark:after {
+	display: block;
+}
 /* Style the indicator (dot/circle) */
 .container .checkmark:after {
+	top: 8.5px;
+	left: 8.5px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+.containerLeft .checkmark:after {
 	top: 8.5px;
 	left: 8.5px;
 	width: 8px;
@@ -617,7 +692,7 @@ i {
 	left: 50%;
 	transform: translate(-50%);
 	display: block;
-	width: fit-content;
+	width: 95%;
 	color: #ffffff;
 	cursor: pointer;
 	font-size: 20px;
@@ -644,7 +719,7 @@ i {
 	top: -6px;
 	left: 50%;
 	height: 60px;
-	width: 325px;
+	width: 100%;
 	background-color: #0d3342;
 	border-radius: 7px;
 }
