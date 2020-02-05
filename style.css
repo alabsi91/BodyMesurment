@@ -45,7 +45,7 @@ div {
 }
 #welcomePage {
 	position: relative;
-	height: 100vh;
+	height: 93vh;
 	padding: 0;
 }
 #profile {
@@ -70,11 +70,21 @@ div {
 #back:hover {
 	fill: black;
 }
-#restartbutt {
-	position: absolute;
-	top: 14px;
+.restartbg {
+	position: relative;
 	left: 50%;
 	transform: translate(-50%);
+	height: 47px;
+	width: 100%;
+	max-width: 450px;
+	margin: 0;
+	padding: 1px 0px;
+}
+#restartbutt {
+	position: absolute;
+	top: 50%;
+	left: 8%;
+	transform: translate(-50%, -50%);
 	fill: #bebebe;
 	cursor: pointer;
 }
@@ -346,19 +356,19 @@ i {
 #page1 {
 	position: relative;
 	padding: 0;
-	height: calc(100vh - 49px);
+	height: calc(93vh - 49px);
 	min-height: 650px;
 }
 #page2 {
 	position: relative;
 	padding: 0;
-	height: calc(100vh - 49px);
+	height: calc(93vh - 49px);
 	min-height: 610px;
 }
 #page3 {
 	position: relative;
 	padding: 0;
-	height: calc(100vh - 49px);
+	height: calc(93vh - 49px);
 	min-height: 610px;
 }
 #page3 h4 {
@@ -389,7 +399,7 @@ i {
 	position: relative;
 	color: black;
 	width: 95%;
-    max-width: 325px;
+	max-width: 325px;
 	height: 170px;
 	margin: auto;
 	margin-top: 34.6px;
@@ -434,7 +444,7 @@ i {
 	position: relative;
 	color: black;
 	width: 95%;
-    max-width: 325px;
+	max-width: 325px;
 	height: 300px;
 	margin: auto;
 	margin-top: 34.6px;
@@ -452,7 +462,7 @@ i {
 	position: relative;
 	color: black;
 	width: 95%;
-    max-width: 325px;
+	max-width: 325px;
 	height: 150px;
 	margin: auto;
 	margin-top: 34.6px;
@@ -470,7 +480,7 @@ i {
 	position: relative;
 	color: black;
 	width: 95%;
-    max-width: 325px;
+	max-width: 325px;
 	height: 150px;
 	margin: auto;
 	margin-top: 34.6px;
@@ -488,7 +498,7 @@ i {
 	position: relative;
 	color: black;
 	width: 95%;
-    max-width: 325px;
+	max-width: 325px;
 	height: 401px;
 	margin: auto;
 	margin-top: 34.6px;
@@ -506,7 +516,7 @@ i {
 	position: relative;
 	color: black;
 	width: 95%;
-    max-width: 325px;
+	max-width: 325px;
 	height: 343px;
 	margin: auto;
 	margin-top: 34.6px;
@@ -524,7 +534,7 @@ i {
 	position: relative;
 	color: black;
 	width: 95%;
-    max-width: 325px;
+	max-width: 325px;
 	height: 78px;
 	margin: auto;
 	margin-top: 34.6px;
@@ -600,7 +610,7 @@ i {
 .container {
 	position: absolute;
 	left: 51%;
-    transform: translate(0%);
+	transform: translate(0%);
 	width: 145px;
 	cursor: pointer;
 	font-size: 17px;
@@ -612,7 +622,7 @@ i {
 .containerLeft {
 	position: absolute;
 	right: 51%;
-    transform: translate(0%);
+	transform: translate(0%);
 	width: 145px;
 	cursor: pointer;
 	font-size: 17px;

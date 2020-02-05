@@ -1,46 +1,48 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <link href="https://fonts.googleapis.com/css?family=Fira+Sans&display=swap" rel="stylesheet">
-        <link rel="icon" href="fat.png"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>BODY MEASUREMENET CALCULATORS</title>
-        <link rel="stylesheet" href="style.css">
-        <link rel="manifest" href="manifest.json">
-        <link rel="apple-touch-icon" href="/fat2.png">
-        <meta name="theme-color" content="#153947" />
-        <meta name="Description" content="alabsi body calculator">
-    </head>
-    <body id="body">
-        <div id="welcomePage">
-        <div class="pg"></div>
-            <p class="calculator" id="title1" >BODY MEASUREMENET CALCULATORS</p>
-            <br><br><br><br><br><br><br>
-            <button class="topage1" id="topage1" onclick="topage1()">BUILD PROFILE</button>
 
-            <div class="popup" id="addToHomePop">
-                <h3 style="text-align: center; margin-bottom: 30px">Get our free app and access it offline.</h3>
-                <button class="popbutt" id="addToHomebutt" onclick="addToHomePop()">Install</button>
-                <br>
-                <button class="notnow" onclick="addToHomePop()">Not Now</button>
-            </div>
-        </div>
-		
-        <div id="profile" style="display: none">
-            <svg id="back" onclick="toback()" title="Go back" height="30" width="30" viewBox="0 0 24 24" >
-                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-            </svg>
-        </div>
-		
-        <div id="page1" style="display: none">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans&display=swap" rel="stylesheet">
+    <link rel="icon" href="fat.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BODY MEASUREMENET CALCULATORS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="/fat2.png">
+    <meta name="theme-color" content="#153947" />
+    <meta name="Description" content="alabsi body calculator">
+</head>
+
+<body id="body">
+    <div id="welcomePage">
+        <div class="pg"></div>
+        <p class="calculator" id="title1">BODY MEASUREMENET CALCULATORS</p>
+        <br><br><br><br><br><br><br>
+        <button class="topage1" id="topage1" onclick="topage1()">BUILD PROFILE</button>
+
+        <div class="popup" id="addToHomePop">
+            <h3 style="text-align: center; margin-bottom: 30px">Get our free app and access it offline.</h3>
+            <button class="popbutt" id="addToHomebutt" onclick="addToHomePop()">Install</button>
             <br>
-		<div class="ipg">
+            <button class="notnow" onclick="addToHomePop()">Not Now</button>
+        </div>
+    </div>
+
+    <div id="profile" style="display: none">
+        <svg id="back" onclick="toback()" title="Go back" height="30" width="30" viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+        </svg>
+    </div>
+
+    <div id="page1" style="display: none">
+        <br>
+        <div class="ipg">
             <h3>Mesurement system</h3>
-			<label class="containerLeft" onclick="metricSystem()">Metric
+            <label class="containerLeft" onclick="metricSystem()">Metric
                 <input id="metric" type="radio" name="system" checked="checked">
                 <span class="checkmark"></span>
             </label>
-            
+
             <label class="container" onclick="imperialSystem()">Imperial
                 <input id="imperial" type="radio" name="system">
                 <span class="checkmark"></span>
@@ -48,17 +50,17 @@
             <br><br>
             <h3>Select your gender</h3>
             <label class="containerLeft">Male
-                <input id="mgender" type="radio" name="gender" checked="checked">   
+                <input id="mgender" type="radio" name="gender" checked="checked">
                 <span class="checkmark"></span>
             </label>
-            
+
             <label class="container">Female
                 <input id="fgender" type="radio" name="gender">
                 <span class="checkmark"></span>
             </label>
-            </div>
-			<br>
-			<div class="ipg3">
+        </div>
+        <br>
+        <div class="ipg3">
             <h2>Age</h2>
             <input id="age" autocomplete="off" type="number" placeholder="Your Age in years" title="Above 18" value="">
             <br><br>
@@ -67,37 +69,37 @@
             <br><br>
             <h2>Height</h2>
             <input id="height" autocomplete="off" type="number" placeholder="Your Height In Centimeters" value="">
-            </div>
-            <br>
-            <button class="topage2" onclick="topage2()">NEXT</button>
-			
-			<div class="popup" id="agealert">
-                <h3 style="text-align: center; margin: 0px">Warning</h3>
-                <p style="font-family: sans-serif">Please enter an age above 18.
-				</p>
-				<button class="popbutt"  onclick="agealert()">DONE</button>
-            </div>
-			
-			<div class="popup" id="weightalert">
-                <h3 style="text-align: center; margin: 0px">Warning</h3>
-                <p style="font-family: sans-serif">Please enter a valid weight.
-				</p>
-				<button class="popbutt"  onclick="weightalert()">DONE</button>
-            </div>
-			
-			<div class="popup" id="heightalert">
-                <h3 style="text-align: center; margin: 0px">Warning</h3>
-                <p style="font-family: sans-serif">Please enter a valid height.
-				</p>
-				<button class="popbutt"  onclick="heightalert()">DONE</button>
-            </div>
-			
         </div>
-		
-        <div id="page2" style="display: none">
-            <br>
-            <h1>For More Accurate Results</h1>
-            <div class="ipg6">
+        <br>
+        <button class="topage2" onclick="topage2()">NEXT</button>
+
+        <div class="popup" id="agealert">
+            <h3 style="text-align: center; margin: 0px">Warning</h3>
+            <p style="font-family: sans-serif">Please enter an age above 18.
+            </p>
+            <button class="popbutt" onclick="agealert()">DONE</button>
+        </div>
+
+        <div class="popup" id="weightalert">
+            <h3 style="text-align: center; margin: 0px">Warning</h3>
+            <p style="font-family: sans-serif">Please enter a valid weight.
+            </p>
+            <button class="popbutt" onclick="weightalert()">DONE</button>
+        </div>
+
+        <div class="popup" id="heightalert">
+            <h3 style="text-align: center; margin: 0px">Warning</h3>
+            <p style="font-family: sans-serif">Please enter a valid height.
+            </p>
+            <button class="popbutt" onclick="heightalert()">DONE</button>
+        </div>
+
+    </div>
+
+    <div id="page2" style="display: none">
+        <br>
+        <h1>For More Accurate Results</h1>
+        <div class="ipg6">
             <svg id="necktip" onclick="neckpop()" height="30" width="30" viewBox="0 0 24 24">
                 <path
                     d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
@@ -110,7 +112,7 @@
                 <path
                     d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
             </svg>
-			
+
             <h2>Neck size</h2>
             <input id="neck" type="number" placeholder="Your Neck Size" value="">
             <br>
@@ -121,279 +123,310 @@
             <br>
             <h2>Hip size</h2>
             <input id="hip" type="number" placeholder="Your Hip Size" value="">
-            </div>
-            <br>
-            <button class="skip" onclick="skippop()">SKIP</button><br>
-            <button class="topage2" onclick="topage3()">NEXT</button>
-            <br>
-
-            <div class="popup" id="skippop">
-                <svg id="cancel" onclick="skippop()" height="30" width="30" viewBox="0 0 24 24">
-                    <path
-                        d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z" />
-                </svg>
-                <h3 style="text-align: left">Are You Sure?</h3>
-                <p style="font-family: sans-serif; text-align: left">
-                     By skipping this page we will not be able to calculate your WtHR (Waist to Height Ratio) and BFP (Body Fat Percentage).
-                </p>
-                <button class="popbutt"  onclick="skip()">I understand</button>
-            </div>
-			
-			<div class="popup" id="neckpop">
-                <h3 style="text-align: left">Neck Measurement</h3>
-                <p style="font-family: sans-serif; text-align: left">Wrap the measuring tape around the neck, beginning at about one inch from the meeting of your neck and shoulders. 
-				This may also coincide with the bottom part of your Adam's apple.
-				Come fully around the neck, leaving no dangling space in between the neck and the tape.  
-				Make sure the tape is level and not being held at an angle.
-				</p>
-				<button class="popbutt" onclick="neckpop()">DONE</button>
-            </div>
-			
-			<div class="popup" id="waistpop">
-                <h3 style="text-align: left">Waist Measurement</h3>
-                <p style="font-family: sans-serif; text-align: left">Start at the top of your hip bone, then bring the tape measure all the way around your body, level with your belly button.
-				Make sure it's not too tight and that it's straight, even at the back. Don't hold your breath while measuring.
-				Check the number on the tape measure right after you exhale.
-                </p>
-				<button class="popbutt" onclick="waistpop()">DONE</button>
-            </div>
-
-			<div class="popup" id="hippop">
-                <h3 style="text-align: left">Hip Measurement</h3>
-                <p style="font-family: sans-serif; text-align: left">Your natural waist is the smallest part of your torso, where your body dips in. 
-				Your hips are below that, and they are usually wider than your waist. 
-				Your hip measurement includes your butt and your hips.
-				Your hip measurements should be taken at where your hips are the widest.
-				</p>
-				<button class="popbutt" onclick="hippop()">DONE</button>
-            </div>
-
-            <div class="popup" id="neckalert">
-                    <h3 style="text-align: center; margin: 0px">Warning</h3>
-                    <p style="font-family: sans-serif">Please enter a valid neck size.
-                    </p>
-                    <button class="popbutt" onclick="neckalert()">DONE</button>
-            </div>
-
-            <div class="popup" id="waistalert">
-                    <h3 style="text-align: center; margin: 0px">Warning</h3>
-                    <p style="font-family: sans-serif">Please enter a valid waist size.
-                    </p>
-                    <button class="popbutt" onclick="waistalert()">DONE</button>
-            </div>
-
-            <div class="popup" id="hipalert">
-                    <h3 style="text-align: center; margin: 0px">Warning</h3>
-                    <p style="font-family: sans-serif">Please enter a valid hip size.
-                    </p>
-                    <button class="popbutt" onclick="hipalert()">DONE</button>
-            </div>
-
         </div>
-		
-        <div id="page3" style="display: none">
-            
-		<div class="ipg9">
+        <br>
+        <button class="skip" onclick="skippop()">SKIP</button><br>
+        <button class="topage2" onclick="topage3()">NEXT</button>
+        <br>
+
+        <div class="popup" id="skippop">
+            <svg id="cancel" onclick="skippop()" height="30" width="30" viewBox="0 0 24 24">
+                <path
+                    d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z" />
+            </svg>
+            <h3 style="text-align: left">Are You Sure?</h3>
+            <p style="font-family: sans-serif; text-align: left">
+                By skipping this page we will not be able to calculate your WtHR (Waist to Height Ratio) and BFP (Body
+                Fat Percentage).
+            </p>
+            <button class="popbutt" onclick="skip()">I understand</button>
+        </div>
+
+        <div class="popup" id="neckpop">
+            <h3 style="text-align: left">Neck Measurement</h3>
+            <p style="font-family: sans-serif; text-align: left">Wrap the measuring tape around the neck, beginning at
+                about one inch from the meeting of your neck and shoulders.
+                This may also coincide with the bottom part of your Adam's apple.
+                Come fully around the neck, leaving no dangling space in between the neck and the tape.
+                Make sure the tape is level and not being held at an angle.
+            </p>
+            <button class="popbutt" onclick="neckpop()">DONE</button>
+        </div>
+
+        <div class="popup" id="waistpop">
+            <h3 style="text-align: left">Waist Measurement</h3>
+            <p style="font-family: sans-serif; text-align: left">Start at the top of your hip bone, then bring the tape
+                measure all the way around your body, level with your belly button.
+                Make sure it's not too tight and that it's straight, even at the back. Don't hold your breath while
+                measuring.
+                Check the number on the tape measure right after you exhale.
+            </p>
+            <button class="popbutt" onclick="waistpop()">DONE</button>
+        </div>
+
+        <div class="popup" id="hippop">
+            <h3 style="text-align: left">Hip Measurement</h3>
+            <p style="font-family: sans-serif; text-align: left">Your natural waist is the smallest part of your torso,
+                where your body dips in.
+                Your hips are below that, and they are usually wider than your waist.
+                Your hip measurement includes your butt and your hips.
+                Your hip measurements should be taken at where your hips are the widest.
+            </p>
+            <button class="popbutt" onclick="hippop()">DONE</button>
+        </div>
+
+        <div class="popup" id="neckalert">
+            <h3 style="text-align: center; margin: 0px">Warning</h3>
+            <p style="font-family: sans-serif">Please enter a valid neck size.
+            </p>
+            <button class="popbutt" onclick="neckalert()">DONE</button>
+        </div>
+
+        <div class="popup" id="waistalert">
+            <h3 style="text-align: center; margin: 0px">Warning</h3>
+            <p style="font-family: sans-serif">Please enter a valid waist size.
+            </p>
+            <button class="popbutt" onclick="waistalert()">DONE</button>
+        </div>
+
+        <div class="popup" id="hipalert">
+            <h3 style="text-align: center; margin: 0px">Warning</h3>
+            <p style="font-family: sans-serif">Please enter a valid hip size.
+            </p>
+            <button class="popbutt" onclick="hipalert()">DONE</button>
+        </div>
+
+    </div>
+
+    <div id="page3" style="display: none">
+
+        <div class="ipg9">
             <h1 style="color: #27A3C9">Select activity level</h1>
-            
+
             <label class="container1">Sedentary
                 <input id="sedentary" type="radio" name="activity" checked="checked">
                 <span class="checkmark1"></span>
             </label>
             <h4 class="checkbox1">Little or no exercise, desk job</h4>
-			
+
             <label class="container1">Light active
                 <input id="light" type="radio" name="activity">
                 <span class="checkmark1"></span>
             </label>
             <h4 class="checkbox1">Light exercise/ sports 1-3 days/week</h4>
-			
+
             <label class="container1">Moderate Active
                 <input id="moderate" type="radio" name="activity">
                 <span class="checkmark1"></span>
             </label>
             <h4 class="checkbox1">Moderate exercise/ sports 6-7 days/week</h4>
-			
+
             <label class="container1">Very Active
                 <input id="very" type="radio" name="activity">
                 <span class="checkmark1"></span>
             </label>
             <h4 class="checkbox1">hard exercise every day</h4>
-			
+
             <label class="container1">Extra Active
                 <input id="extra" type="radio" name="activity">
                 <span class="checkmark1"></span>
             </label>
             <h4 class="checkbox1">hard exercise 2 or more times per day</h4>
-            </div>
-            <br><br>
-            <button class="topage2" onclick="topage4()">DONE</button>
-            <br>
         </div>
-		
-        <div id="page4" style="display: none">
+        <br><br>
+        <button class="topage2" onclick="topage4()">DONE</button>
+        <br>
+    </div>
+
+    <div id="page4" style="display: none">
+        <div class="restartbg">
             <svg id="restartbutt" onclick="restart()" title="Start again" height="30" width="30" viewBox="0 0 24 24">
                 <path
                     d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
             </svg>
-            <div id="card1">
-                <svg id="bmitip" onclick="bmipop()" height="30" width="30" viewBox="0 0 24 24">
-                    <path
-                        d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
-                </svg>
-                <h1 style="margin-top: 0px; margin-bottom: 0px; color: #27A3C9">BMI</h1>
-                <h2 style="margin-top: 5px;color: #bebebe">Your Body Mass Index</h2>
-				<h1 id="bmi" style="color: #F5AF19"><br></h1>
-                <h2 id="bmiRange"><br></h2>
-				<div class="bmibar">
-                <span id="arrow"></span>
-                </div>
-                <h3 id="bmiGoal" style="color: white">You Should Sustain Your Weight</h3>
-            </div>
-			    
-            <div id="card2">
-                <svg id="bmrtip" onclick="bmrpop()" height="30" width="30" viewBox="0 0 24 24">
-                    <path
-                        d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
-                </svg>
-				<h1 style="margin-top: 0px; margin-bottom: 15px; color: #27A3C9">BMR</h1>
-                <h4 style="margin-top: 0px; margin-bottom: 3px">BMR Method By:</h4>
-                <select id="bmrmethod" onchange="bmrmethod()">
-                    <option id="harris" value="harris">Harris Benedict Equation</option>
-                    <option value="mifflin">Mifflin-St Jeor Equation</option>
-                </select>
-				<br><br>
-                <h2 style="margin-top: 5px; margin-bottom: 0px; font-size: 23px">Your Basal Metabolic Rate</h2>
-                <h1 id="bmr" style="color: #F5AF19"><br></h1><br>
-                <h2 style="margin-bottom: 0px; margin-top: 0px">Daily Calorie Intake</h2><h3 style="margin-top: 3px">based on your activity</h3>
-                <h1 id="intake" style="color: #F5AF19"><br></h1>
-            </div>
-			
-			<div id="card3">
-                <svg id="whtrtip" onclick="whtrpop()" height="30" width="30" viewBox="0 0 24 24">
-                    <path
-                        d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
-                </svg>
-                <h1 style="margin-top: 0px; margin-bottom: 0px; color: #27A3C9">WHtR</h1>
-                <h2 style="margin-top: 5px; font-size: 23px">Your Waist to Height Ratio</h2>
-                <h1 id="whtr" style="color: #F5AF19"></h1>
-                <h2 id="whtrRange" style="margin-bottom: 0px; margin-top: 0px"><br></h2>
-				<h3 id="whtrGoal"></h3>
-            </div>
-			
-			<div id="card4">
-                <svg id="ibwtip"  onclick="ibwpop()" height="30" width="30" viewBox="0 0 24 24">
-                    <path
-                        d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
-                </svg>
-                <h1 style="margin-top: 0px; margin-bottom: 0px; color: #27A3C9">IBW</h1><br>
-				<h4 style="margin-top: 0px; margin-bottom: 3px">IBW Method By:</h4>
-                <select id="ibwmethod" onchange="ibwmethod()">
-                    <option id="borca" value="borca">The Borca Index</option>
-                    <option value="davine">The Davine Formula</option>
-					<option value="robinson">Robinson Formula</option>
-					<option value="miller">The Miller Formula</option>
-					<option value="hamwi">The Hamwi Formula</option>
-					<option value="lemmens">Lemmens Formula</option>
-                </select>
-				<br><br>
-                <h2 style="margin-top: 5px; font-size: 23px">Your Ideal Body Weight</h2>
-                <h1 id="ibw" style="color: #F5AF19"><br></h1><br>
-            </div>
-			
-			<div id="card5">
-                <svg id="bfptip" onclick="bfppop()" height="30" width="30" viewBox="0 0 24 24">
-                    <path
-                        d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
-                </svg>
-                <h1 style="margin-top: 0px; margin-bottom: 0px; color: #27A3C9">BFP</h1><br>
-                </select>
-                <h2 style="margin-top: -6px; margin-bottom: 3px; font-size: 23px">Body Fat (U.S. Navy Method)</h2>
-                <h1 id="bfp" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
-				<h2 style="margin-top: 20px; margin-bottom: 3px;  font-size: 23px">Body Fat Category</h2>
-                <h1 id="bfpRange" style="font-size: 30px; color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
-				<h2 style="margin-top: 20px; margin-bottom: 3px;  font-size: 23px">Body Fat Mass</h2>
-                <h1 id="bfpFM" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
-				<h2 style="margin-top: 20px; margin-bottom: 3px;  font-size: 23px">Lean Body Mass</h2>
-                <h1 id="bfpLM" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
-				<h2 style="margin-top: 20px; margin-bottom: 3px;  font-size: 23px">Body Fat (BMI method)</h2>
-                <h1 id="bfpbmi" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
-            </div>
-			
-			<div id="card6">
-                <svg id="lbmtip" onclick="lbmpop()" height="30" width="30" viewBox="0 0 24 24">
-                    <path
-                        d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
-                </svg>
-                <h1 style="margin-top: 0px; margin-bottom: 0px; color: #27A3C9">LBM</h1><br>
-				<h4 style="margin-top: 0px; margin-bottom: 3px">IBW Method By:</h4>
-                <select id="lbmmethod" onchange="lbmmethod()">
-                    <option id="Boer" value="Boer">The Boer Formula</option>
-                    <option value="James">The James Formula</option>
-					<option value="Hume">The Hume Formula</option>
-                </select>
-				<br><br>
-                <h2 style="margin-top: 20px; margin-bottom: 3px;  font-size: 23px">Lean Body Mass</h2>
-                <h1 id="lbm" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
-				<h2 style="margin-top: 20px; margin-bottom: 3px;  font-size: 23px">Lean Body Mass Percentage</h2>
-                <h1 id="lbmP" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
-				<h2 style="margin-top: 20px; margin-bottom: 3px;  font-size: 23px">Body Fat Percentage</h2>
-                <h1 id="lbmF" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
-            </div>
-
-            <div id="card7">
-                    <svg id="tbwtip" onclick="tbwpop()" height="30" width="30" viewBox="0 0 24 24">
-                        <path
-                            d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
-                    </svg>
-                    <h1 style="margin-top: 0px; margin-bottom: 0px; color: #27A3C9">TBW</h1>
-                    <h2 style="margin-top: 20px; margin-bottom: 15px;  font-size: 23px">Your Total Body Water</h2>
-                    <h1 id="tbw" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
-                </div>
-
-            <div class="popup" id="bmipop">
-                <h3>BMI METHOD</h3>
-                <p style="font-family: sans-serif;text-align: left">BMI can tell you about excess weight.However, it can’t be an indicator of excess fat as it can’t tell the difference between excess muscle, fat, or bone. Unlike children, adult BMI is not subject to age, gender, or muscle mass. Pregnancy also affects BMI, which is why you should use pre-pregnancy weight for BMI calculation.</p>
-                <button class="popbutt" onclick="bmipop()">DONE</button>
-            </div>
-			
-            <div class="popup" id="bmrpop">
-                <h3>BMR METHOD</h3>
-                <p style="font-family: sans-serif;text-align: left">Your BMR (Basal Metabolic Rate) is energy used while at rest. Two equations are used for finding BMR: Mifflin-St Jeor Equation and Harris Benedict Equation. You can switch between equations from the drop-down.</p>
-                <button class="popbutt" onclick="bmrpop()">DONE</button>
-            </div>
-			
-			<div class="popup" id="whtrpop">
-                <h3>WHtR METHOD</h3>
-                <p style="font-family: sans-serif;text-align: left">Waist to Height Ratio calculates your estimated waist-height ratio, which effectively indicates centralized obesity and cardiometabolic risk. WHtR is a measure of body fat distribution. Its higher value indicates a higher risk of cardiovascular diseases associated with obesity.</p>
-			<button class="popbutt" onclick="whtrpop()">DONE</button>
-            </div>
-			
-			<div class="popup" id="ibwpop">
-                <h3>IDEAL WEIGHT</h3>
-                <p style="font-family: sans-serif;text-align: left">The IBW (Ideal Weight) indicates the ideal bodyweight based on your gender and height. Different formulas are used for the calculation of IBW. You can change the formula selection from the drop-down menu.</p>
-			<button class="popbutt" onclick="ibwpop()">DONE</button>
-            </div>
-			
-			<div class="popup" id="bfppop">
-                <h3>BFP WEIGHT</h3>
-                <p style="font-family: sans-serif;text-align: left">In scientific terms, body fat is known as “adipose tissue,” which includes essential body fat and storage body fat. Essential body fat is responsible for maintaining life and reproductive functions, whereas storage fat is fat that accumulates in adipose tissue. While some storage fat is good, excess of storage fat can lead to serious health implications. The body fat accumulation rate varies from person to person, depending on various genetic and behavioral factors, including exercise and food intake. Due to varying factors, losing body fat can be difficult for some people. However, managing diet and exercise can help reducing fat. Both men and women store body fat differently. After the age of 40 (or after menopause in women), reduced sexual hormones can result in excess body fat around the stomach in men or thighs and buttocks in women.</p>
-				<button class="popbutt" onclick="bfppop()">DONE</button>
-            </div>
-			
-			<div class="popup" id="lbmpop">
-                <h3>Lean Body Mass</h3>
-                <p style="font-family: sans-serif;text-align: left">The Lean Body Mass Calculator computes a person's estimated lean body mass (LBM) based on body weight, height, gender, and age. For comparison purposes, the calculator provides the results of multiple formulas.</p>
-				<button class="popbutt" onclick="lbmpop()">DONE</button>
-            </div>
-            
-            <div class="popup" id="tbwpop">
-                    <h3>Total Body Water</h3>
-                    <p style="font-family: sans-serif;text-align: left">This total body water calculator uses your age, height, weight, and sex to estimate the volume of water in your body. It is based on a formula developed by dr. P.E. Watson and his team and described in 1980.</p>
-                    <button class="popbutt" onclick="tbwpop()">DONE</button>
-                </div>
         </div>
-        <script src="jquery.min.js"></script>
-        <script src="script.js"></script>
-    </body>
+        <div id="card1">
+            <svg id="bmitip" onclick="bmipop()" height="30" width="30" viewBox="0 0 24 24">
+                <path
+                    d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
+            </svg>
+            <h1 style="margin-top: 0px; margin-bottom: 0px; color: #27A3C9">BMI</h1>
+            <h2 style="margin-top: 5px;color: #bebebe">Your Body Mass Index</h2>
+            <h1 id="bmi" style="color: #F5AF19"><br></h1>
+            <h2 id="bmiRange"><br></h2>
+            <div class="bmibar">
+                <span id="arrow"></span>
+            </div>
+            <h3 id="bmiGoal" style="color: white">You Should Sustain Your Weight</h3>
+        </div>
+
+        <div id="card2">
+            <svg id="bmrtip" onclick="bmrpop()" height="30" width="30" viewBox="0 0 24 24">
+                <path
+                    d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
+            </svg>
+            <h1 style="margin-top: 0px; margin-bottom: 15px; color: #27A3C9">BMR</h1>
+            <h4 style="margin-top: 0px; margin-bottom: 3px">BMR Method By:</h4>
+            <select id="bmrmethod" onchange="bmrmethod()">
+                <option id="harris" value="harris">Harris Benedict Equation</option>
+                <option value="mifflin">Mifflin-St Jeor Equation</option>
+            </select>
+            <br><br>
+            <h2 style="margin-top: 5px; margin-bottom: 0px; font-size: 23px">Your Basal Metabolic Rate</h2>
+            <h1 id="bmr" style="color: #F5AF19"><br></h1><br>
+            <h2 style="margin-bottom: 0px; margin-top: 0px">Daily Calorie Intake</h2>
+            <h3 style="margin-top: 3px">based on your activity</h3>
+            <h1 id="intake" style="color: #F5AF19"><br></h1>
+        </div>
+
+        <div id="card3">
+            <svg id="whtrtip" onclick="whtrpop()" height="30" width="30" viewBox="0 0 24 24">
+                <path
+                    d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
+            </svg>
+            <h1 style="margin-top: 0px; margin-bottom: 0px; color: #27A3C9">WHtR</h1>
+            <h2 style="margin-top: 5px; font-size: 23px">Your Waist to Height Ratio</h2>
+            <h1 id="whtr" style="color: #F5AF19"></h1>
+            <h2 id="whtrRange" style="margin-bottom: 0px; margin-top: 0px"><br></h2>
+            <h3 id="whtrGoal"></h3>
+        </div>
+
+        <div id="card4">
+            <svg id="ibwtip" onclick="ibwpop()" height="30" width="30" viewBox="0 0 24 24">
+                <path
+                    d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
+            </svg>
+            <h1 style="margin-top: 0px; margin-bottom: 0px; color: #27A3C9">IBW</h1><br>
+            <h4 style="margin-top: 0px; margin-bottom: 3px">IBW Method By:</h4>
+            <select id="ibwmethod" onchange="ibwmethod()">
+                <option id="borca" value="borca">The Borca Index</option>
+                <option value="davine">The Davine Formula</option>
+                <option value="robinson">Robinson Formula</option>
+                <option value="miller">The Miller Formula</option>
+                <option value="hamwi">The Hamwi Formula</option>
+                <option value="lemmens">Lemmens Formula</option>
+            </select>
+            <br><br>
+            <h2 style="margin-top: 5px; font-size: 23px">Your Ideal Body Weight</h2>
+            <h1 id="ibw" style="color: #F5AF19"><br></h1><br>
+        </div>
+
+        <div id="card5">
+            <svg id="bfptip" onclick="bfppop()" height="30" width="30" viewBox="0 0 24 24">
+                <path
+                    d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
+            </svg>
+            <h1 style="margin-top: 0px; margin-bottom: 0px; color: #27A3C9">BFP</h1><br>
+            </select>
+            <h2 style="margin-top: -6px; margin-bottom: 3px; font-size: 23px">Body Fat (U.S. Navy Method)</h2>
+            <h1 id="bfp" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
+            <h2 style="margin-top: 20px; margin-bottom: 3px;  font-size: 23px">Body Fat Category</h2>
+            <h1 id="bfpRange" style="font-size: 30px; color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
+            <h2 style="margin-top: 20px; margin-bottom: 3px;  font-size: 23px">Body Fat Mass</h2>
+            <h1 id="bfpFM" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
+            <h2 style="margin-top: 20px; margin-bottom: 3px;  font-size: 23px">Lean Body Mass</h2>
+            <h1 id="bfpLM" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
+            <h2 style="margin-top: 20px; margin-bottom: 3px;  font-size: 23px">Body Fat (BMI method)</h2>
+            <h1 id="bfpbmi" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
+        </div>
+
+        <div id="card6">
+            <svg id="lbmtip" onclick="lbmpop()" height="30" width="30" viewBox="0 0 24 24">
+                <path
+                    d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
+            </svg>
+            <h1 style="margin-top: 0px; margin-bottom: 0px; color: #27A3C9">LBM</h1><br>
+            <h4 style="margin-top: 0px; margin-bottom: 3px">IBW Method By:</h4>
+            <select id="lbmmethod" onchange="lbmmethod()">
+                <option id="Boer" value="Boer">The Boer Formula</option>
+                <option value="James">The James Formula</option>
+                <option value="Hume">The Hume Formula</option>
+            </select>
+            <br><br>
+            <h2 style="margin-top: 20px; margin-bottom: 3px;  font-size: 23px">Lean Body Mass</h2>
+            <h1 id="lbm" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
+            <h2 style="margin-top: 20px; margin-bottom: 3px;  font-size: 23px">Lean Body Mass Percentage</h2>
+            <h1 id="lbmP" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
+            <h2 style="margin-top: 20px; margin-bottom: 3px;  font-size: 23px">Body Fat Percentage</h2>
+            <h1 id="lbmF" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
+        </div>
+
+        <div id="card7">
+            <svg id="tbwtip" onclick="tbwpop()" height="30" width="30" viewBox="0 0 24 24">
+                <path
+                    d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
+            </svg>
+            <h1 style="margin-top: 0px; margin-bottom: 0px; color: #27A3C9">TBW</h1>
+            <h2 style="margin-top: 20px; margin-bottom: 15px;  font-size: 23px">Your Total Body Water</h2>
+            <h1 id="tbw" style="color: #F5AF19; margin-bottom: 0px; margin-top: 0px"><br></h1>
+        </div>
+
+        <div class="popup" id="bmipop">
+            <h3>BMI METHOD</h3>
+            <p style="font-family: sans-serif;text-align: left">BMI can tell you about excess weight.However, it can’t
+                be an indicator of excess fat as it can’t tell the difference between excess muscle, fat, or bone.
+                Unlike children, adult BMI is not subject to age, gender, or muscle mass. Pregnancy also affects BMI,
+                which is why you should use pre-pregnancy weight for BMI calculation.</p>
+            <button class="popbutt" onclick="bmipop()">DONE</button>
+        </div>
+
+        <div class="popup" id="bmrpop">
+            <h3>BMR METHOD</h3>
+            <p style="font-family: sans-serif;text-align: left">Your BMR (Basal Metabolic Rate) is energy used while at
+                rest. Two equations are used for finding BMR: Mifflin-St Jeor Equation and Harris Benedict Equation. You
+                can switch between equations from the drop-down.</p>
+            <button class="popbutt" onclick="bmrpop()">DONE</button>
+        </div>
+
+        <div class="popup" id="whtrpop">
+            <h3>WHtR METHOD</h3>
+            <p style="font-family: sans-serif;text-align: left">Waist to Height Ratio calculates your estimated
+                waist-height ratio, which effectively indicates centralized obesity and cardiometabolic risk. WHtR is a
+                measure of body fat distribution. Its higher value indicates a higher risk of cardiovascular diseases
+                associated with obesity.</p>
+            <button class="popbutt" onclick="whtrpop()">DONE</button>
+        </div>
+
+        <div class="popup" id="ibwpop">
+            <h3>IDEAL WEIGHT</h3>
+            <p style="font-family: sans-serif;text-align: left">The IBW (Ideal Weight) indicates the ideal bodyweight
+                based on your gender and height. Different formulas are used for the calculation of IBW. You can change
+                the formula selection from the drop-down menu.</p>
+            <button class="popbutt" onclick="ibwpop()">DONE</button>
+        </div>
+
+        <div class="popup" id="bfppop">
+            <h3>BFP WEIGHT</h3>
+            <p style="font-family: sans-serif;text-align: left">In scientific terms, body fat is known as “adipose
+                tissue,” which includes essential body fat and storage body fat. Essential body fat is responsible for
+                maintaining life and reproductive functions, whereas storage fat is fat that accumulates in adipose
+                tissue. While some storage fat is good, excess of storage fat can lead to serious health implications.
+                The body fat accumulation rate varies from person to person, depending on various genetic and behavioral
+                factors, including exercise and food intake. Due to varying factors, losing body fat can be difficult
+                for some people. However, managing diet and exercise can help reducing fat. Both men and women store
+                body fat differently. After the age of 40 (or after menopause in women), reduced sexual hormones can
+                result in excess body fat around the stomach in men or thighs and buttocks in women.</p>
+            <button class="popbutt" onclick="bfppop()">DONE</button>
+        </div>
+
+        <div class="popup" id="lbmpop">
+            <h3>Lean Body Mass</h3>
+            <p style="font-family: sans-serif;text-align: left">The Lean Body Mass Calculator computes a person's
+                estimated lean body mass (LBM) based on body weight, height, gender, and age. For comparison purposes,
+                the calculator provides the results of multiple formulas.</p>
+            <button class="popbutt" onclick="lbmpop()">DONE</button>
+        </div>
+
+        <div class="popup" id="tbwpop">
+            <h3>Total Body Water</h3>
+            <p style="font-family: sans-serif;text-align: left">This total body water calculator uses your age, height,
+                weight, and sex to estimate the volume of water in your body. It is based on a formula developed by dr.
+                P.E. Watson and his team and described in 1980.</p>
+            <button class="popbutt" onclick="tbwpop()">DONE</button>
+        </div>
+    </div>
+    <script src="jquery.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
 </html>
