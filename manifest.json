@@ -13,8 +13,9 @@
             "sizes": "128x128"
         }
     ],
-    "start_url": "https://bodymesurment.netlify.com",
+    "start_url": "/",
     "background_color": "#071A23",
     "display": "standalone",
     "theme_color": "#153947"
 }
+//"start_url": "https://bodymesurment.netlify.com",
