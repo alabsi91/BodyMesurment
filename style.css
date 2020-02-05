@@ -1,13 +1,13 @@
 :root {
   --maxWidth: 170px;
   --minWidth: 100px;
-  --width: 100%;
+  --width: 45vw;
 }
 body {
 	background-color: #071a23;
 	text-align: center;
 	font-family: 'Fira Sans', sans-serif;
-	margin: 0px;
+	margin: 0;
 	color: white;
 }
 .pg {
