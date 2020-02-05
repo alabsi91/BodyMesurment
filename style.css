@@ -560,6 +560,20 @@ i {
 	-moz-box-shadow: 0px 4px 300px 200px rgba(0, 0, 0, 0.7);
 	box-shadow: 0px 4px 300px 200px rgba(0, 0, 0, 0.7);
 }
+.notnow {
+	background-color: #f5af19;
+	color: #237296;
+	border: none;
+	border-radius: 35px;
+	font-weight: bold;
+	font-size: 15px;
+	padding: 5px 15px;
+	margin-bottom: 15px;
+	background: none;
+}
+.notnow:hover {
+	color: white;
+}
 .popbutt {
 	background-color: #f5af19;
 	color: white;
