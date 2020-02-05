@@ -1,3 +1,8 @@
+:root {
+  --maxWidth: 170px;
+  --minWidth: 100px;
+  --width: 100%;
+}
 body {
 	background-color: #071a23;
 	text-align: center;
@@ -611,7 +616,9 @@ i {
 	position: absolute;
 	left: 51%;
 	transform: translate(0%);
-	width: 145px;
+	width: var(--width);
+	max-width: var(--maxWidth);
+	min-width: var(--minWidth);
 	cursor: pointer;
 	font-size: 17px;
 	-webkit-user-select: none;
@@ -623,7 +630,9 @@ i {
 	position: absolute;
 	right: 51%;
 	transform: translate(0%);
-	width: 145px;
+	width: var(--width);
+	max-width: var(--maxWidth);
+	min-width: var(--minWidth);
 	cursor: pointer;
 	font-size: 17px;
 	-webkit-user-select: none;
@@ -658,7 +667,9 @@ i {
 	left: 50%;
 	transform: translate(-50%);
 	height: 32px;
-	width: 145px;
+	width: var(--width);
+	max-width: var(--maxWidth);
+	min-width: var(--minWidth);
 	background-color: #0d3342;
 	border-radius: 7px;
 }
