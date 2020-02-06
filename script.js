@@ -1,31 +1,4 @@
 
-if ('serviceWorker' in navigator) {
-	window.addEventListener('load', _ => {
-		navigator.serviceWorker.register('/sw.js')
-			.then(reg => {
-				reg.update();
-			}).catch(err => {
-				console.log('Regesteration failed ', err)
-			})
-	})
-}
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-	deferredPrompt = e;
-	$("#addToHomePop").slideToggle(100);
-});
-document.getElementById('addToHomebutt').addEventListener('click', (e) => {
-	deferredPrompt.prompt();
-	// deferredPrompt.userChoice
-	// 	.then((choiceResult) => {
-	// 		if (choiceResult.outcome === 'accepted') {
-	// 			console.log('User accepted the A2HS prompt');
-	// 		} else {
-	// 			console.log('User dismissed the A2HS prompt');
-	// 		}
-	// 		deferredPrompt = null;
-	// 	});
-});
 const user = {
 	gender: "",
 	age: 0,
@@ -55,7 +28,30 @@ const results = {
 	tbw: 0
 };
 
-function bmi() {
+(function serviceWorker() {
+	if ('serviceWorker' in navigator) {
+		window.addEventListener('load', _ => {
+			navigator.serviceWorker.register('/sw.js')
+				.then(reg => {
+					reg.update();
+				}).catch(err => {
+					console.log('Regesteration failed ', err)
+				})
+		})
+	}
+	let deferredPrompt;
+	window.addEventListener('beforeinstallprompt', (e) => {
+		deferredPrompt = e;
+		$("#addToHomePop").slideToggle(100);
+	});
+	document.getElementById('addToHomebutt').addEventListener('click', (e) => {
+		deferredPrompt.prompt();
+	});
+	document.documentElement.style.setProperty('--inner', window.innerHeight + 'px')
+	window.addEventListener('resize', _ => document.documentElement.style.setProperty('--inner', window.innerHeight + 'px'))
+}());
+
+bmi = _ => {
 
 	const bmi = user.system == "metric"
 		? user.weight / Math.pow(user.height / 100, 2)
@@ -75,7 +71,7 @@ function bmi() {
 	bmiRange();
 };
 
-function bmiRange() {
+bmiRange = _ => {
 	if (results.bmi < 18.5 && user.age >= 20) {
 		results.bmirange = "Underweight";
 		document.getElementById("bmiRange").style.color = "#d0a50b";
@@ -98,7 +94,7 @@ function bmiRange() {
 	document.getElementById("bmiRange").innerHTML = results.bmirange;
 };
 
-function HarrisBenedictBMR() {
+HarrisBenedictBMR = _ => {
 	let bmr;
 	switch (user.gender) {
 		case "male":
@@ -116,7 +112,7 @@ function HarrisBenedictBMR() {
 	document.getElementById("bmr").innerHTML = `${results.bmr}<span style='font-size: 15px; color: white'> kcal/day</span>`;
 };
 
-function MifflinStJeorBMR() {
+MifflinStJeorBMR = _ => {
 	let bmr;
 	switch (user.gender) {
 		case "male":
@@ -134,7 +130,7 @@ function MifflinStJeorBMR() {
 	document.getElementById("bmr").innerHTML = `${results.bmr}<span style='font-size: 15px; color: white'> kcal/day</span>`;
 };
 
-function activityMultipier() {
+activityMultipier = _ => {
 	if (user.activity === "sedentary") {
 		results.dailykcal = results.bmr * 1.2;
 	} else if (user.activity === "light") {
@@ -150,7 +146,7 @@ function activityMultipier() {
 	document.getElementById("intake").innerHTML = `${results.dailykcal}<span style='font-size: 15px; color: white'> kcal/day</span>`;
 };
 
-function bmrmethod() {
+bmrmethod = _ => {
 	if (document.getElementById("bmrmethod").value === "harris") {
 		HarrisBenedictBMR();
 		activityMultipier();
@@ -160,14 +156,14 @@ function bmrmethod() {
 	}
 };
 
-function whtr() {
+whtr = _ => {
 	results.whtr = user.waist / user.height;
 	results.whtr = Number(results.whtr.toFixed(2));
 	document.getElementById("whtr").innerHTML = results.whtr;
 	whtrRange();
 };
 
-function whtrRange() {
+whtrRange = _ => {
 	switch (user.gender) {
 		case "male":
 			if (results.whtr <= 0.34 && user.age >= 20) {
@@ -251,7 +247,7 @@ function whtrRange() {
 	document.getElementById("whtrRange").innerHTML = results.whtrRange;
 };
 
-function ibwBroca() {
+ibwBroca = _ => {
 
 	switch (user.gender) {
 		case "male":
@@ -288,7 +284,7 @@ function ibwBroca() {
 	}
 };
 
-function ibwDevine() {
+ibwDevine = _ => {
 
 	switch (user.gender) {
 		case "male":
@@ -325,7 +321,7 @@ function ibwDevine() {
 	}
 };
 
-function ibwRobinson() {
+ibwRobinson = _ => {
 
 	switch (user.gender) {
 		case "male":
@@ -362,7 +358,7 @@ function ibwRobinson() {
 	}
 };
 
-function ibwMillier() {
+ibwMillier = _ => {
 
 	switch (user.gender) {
 		case "male":
@@ -399,7 +395,7 @@ function ibwMillier() {
 	}
 };
 
-function ibwHamwi() {
+ibwHamwi = _ => {
 
 	switch (user.gender) {
 		case "male":
@@ -436,7 +432,7 @@ function ibwHamwi() {
 	}
 };
 
-function ibwLemmens() {
+ibwLemmens = _ => {
 
 	if (user.system === "metric") {
 		results.ibw = 22 * Math.pow(user.height / 100, 2);
@@ -451,7 +447,7 @@ function ibwLemmens() {
 	}
 };
 
-function ibwmethod() {
+ibwmethod = _ => {
 	const formula = document.getElementById("ibwmethod").value;
 	if (formula === "borca") {
 		ibwBroca();
@@ -468,7 +464,7 @@ function ibwmethod() {
 	}
 };
 
-function BFPbmi() {
+BFPbmi = _ => {
 
 	switch (user.gender) {
 		case ("male"):
@@ -484,7 +480,7 @@ function BFPbmi() {
 	document.getElementById("bfpbmi").innerHTML = `${results.bfp}<span style='font-size: 18px; color: white'> %</span>`;
 };
 
-function BFPnavy() {
+BFPnavy = _ => {
 
 	switch (user.system) {
 		case "metric":
@@ -551,7 +547,7 @@ function BFPnavy() {
 	BFPbmi();
 };
 
-function bfprange() {
+bfprange = _ => {
 
 	switch (user.gender) {
 		case "male":
@@ -585,7 +581,7 @@ function bfprange() {
 	document.getElementById("bfpRange").innerHTML = results.bfprange;
 };
 
-function lbmBoer() {
+lbmBoer = _ => {
 
 	switch (user.system) {
 		case "metric":
@@ -626,7 +622,7 @@ function lbmBoer() {
 	document.getElementById("lbmF").innerHTML = `${results.lbmF}<span style='font-size: 18px; color: white'> %</span>`;
 };
 
-function lbmJames() {
+lbmJames = _ => {
 
 	switch (user.system) {
 		case "metric":
@@ -668,7 +664,7 @@ function lbmJames() {
 	document.getElementById("lbmF").innerHTML = `${results.lbmF}<span style='font-size: 18px; color: white'> %</span>`;
 };
 
-function lbmHume() {
+lbmHume = _ => {
 
 	switch (user.system) {
 		case "metric":
@@ -709,7 +705,7 @@ function lbmHume() {
 	document.getElementById("lbmF").innerHTML = `${results.lbmF}<span style='font-size: 18px; color: white'> %</span>`;
 };
 
-function lbmmethod() {
+lbmmethod = _ => {
 	const formula = document.getElementById("lbmmethod").value;
 	if (formula === "Boer") {
 		lbmBoer();
@@ -720,7 +716,7 @@ function lbmmethod() {
 	}
 };
 
-function tbw() {
+tbw = _ => {
 	switch (user.system) {
 		case "metric":
 			if (user.gender === "male") {
@@ -743,13 +739,13 @@ function tbw() {
 	document.getElementById("tbw").innerHTML = `${results.tbw}<span style='font-size: 18px; color: white'> Litres</span>`;
 };
 
-function topage1() {
+topage1 = _ => {
 	$("#page1").fadeIn(250).css("display", "block");
 	$("#profile").fadeIn(250).css("display", "block");
 	$("#welcomePage").fadeOut(250).css("display", "none");
 };
 
-function topage2() {
+topage2 = _ => {
 	const age = document.getElementById("age").value;
 	const weight = document.getElementById("weight").value;
 	const height = document.getElementById("height").value;
@@ -791,7 +787,7 @@ function topage2() {
 	}
 };
 
-function topage3() {
+topage3 = _ => {
 
 	const neck = document.getElementById("neck").value;
 	const waist = document.getElementById("waist").value;
@@ -829,7 +825,7 @@ function topage3() {
 	user.skipping = false;
 };
 
-function topage4() {
+topage4 = _ => {
 
 	$("#page4").fadeIn(250).css("display", "block");
 	$("#page3").fadeOut(250).css("display", "none");
@@ -877,14 +873,14 @@ function topage4() {
 	}
 };
 
-function skip() {
+skip = _ => {
 	$("#page3").fadeIn(250).css("display", "block");
 	$("#page2").fadeOut(250).css("display", "none");
 	$("#skippop").toggle(100);
 	user.skipping = true;
 };
 
-function toback() {
+toback = _ => {
 	if (document.getElementById("page1").style.display === "block") {
 		$("#welcomePage").fadeIn(250).css("display", "block");
 		$("#page1").fadeOut(250).css("display", "none");
@@ -898,7 +894,7 @@ function toback() {
 	}
 };
 
-function restart() {
+restart = _ => {
 	$("#welcomePage").fadeIn(250).css("display", "block");
 	$("#page4").fadeOut(250).css("display", "none");
 	document.getElementById("arrow").style.left = -7 + "px";
@@ -907,7 +903,7 @@ function restart() {
 	document.getElementById("harris").selected = true;
 };
 
-function metricSystem() {
+metricSystem = _ => {
 	document.getElementById("weight").placeholder = "Your Weight In Kilograms";
 	document.getElementById("height").placeholder = "Your Height In Centimeters";
 	document.getElementById("neck").placeholder = "Your Neck Size In Centimeters";
@@ -915,7 +911,7 @@ function metricSystem() {
 	document.getElementById("hip").placeholder = "Your Hip Size In Centimeters";
 };
 
-function imperialSystem() {
+imperialSystem = _ => {
 	document.getElementById("weight").placeholder = "Your Weight In Pounds";
 	document.getElementById("height").placeholder = "Your Height In Inches";
 	document.getElementById("neck").placeholder = "Your Neck Size In Inches";

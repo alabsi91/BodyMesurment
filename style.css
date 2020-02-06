@@ -3,12 +3,20 @@
   --minWidth: 100px;
   --width: 45vw;
 }
+button, svg {
+	cursor: pointer;
+}
 body {
 	background-color: #071a23;
 	text-align: center;
 	font-family: 'Fira Sans', sans-serif;
 	margin: 0;
 	color: white;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	touch-action: none;
 }
 .pg {
 	margin: auto;
@@ -38,7 +46,7 @@ div {
 	top: 50%;
 	margin: auto;
 	font-size: 39px;
-	font-weight: BOLDER;
+	font-weight: bolder;
 	background: linear-gradient(
 		90deg,
 		rgb(229, 46, 113) 0%,
@@ -50,7 +58,8 @@ div {
 }
 #welcomePage {
 	position: relative;
-	height: 93vh;
+	height: var(--inner);
+	min-height: 500px;
 	padding: 0;
 }
 #profile {
@@ -70,7 +79,6 @@ div {
 	left: 8%;
 	transform: translate(-50%, -50%);
 	fill: white;
-	cursor: pointer;
 }
 #back:hover {
 	fill: black;
@@ -91,7 +99,6 @@ div {
 	left: 8%;
 	transform: translate(-50%, -50%);
 	fill: #bebebe;
-	cursor: pointer;
 }
 #restartbutt:hover {
 	fill: #ff5200;
@@ -108,7 +115,6 @@ div {
 	position: absolute;
 	right: 7px;
 	top: 7px;
-	cursor: pointer;
 }
 #bmitip:hover,
 #bmrtip:hover,
@@ -124,7 +130,6 @@ div {
 	right: 7px;
 	top: 35px;
 	fill: #bebebe;
-	cursor: pointer;
 }
 #necktip:hover,
 #waisttip:hover,
@@ -136,22 +141,21 @@ div {
 	right: 7px;
 	top: 143px;
 	fill: #bebebe;
-	cursor: pointer;
 }
 #hiptip {
 	position: absolute;
 	right: 7px;
 	top: 253px;
 	fill: #bebebe;
-	cursor: pointer;
 }
-.topage1 {
+
+.topage {
 	position: absolute;
 	left: 50%;
 	bottom: 5%;
 	transform: translate(-50%);
 	width: 90%;
-	max-width: 350px;
+	max-width: 300px;
 	color: white;
 	border: none;
 	border-radius: 15px;
@@ -163,45 +167,14 @@ div {
 		rgba(229, 46, 113, 1) 0%,
 		rgba(255, 137, 1, 1) 98%
 	);
-	-webkit-box-shadow: 0px 0px 26px 8px rgba(0, 0, 0, 1);
-	-moz-box-shadow: 0px 0px 26px 8px rgba(0, 0, 0, 1);
-	box-shadow: 0px 0px 26px 8px rgba(0, 0, 0, 1);
-	cursor: pointer;
 }
-.topage1:hover {
+.topage:hover {
 	background: linear-gradient(
 		90deg,
 		rgba(229, 46, 113, 1) 0%,
 		rgba(255, 137, 1, 1) 50%
 	);
 	color: black;
-}
-
-.topage2 {
-	position: absolute;
-	left: 50%;
-	bottom: 5%;
-	transform: translate(-50%);
-	color: white;
-	border: none;
-	border-radius: 15px;
-	font-weight: bold;
-	font-size: 20px;
-	padding: 16px 118px;
-	background: linear-gradient(
-		90deg,
-		rgba(229, 46, 113, 1) 0%,
-		rgba(255, 137, 1, 1) 98%
-	);
-}
-.topage2:hover {
-	background: linear-gradient(
-		90deg,
-		rgba(229, 46, 113, 1) 0%,
-		rgba(255, 137, 1, 1) 50%
-	);
-	color: black;
-	cursor: pointer;
 }
 .skip {
 	color: rgba(229, 46, 113, 1);
@@ -213,7 +186,6 @@ div {
 	background: white;
 	position: relative;
 	margin-bottom: 18px;
-	cursor: pointer;
 }
 .skip:hover {
 	color: black;
@@ -240,7 +212,6 @@ div {
 	padding: 3px 10px;
 	margin-right: 0px;
 	margin-bottom: 0px;
-	cursor: pointer;
 }
 #age,
 #weight,
@@ -361,19 +332,19 @@ i {
 #page1 {
 	position: relative;
 	padding: 0;
-	height: calc(93vh - 49px);
+	height: calc(var(--inner) - 49px);
 	min-height: 650px;
 }
 #page2 {
 	position: relative;
 	padding: 0;
-	height: calc(93vh - 49px);
+	height: calc(var(--inner) - 49px);
 	min-height: 610px;
 }
 #page3 {
 	position: relative;
 	padding: 0;
-	height: calc(93vh - 49px);
+	height: calc(var(--inner) - 49px);
 	min-height: 610px;
 }
 #page3 h4 {
@@ -619,12 +590,9 @@ i {
 	width: var(--width);
 	max-width: var(--maxWidth);
 	min-width: var(--minWidth);
-	cursor: pointer;
 	font-size: 17px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
 	text-align: center;
-	-ms-user-select: none;
+	cursor: pointer;
 }
 .containerLeft {
 	position: absolute;
@@ -633,12 +601,9 @@ i {
 	width: var(--width);
 	max-width: var(--maxWidth);
 	min-width: var(--minWidth);
-	cursor: pointer;
 	font-size: 17px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
 	text-align: center;
-	-ms-user-select: none;
+	cursor: pointer;
 }
 /* Hide the browser's default radio button */
 .container input {
@@ -647,7 +612,6 @@ i {
 	-moz-opacity: 0;
 	-khtml-opacity: 0%;
 	-webkit-opacity: 0;
-	cursor: pointer;
 	margin-bottom: 3px;
 }
 .containerLeft input {
@@ -656,7 +620,6 @@ i {
 	-moz-opacity: 0;
 	-khtml-opacity: 0%;
 	-webkit-opacity: 0;
-	cursor: pointer;
 	margin-bottom: 3px;
 }
 /* Create a custom radio button */
@@ -735,12 +698,9 @@ i {
 	display: block;
 	width: 95%;
 	color: #ffffff;
-	cursor: pointer;
 	font-size: 20px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
 	text-align: center;
-	-ms-user-select: none;
+	cursor: pointer;
 }
 /* Hide the browser's default radio button */
 .container1 input {
@@ -749,7 +709,6 @@ i {
 	-moz-opacity: 0;
 	-khtml-opacity: 0%;
 	-webkit-opacity: 0%;
-	cursor: pointer;
 	margin-bottom: 3px;
 }
 /* Create a custom radio button */
