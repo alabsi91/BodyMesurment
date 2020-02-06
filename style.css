@@ -16,7 +16,7 @@ body {
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
-	touch-action: none;
+	touch-action: pan-y;
 }
 .pg {
 	margin: auto;
