@@ -11,11 +11,14 @@
     <link rel="apple-touch-icon" href="/fat2.png">
     <meta name="theme-color" content="#153947" />
     <meta name="Description" content="alabsi body calculator">
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 </head>
 
 <body id="body">
     <div id="welcomePage">
         <div class="pg"></div>
+        <div id="firebaseui-auth-container"></div>
         <p class="calculator" id="title1">BODY MEASUREMENET CALCULATORS</p>
         <br><br><br><br><br><br><br>
         <button class="topage" id="topage1" onclick="topage1()">BUILD PROFILE</button>
@@ -239,11 +242,11 @@
     </div>
 
     <div id="page4" style="display: none">
-        <div class="restartbg">
-            <svg id="restartbutt" onclick="restart()" title="Start again" height="30" width="30" viewBox="0 0 24 24">
-                <path
-                    d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
-            </svg>
+        <div id='userInfo'>
+            <div id='profileImg'></div>
+            <h2 id="userName">User Name</h2>
+            <button id="EditButton" onclick="topage1()">Edit Mesurement</button>
+            <button id="SignOut" onclick="signOut()">Sign Out</button>
         </div>
         <div id="card1">
             <svg id="bmitip" onclick="bmipop()" height="30" width="30" viewBox="0 0 24 24">
@@ -425,6 +428,10 @@
             <button class="popbutt" onclick="tbwpop()">DONE</button>
         </div>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-firestore.js"></script>
     <script src="jquery.min.js"></script>
     <script src="script.js"></script>
 </body>

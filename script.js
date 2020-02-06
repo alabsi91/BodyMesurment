@@ -1,5 +1,105 @@
+const firebaseConfig = {
+	apiKey: "AIzaSyB2zTBz8t8dpSfNpPDccAQ2tWUzvsHQs18",
+	authDomain: "body-calculators.firebaseapp.com",
+	databaseURL: "https://body-calculators.firebaseio.com",
+	projectId: "body-calculators",
+	storageBucket: "body-calculators.appspot.com",
+	messagingSenderId: "455747607182",
+	appId: "1:455747607182:web:584d9bea987fa5773247df",
+	measurementId: "G-KXDFTMR718"
+};
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+const auth = firebase.auth();
+const ui = new firebaseui.auth.AuthUI(auth);
+const db = firebase.firestore();
+// enable offline data
+db.enablePersistence();
 
-const user = {
+// check if logged in
+auth.onAuthStateChanged(function (users) {
+	if (users) {
+		console.log('logged in')
+		document.getElementById('firebaseui-auth-container').style.display = 'none';
+		const profileImg = auth.currentUser.providerData.map(e => e.photoURL)[0]
+		const displayName = auth.currentUser.providerData.map(e => e.displayName)[0]
+		document.getElementById('profileImg').style.backgroundImage = `url(${profileImg})`
+		document.getElementById('userName').innerHTML = displayName;
+
+		// check if data exists
+		document.getElementById('firebaseui-auth-container').style.display = 'none';
+		const userUid = auth.currentUser.uid;
+		const docRef = db.collection("users").doc(userUid);
+		docRef.get().then(function (doc) {
+			if (doc.exists) {
+				user = doc.data()
+				console.log(user)
+				$("#page4").fadeIn(250).css("display", "block");
+				$("#welcomePage").fadeOut(250).css("display", "none");
+				$("#profile").fadeOut(250).css("display", "none");
+				if (user.skipping === true) {
+					bmi();
+					HarrisBenedictBMR();
+					activityMultipier();
+					ibwBroca();
+					lbmBoer();
+					tbw();
+					document.getElementById("card3").style.display = "none";
+					document.getElementById("card5").style.display = "none";
+				} else {
+					document.getElementById("card3").style.display = "block";
+					document.getElementById("card5").style.display = "block";
+					bmi();
+					HarrisBenedictBMR();
+					activityMultipier();
+					whtr();
+					ibwBroca();
+					BFPnavy();
+					lbmBoer();
+					tbw();
+				}
+			} else {
+				console.log("No such document!");
+				topage1();
+			}
+		}).catch(function (error) {
+			console.log("Error getting document:", error);
+		});
+	} else {
+		console.log('not logged in')
+		document.getElementById('firebaseui-auth-container').style.display = 'block';
+	}
+});
+// signout function
+signOut = _ => {
+	auth.signOut().then(function () {
+		location.reload();
+		console.log('out')
+	}).catch(function (error) {
+		console.log(error)
+	});
+}
+// login ui
+const uiConfig = {
+	callbacks: {
+		signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+			//document.getElementById('bm').style.display = 'block'
+			return false;
+		},
+		uiShown: function () {
+			//document.getElementById('loader').style.display = 'none';
+		}
+	},
+	signInFlow: 'popup',
+	signInOptions: [
+		firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+		firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+		firebase.auth.EmailAuthProvider.PROVIDER_ID,
+	],
+};
+ui.start('#firebaseui-auth-container', uiConfig);
+
+var user = {
 	gender: "",
 	age: 0,
 	weight: 0,
@@ -871,6 +971,9 @@ topage4 = _ => {
 		lbmBoer();
 		tbw();
 	}
+	// upload data
+	const userUid = auth.currentUser.uid;
+	db.collection("users").doc(userUid).set(user);
 };
 
 skip = _ => {
@@ -894,14 +997,14 @@ toback = _ => {
 	}
 };
 
-restart = _ => {
-	$("#welcomePage").fadeIn(250).css("display", "block");
-	$("#page4").fadeOut(250).css("display", "none");
-	document.getElementById("arrow").style.left = -7 + "px";
-	document.getElementById("Boer").selected = true;
-	document.getElementById("borca").selected = true;
-	document.getElementById("harris").selected = true;
-};
+// restart = _ => {
+// 	$("#welcomePage").fadeIn(250).css("display", "block");
+// 	$("#page4").fadeOut(250).css("display", "none");
+// 	document.getElementById("arrow").style.left = -7 + "px";
+// 	document.getElementById("Boer").selected = true;
+// 	document.getElementById("borca").selected = true;
+// 	document.getElementById("harris").selected = true;
+// };
 
 metricSystem = _ => {
 	document.getElementById("weight").placeholder = "Your Weight In Kilograms";
