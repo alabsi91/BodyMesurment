@@ -1,7 +1,7 @@
 $(document).ready( _=> {
 	const language = window.navigator.userLanguage || window.navigator.language;
 	alert(language);
-	if (language !== "en") changeLan();
+	if (language.match(/ar/i)) changeLan();
 	$('#title1').animate({ bottom: "40%" }, 900)
 });
 let isLogged;
