@@ -839,6 +839,7 @@ tbw = _ => {
 topage1 = _ => {
 	$("#page1").fadeIn(250).css("display", "block");
 	$("#page4").fadeOut(250).css("display", "none");
+	$("#welcomePage").fadeOut(250).css("display", "none");
 	$("#profile").fadeOut(250).css("display", "block");
 	$("#back").fadeOut(250).css("display", "none");
 };
