@@ -1,5 +1,7 @@
-
-$('#title1').animate({ bottom: "40%" }, 900)
+$(document).ready( _=> {
+	const language = window.navigator.userLanguage || window.navigator.language;
+	$('#title1').animate({ bottom: "40%" }, 900)
+});
 let isLogged;
 const firebaseConfig = {
 	apiKey: "AIzaSyB2zTBz8t8dpSfNpPDccAQ2tWUzvsHQs18",
@@ -168,30 +170,42 @@ bmi = _ => {
 	document.getElementById("bmi").innerHTML = results.bmi;
 	bmiRange();
 };
-
+let bmiRangeST = [
+	"Underweight",
+	"Normal Weight",
+	"Overweight",
+	"Obese",
+	"Child or Teen",
+]
+let bmiGoalST = [
+	"You Should Gain Some Weight",
+	"You Should Sustain Your Weight",
+	"You Should Lose Some Weight",
+	"You Should Lose Weight",
+]
 bmiRange = _ => {
 	if (results.bmi < 18.5 && user.age >= 20) {
-		results.bmirange = "Underweight";
+		results.bmirange = bmiRangeST[0];
 		document.getElementById("bmiRange").style.color = "#d0a50b";
-		document.getElementById("bmiGoal").innerHTML = "You Should Gain Some Weight";
+		document.getElementById("bmiGoal").innerHTML = bmiGoalST[0];
 	} else if (results.bmi >= 18.5 && 24.9 > results.bmi && user.age >= 20) {
-		results.bmirange = "Normal Weight";
+		results.bmirange = bmiRangeST[1];
 		document.getElementById("bmiRange").style.color = "#40ff45";
-		document.getElementById("bmiGoal").innerHTML = "You Should Sustain Your Weight";
+		document.getElementById("bmiGoal").innerHTML = bmiGoalST[1];
 	} else if (results.bmi > 25 && 29.9 > results.bmi && user.age >= 20) {
-		results.bmirange = "Overweight";
+		results.bmirange = bmiRangeST[2];
 		document.getElementById("bmiRange").style.color = "#d0a50b";
-		document.getElementById("bmiGoal").innerHTML = "You Should Lose Some Weight";
+		document.getElementById("bmiGoal").innerHTML = bmiGoalST[2];
 	} else if (results.bmi > 30 && user.age >= 20) {
-		results.bmirange = "Obese";
+		results.bmirange = bmiRangeST[3];
 		document.getElementById("bmiRange").style.color = "#dc2900";
-		document.getElementById("bmiGoal").innerHTML = "You Should Lose Weight";
+		document.getElementById("bmiGoal").innerHTML = bmiGoalST[3];
 	} else {
-		results.bmirange = "Child or Teen";
+		results.bmirange = bmiRangeST[4];
 	}
 	document.getElementById("bmiRange").innerHTML = results.bmirange;
 };
-
+let kcalST = " kcal/day"
 HarrisBenedictBMR = _ => {
 	let bmr;
 	switch (user.gender) {
@@ -207,7 +221,7 @@ HarrisBenedictBMR = _ => {
 			break;
 	}
 	results.bmr = Number(bmr.toFixed(0));
-	document.getElementById("bmr").innerHTML = `${results.bmr}<span style='font-size: 15px; color: white'> kcal/day</span>`;
+	document.getElementById("bmr").innerHTML = `${results.bmr}<span style='font-size: 15px; color: white'>${kcalST}</span>`;
 };
 
 MifflinStJeorBMR = _ => {
@@ -225,7 +239,7 @@ MifflinStJeorBMR = _ => {
 			break;
 	}
 	results.bmr = Number(bmr.toFixed(0));
-	document.getElementById("bmr").innerHTML = `${results.bmr}<span style='font-size: 15px; color: white'> kcal/day</span>`;
+	document.getElementById("bmr").innerHTML = `${results.bmr}<span style='font-size: 15px; color: white'>${kcalST}</span>`;
 };
 
 activityMultipier = _ => {
@@ -241,7 +255,7 @@ activityMultipier = _ => {
 		results.dailykcal = results.bmr * 1.9;
 	}
 	results.dailykcal = Number(results.dailykcal.toFixed(0));
-	document.getElementById("intake").innerHTML = `${results.dailykcal}<span style='font-size: 15px; color: white'> kcal/day</span>`;
+	document.getElementById("intake").innerHTML = `${results.dailykcal}<span style='font-size: 15px; color: white'>${kcalST}</span>`;
 };
 
 bmrmethod = _ => {
@@ -260,33 +274,47 @@ whtr = _ => {
 	document.getElementById("whtr").innerHTML = results.whtr;
 	whtrRange();
 };
-
+let whtrRangeST = [
+	"Extremely Slim",
+	"Slim",
+	"Healthy",
+	"Overweight",
+	"Very overweight",
+	"Obese",
+]
+let whtrGoal = [
+	"You Should Gain Weight",
+	"You Should Gain Some Weight",
+	"You Should Sustain Your Weight",
+	"You Should Lose Some Weight",
+	"You Should Lose Weight",
+]
 whtrRange = _ => {
 	switch (user.gender) {
 		case "male":
 			if (results.whtr <= 0.34 && user.age >= 20) {
-				results.whtrRange = "Extremely Slim";
+				results.whtrRange = whtrRangeST[0];
 				document.getElementById("whtrRange").style.color = "#dc2900";
-				document.getElementById("whtrGoal").innerHTML = "You Should Gain Weight";
+				document.getElementById("whtrGoal").innerHTML = whtrGoal[0];
 			} else if (results.whtr > 0.35 && 0.42 > results.whtr && user.age >= 20) {
-				results.whtrRange = "Slim";
+				results.whtrRange = whtrRangeST[1];
 				document.getElementById("whtrRange").style.color = "#d0a50b";
-				document.getElementById("whtrGoal").innerHTML = "You Should Gain Some Weight";
+				document.getElementById("whtrGoal").innerHTML = whtrGoal[1];
 			} else if (results.whtr > 0.43 && 0.52 > results.whtr && user.age >= 20) {
-				results.whtrRange = "Healthy";
+				results.whtrRange = whtrRangeST[2];
 				document.getElementById("whtrRange").style.color = "#40ff45";
-				document.getElementById("whtrGoal").innerHTML = "You Should Sustain Your Weight";
+				document.getElementById("whtrGoal").innerHTML = whtrGoal[2];
 			} else if (results.whtr > 0.53 && 0.57 > results.whtr && user.age >= 20) {
-				results.whtrRange = "Overweight";
+				results.whtrRange = whtrRangeST[3];
 				document.getElementById("whtrRange").style.color = "#d0a50b";
-				document.getElementById("whtrGoal").innerHTML = "You Should Lose Some Weight";
+				document.getElementById("whtrGoal").innerHTML = whtrGoal[3];
 			} else if (results.whtr > 0.58 && 0.62 > results.whtr && user.age >= 20) {
-				results.whtrRange = "Very overweight";
+				results.whtrRange = whtrRangeST[4];
 				document.getElementById("whtrRange").style.color = "#dc2900";
-				document.getElementById("whtrGoal").innerHTML = "You Should Lose Some Weight";
+				document.getElementById("whtrGoal").innerHTML = whtrGoal[3];
 			} else if (results.whtr >= 0.63 && user.age >= 20) {
-				results.whtrRange = "Obese";
-				document.getElementById("whtrGoal").innerHTML = "You Should Lose Weight";
+				results.whtrRange = whtrRangeST[5];
+				document.getElementById("whtrGoal").innerHTML = whtrGoal[4];
 				document.getElementById("whtrRange").style.color = "#dc2900";
 			}
 			break;
@@ -344,7 +372,8 @@ whtrRange = _ => {
 
 	document.getElementById("whtrRange").innerHTML = results.whtrRange;
 };
-
+let kiloST = " Kilograms"
+let poundST = " Pounds"
 ibwBroca = _ => {
 
 	switch (user.gender) {
@@ -353,14 +382,14 @@ ibwBroca = _ => {
 				results.ibw = user.height - 100;
 				results.ibw = results.ibw - (results.ibw / 100 * 10);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Kilograms</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height * 2.54;
 				results.ibw = results.ibw - 100;
 				results.ibw = results.ibw - (results.ibw / 100 * 10);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Pounds</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 
@@ -369,14 +398,14 @@ ibwBroca = _ => {
 				results.ibw = user.height - 100;
 				results.ibw = results.ibw + (results.ibw / 100 * 15);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Kilograms</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height * 2.54;
 				results.ibw = results.ibw - 100;
 				results.ibw = results.ibw + (results.ibw / 100 * 15);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Pounds</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
@@ -391,13 +420,13 @@ ibwDevine = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 50 + (results.ibw * 2.3);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Kilograms</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 50 + (results.ibw * 2.3);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Pounds</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 
@@ -407,13 +436,13 @@ ibwDevine = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 45.5 + (results.ibw * 2.3);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Kilograms</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 45.5 + (results.ibw * 2.3);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Pounds</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
@@ -428,13 +457,13 @@ ibwRobinson = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 52 + (results.ibw * 1.9);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Kilograms</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 52 + (results.ibw * 1.9);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Pounds</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 
@@ -444,13 +473,13 @@ ibwRobinson = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 49 + (results.ibw * 1.7);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Kilograms</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 49 + (results.ibw * 1.7);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Pounds</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
@@ -465,13 +494,13 @@ ibwMillier = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 56.2 + (results.ibw * 1.41);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Kilograms</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 56.2 + (results.ibw * 1.41);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Pounds</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 
@@ -481,13 +510,13 @@ ibwMillier = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 53.1 + (results.ibw * 1.36);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Kilograms</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 53.1 + (results.ibw * 1.36);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Pounds</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
@@ -502,13 +531,13 @@ ibwHamwi = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 48 + (results.ibw * 2.7);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Kilograms</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 48 + (results.ibw * 2.7);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Pounds</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 
@@ -518,13 +547,13 @@ ibwHamwi = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 45.5 + (results.ibw * 2.2);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Kilograms</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 45.5 + (results.ibw * 2.2);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Pounds</span>`;
+				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
@@ -535,13 +564,13 @@ ibwLemmens = _ => {
 	if (user.system === "metric") {
 		results.ibw = 22 * Math.pow(user.height / 100, 2);
 		results.ibw = Number(results.ibw.toFixed(1));
-		document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Kilograms</span>`;
+		document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 	} else if (user.system === "imperial") {
 		results.ibw = user.height / 39.37;
 		results.ibw = 22 * Math.pow(results.ibw, 2);
 		results.ibw = results.ibw * 2.205;
 		results.ibw = Number(results.ibw.toFixed(1));
-		document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'> Pounds</span>`;
+		document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 	}
 };
 
@@ -592,8 +621,8 @@ BFPnavy = _ => {
 				results.bfpLM = user.weight - results.bfpFM;
 				results.bfpLM = Number(results.bfpLM.toFixed(1));
 
-				document.getElementById("bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'> Kilograms</span>`;
-				document.getElementById("bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'> Kilograms</span>`;
+				document.getElementById("bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				document.getElementById("bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 
 			} else if (user.gender === "female") {
 				results.bfp = 495 / (1.29579 - 0.35004 * Math.log10(user.waist + user.hip - user.neck) + 0.22100 * Math.log10(user.height)) - 450;
@@ -605,8 +634,8 @@ BFPnavy = _ => {
 				results.bfpLM = user.weight - results.bfpFM;
 				results.bfpLM = Number(results.bfpLM.toFixed(1));
 
-				document.getElementById("bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'> Kilograms</span>`;
-				document.getElementById("bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'> Kilograms</span>`;
+				document.getElementById("bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				document.getElementById("bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 
 			}
 			break;
@@ -622,8 +651,8 @@ BFPnavy = _ => {
 				results.bfpLM = user.weight - results.bfpFM;
 				results.bfpLM = Number(results.bfpLM.toFixed(1));
 
-				document.getElementById("bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'> Pounds</span>`;
-				document.getElementById("bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'> Pounds</span>`;
+				document.getElementById("bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				document.getElementById("bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 
 			} else if (user.gender === "female") {
 				results.bfp = 163.205 * Math.log10(user.waist + user.hip - user.neck) - 97.684 * Math.log10(user.height) - 78.387;
@@ -635,8 +664,8 @@ BFPnavy = _ => {
 				results.bfpLM = user.weight - results.bfpFM;
 				results.bfpLM = Number(results.bfpLM.toFixed(1));
 
-				document.getElementById("bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'> Pounds</span>`;
-				document.getElementById("bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'> Pounds</span>`;
+				document.getElementById("bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				document.getElementById("bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
@@ -644,35 +673,41 @@ BFPnavy = _ => {
 	bfprange();
 	BFPbmi();
 };
-
+let bfprangeST = [
+	"Essential Fat",
+	"Athletes",
+	"Fitness",
+	"Average",
+	"Obese",
+]
 bfprange = _ => {
 
 	switch (user.gender) {
 		case "male":
 			if (results.bfp >= 2 && results.bfp <= 5) {
-				results.bfprange = "Essential Fat";
+				results.bfprange = bfprangeST[0];
 			} else if (results.bfp > 5 && results.bfp <= 13) {
-				results.bfprange = "Athletes";
+				results.bfprange = bfprangeST[1];
 			} else if (results.bfp > 13 && results.bfp <= 17) {
-				results.bfprange = "Fitness";
+				results.bfprange = bfprangeST[2];
 			} else if (results.bfp > 17 && results.bfp <= 25) {
-				results.bfprange = "Average";
+				results.bfprange = bfprangeST[3];
 			} else if (results.bfp > 25) {
-				results.bfprange = "Obese";
+				results.bfprange = bfprangeST[4];
 			}
 			break;
 
 		case "female":
 			if (results.bfp >= 10 && results.bfp <= 13) {
-				results.bfprange = "Essential Fat";
+				results.bfprange = bfprangeST[0];
 			} else if (results.bfp > 13 && results.bfp <= 20) {
-				results.bfprange = "Athletes";
+				results.bfprange = bfprangeST[1];
 			} else if (results.bfp > 20 && results.bfp <= 24) {
-				results.bfprange = "Fitness";
+				results.bfprange = bfprangeST[2];
 			} else if (results.bfp > 24 && results.bfp <= 31) {
-				results.bfprange = "Average";
+				results.bfprange = bfprangeST[3];
 			} else if (results.bfp > 32) {
-				results.bfprange = "Obese";
+				results.bfprange = bfprangeST[4];
 			}
 			break;
 	}
@@ -693,7 +728,7 @@ lbmBoer = _ => {
 
 			results.lbmP = (results.lbm * 100) / user.weight;
 			results.lbmP = Number(results.lbmP.toFixed(1));
-			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'> Kilograms</span>`;
+			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${kiloST}</span>`;
 			break;
 
 		case "imperial":
@@ -711,7 +746,7 @@ lbmBoer = _ => {
 			}
 			results.lbmP = (results.lbm * 100) / user.weight;
 			results.lbmP = Number(results.lbmP.toFixed(1));
-			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'> Pounds</span>`;
+			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${poundST}</span>`;
 			break;
 	}
 	results.lbmF = 100 - results.lbmP;
@@ -734,7 +769,7 @@ lbmJames = _ => {
 
 			results.lbmP = (results.lbm * 100) / user.weight;
 			results.lbmP = Number(results.lbmP.toFixed(1));
-			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'> Kilograms</span>`;
+			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${kiloST}</span>`;
 			break;
 
 		case "imperial":
@@ -753,7 +788,7 @@ lbmJames = _ => {
 
 			results.lbmP = (results.lbm * 100) / user.weight;
 			results.lbmP = Number(results.lbmP.toFixed(1));
-			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'> Pounds</span>`;
+			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${poundST}</span>`;
 			break;
 	}
 	results.lbmF = 100 - results.lbmP;
@@ -776,7 +811,7 @@ lbmHume = _ => {
 
 			results.lbmP = (results.lbm * 100) / user.weight;
 			results.lbmP = Number(results.lbmP.toFixed(1));
-			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'> Kilograms</span>`;
+			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${kiloST}</span>`;
 			break;
 
 		case "imperial":
@@ -794,7 +829,7 @@ lbmHume = _ => {
 			}
 			results.lbmP = (results.lbm * 100) / user.weight;
 			results.lbmP = Number(results.lbmP.toFixed(1));
-			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'> Pounds</span>`;
+			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${poundST}</span>`;
 			break;
 	}
 	results.lbmF = 100 - results.lbmP;
@@ -813,7 +848,7 @@ lbmmethod = _ => {
 		lbmHume();
 	}
 };
-
+let tbwST = " Litres"
 tbw = _ => {
 	switch (user.system) {
 		case "metric":
@@ -834,7 +869,7 @@ tbw = _ => {
 			break;
 	}
 	results.tbw = Number(results.tbw.toFixed(1));
-	document.getElementById("tbw").innerHTML = `${results.tbw}<span style='font-size: 18px; color: white'> Litres</span>`;
+	document.getElementById("tbw").innerHTML = `${results.tbw}<span style='font-size: 18px; color: white'>${tbwST}</span>`;
 };
 
 topage1 = _ => {
@@ -997,21 +1032,33 @@ toback = _ => {
 		$("#page3").fadeOut(250).css("display", "none");
 	}
 };
-
+let metricStrings = [
+	"Your Weight In Kilograms",
+	"Your Height In Centimeters",
+	"Your Neck Size In Centimeters",
+	"Your Waist Size In Centimeters",
+	"Your Hip Size In Centimeters"
+]
 metricSystem = _ => {
-	document.getElementById("weight").placeholder = "Your Weight In Kilograms";
-	document.getElementById("height").placeholder = "Your Height In Centimeters";
-	document.getElementById("neck").placeholder = "Your Neck Size In Centimeters";
-	document.getElementById("waist").placeholder = "Your Waist Size In Centimeters";
-	document.getElementById("hip").placeholder = "Your Hip Size In Centimeters";
+	document.getElementById("weight").placeholder = metricStrings[0];
+	document.getElementById("height").placeholder = metricStrings[1];
+	document.getElementById("neck").placeholder = metricStrings[2];
+	document.getElementById("waist").placeholder = metricStrings[3];
+	document.getElementById("hip").placeholder = metricStrings[4];
 };
-
+let imperialStrings = [
+	"Your Weight In Pounds",
+	"Your Height In Inches",
+	"Your Neck Size In Inches",
+	"Your Waist Size In Inches",
+	"Your Hip Size In Inches",
+]
 imperialSystem = _ => {
-	document.getElementById("weight").placeholder = "Your Weight In Pounds";
-	document.getElementById("height").placeholder = "Your Height In Inches";
-	document.getElementById("neck").placeholder = "Your Neck Size In Inches";
-	document.getElementById("waist").placeholder = "Your Waist Size In Inches";
-	document.getElementById("hip").placeholder = "Your Hip Size In Inches";
+	document.getElementById("weight").placeholder = imperialStrings[0];
+	document.getElementById("height").placeholder = imperialStrings[1];
+	document.getElementById("neck").placeholder = imperialStrings[2];
+	document.getElementById("waist").placeholder = imperialStrings[3];
+	document.getElementById("hip").placeholder = imperialStrings[4]
 };
 
 addToHomePop = _ => $("#addToHomePop").slideToggle(100);
@@ -1032,3 +1079,189 @@ neckalert = _ => $("#neckalert").slideToggle(100);
 waistalert = _ => $("#waistalert").slideToggle(100);
 hipalert = _ => $("#hipalert").slideToggle(100);
 skippop = _ => $("#skippop").slideToggle(100);
+changeLan = _ => {
+	// Main Page
+	$(".calculator").text("حاسبة مقاييس الجسم")
+	$("#addToHomePop > h3").text("هل تريد تثبيت التطبيق مجاناً")
+	$("#addToHomebutt").text("تثيت")
+	$(".notnow").text("ليس الآن")
+	$(".topage").text("التالي")
+	// Page1
+	$(".ipg > h3:nth-child(1)").text("اختر نظام القياس")
+	$(".ipg > h3:nth-child(6)").text("اختر الجنس")
+	$(".ipg > label:nth-child(2)").html(`متري<input id = "metric" type = "radio" name = "system" checked = "checked" ><span class="checkmark"></span>`)
+	$(".ipg > label:nth-child(3)").html(`إنجليزي<input id="imperial" type="radio" name="system"><span class="checkmark"></span>`)
+	$(".ipg > label:nth-child(7)").html(`ذكر<input id="mgender" type="radio" name="gender" checked="checked"><span class="checkmark"></span>`)
+	$(".ipg > label:nth-child(8)").html(`انثى<input id="fgender" type="radio" name="gender"><span class="checkmark"></span>`)
+	$(".ipg3 > h2:nth-child(1)").text("العمر")
+	$(".ipg3 > h2:nth-child(5)").text("الوزن")
+	$(".ipg3 > h2:nth-child(9)").text("الطول")
+	$("#page1 h2").css("text-align", "right")
+	metricStrings = [
+		"وزنك بالكيلوغرام",
+		"طولك بالسنتيمتر",
+		"محيط رقبتك بالسنتيمتر",
+		"محيط خصرك بالسنتيمتر",
+		"محيط وركك بالسنتيمتر"
+	]
+	imperialStrings = [
+		"وزنك بالباوند",
+		"طولك بالإنش",
+		"محيط رقبتك بالأنش",
+		"محيط خصرك بالإنش",
+		"محيط وركك بالإنش",
+	]
+	$('input').css("direction", "rtl")
+	document.getElementById("age").placeholder = "عمرك";
+	document.getElementById("weight").placeholder = metricStrings[0];
+	document.getElementById("height").placeholder = metricStrings[1];
+	// Page2
+	document.getElementById("neck").placeholder = metricStrings[2];
+	document.getElementById("waist").placeholder = metricStrings[3];
+	document.getElementById("hip").placeholder = metricStrings[4];
+	$("#page2 > h1:nth-child(2)").text("لمزيد من النتائج الدقيقة")
+	$(".ipg6 > h2:nth-child(4)").text("محيط الرقبة")
+	$(".ipg6 > h2:nth-child(8)").text("محيط الخصر")
+	$(".ipg6 > h2:nth-child(12)").text("محيط الورك")
+	$("#page2 h2").css("text-align", "right")
+	$("#necktip").css("left", "7px")
+	$("#waisttip").css("left", "7px")
+	$("#hiptip").css("left", "7px")
+	$(".skip").text("تخطي")
+	// popUps
+	// Page1 PopUps
+	$("#agealert > h3").text("تحذير")
+	$("#agealert > p").text("الرجاء إدخال عمر فوق سن 18")
+	$("#agealert > button").text("حسناً")
+	$("#weightalert > h3").text("تحذير")
+	$("#weightalert > p").text("الرجاء إدخال الوزن بشكل صحيح")
+	$("#weightalert > button").text("حسناً")
+	$("#heightalert > h3").text("تحذير")
+	$("#heightalert > p").text("الرجاء إدخال الطول بشكل صحيح")
+	$("#heightalert > button").text("حسناً")
+	// Page2 PopUps
+	$("#neckalert > h3").text("تحذير")
+	$("#neckalert > p").text("الرجاء إدخال محيط الرقبة بشكل صحيح")
+	$("#neckalert > button").text("حسناً")
+	$("#waistalert > h3").text("تحذير")
+	$("#waistalert > p").text("الرجاء إدخال محيط الخصر بشكل صحيح")
+	$("#waistalert > button").text("حسناً")
+	$("#hipalert > h3").text("تحذير")
+	$("#hipalert > p").text("الرجاء إدخال محيط الورك بشكل صحيح")
+	$("#hipalert > button").text("حسناً")
+	$("#neckpop > h3").text("قياس الرقبة")
+	$("#neckpop > h3").css("text-align", "right")
+	$("#neckpop > p").text(`لف شريط القياس حول الرقبة ، بدءً من إنش واحد تقريباً من مكان التقاء رقبتك بكتفيك. الذي قد يتوازى مع الجزء السفلي من الحنجرة. تأكد أن شريط القياس ليس مرخياً و أن الشريط مستوي وليس مائلاً.`)
+	$("#neckpop > p").css("text-align", "right")
+	$("#neckpop > p").css("direction", "rtl")
+	$("#neckpop > button").text("حسناً")
+	$("#waistpop > h3").text("قياس الخصر")
+	$("#waistpop > h3").css("text-align", "right")
+	$("#waistpop > p").text(`ابدأ من الجزء العلوي من عظم الفخذ ، ثم لف شريط القياس حول  جسمك على مستوى زر البطن. تأكد من أن الشريط ليس ضيق جداً وأنه مستقيم في الخلف والأمام  وألا تحبس نفسك أثناء القياس. ثم تحقق من الرقم الموجود على شريط القياس مباشرة بعد الزفير.`)
+	$("#waistpop > p").css("text-align", "right")
+	$("#waistpop > p").css("direction", "rtl")
+	$("#waistpop > button").text("حسناً")
+	$("#hippop > h3").text("قياس الورك")
+	$("#hippop > h3").css("text-align", "right")
+	$("#hippop > p").text(`الخصر هو أضيق جزء من الجذع ، حيث ينحني الجسم عنده. الورك يكون تحت الخصر وعادة ما يكون أوسع من الخصر. قياس الورك يتضمن المؤخرة والفخذين حيث يؤخذ القياس من أوسع منطقة من الورك.`)
+	$("#hippop > p").css("text-align", "right")
+	$("#hippop > p").css("direction", "rtl")
+	$("#hippop > button").text("حسناً")
+	$("#skippop > h3").text("هل أنت متأكد؟")
+	$("#skippop > h3").css("text-align", "right")
+	$("#skippop > p").text(`من خلال تخطي إدخال مقاييس الرقبة والخصر والورك لن تكون قادر على حساب نسبة الخصر إلى الطول (WtHR) ونسبة الدهون في الجسم (BFP).`)
+	$("#skippop > p").css("text-align", "right")
+	$("#skippop > p").css("direction", "rtl")
+	$("#skippop > button").text("تخطي")
+	$("#cancel").css("left", "7px")
+	// Page4 PopUps
+
+	// Page3
+	$(".ipg9 > h1:nth-child(1)").text("اختر مستوى نشاطك")
+	$(".ipg9 > h4:nth-child(3)").text("نشاط قليل من دون أي تمارين رياضية كالعمل في مكتب")
+	$(".ipg9 > h4:nth-child(5)").text("تمارين رياضية بسيطة 1-3 أيام بالأسبوع")
+	$(".ipg9 > h4:nth-child(7)").text("تمارين رياضية متوسطة 6-7 أيام بالأسبوع")
+	$(".ipg9 > h4:nth-child(9)").text("تمارين صعبة كل يوم")
+	$(".ipg9 > h4:nth-child(11)").text("تمارين صعبة مرتين أو أكثر كل يوم")
+	$(".ipg9 > label:nth-child(2)").html(`كثير الجلوس<input id="sedentary" type="radio" name="activity" checked="checked" style="direction: rtl;"><span class="checkmark1"></span>`)
+	$(".ipg9 > label:nth-child(4)").html(`قليل النشاط<input id="light" type="radio" name="activity" style="direction: rtl;"><span class="checkmark1"></span>`)
+	$(".ipg9 > label:nth-child(6)").html(`متوسط النشاط<input id="moderate" type="radio" name="activity" style="direction: rtl;"><span class="checkmark1"></span>`)
+	$(".ipg9 > label:nth-child(8)").html(`كثير النشاط<input id="very" type="radio" name="activity" style="direction: rtl;"><span class="checkmark1"></span>`)
+	$(".ipg9 > label:nth-child(10)").html(`عالي النشاط<input id="extra" type="radio" name="activity" style="direction: rtl;"><span class="checkmark1"></span>`)
+	$("#page3 > .topage").text("أحسب")
+	// infoCard
+	$("#EditButton").text("تعديل المقاييس")
+	$("#SignOut").text("تسجيل الخروج")
+	// BMI Card
+	$("#card1 > h2:nth-child(3)").text("مؤشر كتلة جسم")
+	bmiRangeST = [
+		"نقص وزن",
+		"وزن طبيعي",
+		"وزن زائد",
+		"بدانة",
+		"طفل أو مراهق",
+	];
+	bmiGoalST = [
+		"عليك اكتساب بعض الوزن",
+		"عليك الحفاظ على وزنك",
+		"عليك خسارة بعض الوزن",
+		"عليك خسارة الوزن",
+	];
+	// BMR Crad
+	$("#card2 > h4:nth-child(3)").text("المعادلة المستخدمة في الحساب")
+	$("#card2 > h2:nth-child(7)").text("معدل الاستقلاب الأساسي")
+	kcalST = " سعرة/يوم "
+	$("#bmr").css("direction", "rtl")
+	$("#intake").css("direction", "rtl")
+	$("#card2 > h2:nth-child(10)").text("السعرات الحرارية اليومية")
+	$("#card2 > h3:nth-child(11)").text("وفقاً لنشاطك اليومي")
+	// WHtR Card
+	$("#card3 > h2:nth-child(3)").text("نسبة الخصر إلى الطول")
+	whtrRangeST = [
+		"نحيف للغاية",
+		"نحيف",
+		"طبيعي",
+		"وزن زائد",
+		"وزن زائد للغاية",
+		"بدانة",
+	];
+	whtrGoal = [
+		"عليك اكتساب الوزن",
+		"عليك اكتساب بعض الوزن",
+		"عليك المحافظة على الوزن",
+		"عليك خسارة بعض الوزن",
+		"عليك خسارة الوزن",
+	];
+	// IBW Card
+	$("#card4 > h4:nth-child(4)").text("المعادلة المستخدمة في الحساب")
+	$("#card4 > h2:nth-child(8)").text("الوزن المثالي للجسم")
+	$("#ibw").css("direction", "rtl")
+	kiloST = " كيلوغرام "
+	poundST = " باوند "
+	// BFP Card
+	$("#card5 > h2:nth-child(4)").text("دهون الجسم (طريقة البحرية الأمريكية)")
+	$("#card5 > h2:nth-child(6)").text("التصنيف حسب نسبة الدهون")
+	$("#card5 > h2:nth-child(8)").text("كتلة الدهون في الجسم")
+	$("#card5 > h2:nth-child(10)").text("كتلة العضلات في الجسم")
+	$("#card5 > h2:nth-child(12)").text("دهون الجسم (طريقة مؤشر كتلة الجسم)")
+	bfprangeST = [
+		"نسبة دهون الضرورية",
+		"رياضي",
+		"رشيق",
+		"عادي",
+		"بدانة",
+	];
+	$("#bfpFM").css("direction", "rtl")
+	$("#bfpLM").css("direction", "rtl")
+	// LBM Card
+	$("#card6 > h4:nth-child(4)").text("المعادلة المستخدمة في الحساب")
+	$("#card6 > h2:nth-child(8)").text("كتلة العضلات في الجسم")
+	$("#card6 > h2:nth-child(10)").text("نسبة كتلة العضلات في الجسم")
+	$("#card6 > h2:nth-child(12)").text("نسبة كتلة الدهون في الجسم")
+	$("#lbm").css("direction", "rtl")
+	// TBW
+	$("#card7 > h2:nth-child(3)").text("الحجم الكلي للمياه في الجسم")
+	$("#tbw").css("direction", "rtl")
+	tbwST = " لتر "
+}
+changeLan();
