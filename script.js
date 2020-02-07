@@ -1259,7 +1259,7 @@ changeLan = _ => {
 		"عليك خسارة الوزن",
 	];
 	// BMR Crad
-	$("#card2").css("height", "320px")
+	$("#card2").css("height", "325px")
 	$("#card2 > h4:nth-child(3)").text("المعادلة المستخدمة في الحساب")
 	$("#card2 > h2:nth-child(7)").text("معدل الاستقلاب الأساسي")
 	kcalST = " سعرة/يوم "
@@ -1286,14 +1286,14 @@ changeLan = _ => {
 		"عليك خسارة الوزن",
 	];
 	// IBW Card
-	$("#card4").css("height", "180px")
+	$("#card4").css("height", "175px")
 	$("#card4 > h4:nth-child(4)").text("المعادلة المستخدمة في الحساب")
 	$("#card4 > h2:nth-child(8)").text("الوزن المثالي للجسم")
 	$("#ibw").css("direction", "rtl")
 	kiloST = " كيلوغرام "
 	poundST = " باوند "
 	// BFP Card
-	$("#card5").css("height", "421px")
+	$("#card5").css("height", "440px")
 	$("#card5 > h2:nth-child(4)").text("دهون الجسم (طريقة البحرية الأمريكية)")
 	$("#card5 > h2:nth-child(4)").css("font-size", "20px")
 	$("#card5 > h2:nth-child(6)").text("التصنيف حسب نسبة الدهون")
@@ -1318,7 +1318,7 @@ changeLan = _ => {
 	$("#card6 > h2:nth-child(12)").text("نسبة كتلة الدهون في الجسم")
 	$("#lbm").css("direction", "rtl")
 	// TBW
-	$("#card7").css("height", "98px")
+	$("#card7").css("height", "90px")
 	$("#card7 > h2:nth-child(3)").text("الحجم الكلي للمياه في الجسم")
 	$("#tbw").css("direction", "rtl")
 	tbwST = " لتر "
