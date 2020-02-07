@@ -138,7 +138,7 @@ const results = {
 		if (!isLogged) {
 			setTimeout(() => {
 				$("#addToHomePop").slideToggle(200);
-			}, 2000);
+			}, 1500);
 		}
 	});
 	document.getElementById('addToHomebutt').addEventListener('click', (e) => {
