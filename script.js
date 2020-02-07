@@ -1,3 +1,6 @@
+
+$('#title1').animate({ bottom: "40%" }, 900)
+let isLogged;
 const firebaseConfig = {
 	apiKey: "AIzaSyB2zTBz8t8dpSfNpPDccAQ2tWUzvsHQs18",
 	authDomain: "body-calculators.firebaseapp.com",
@@ -15,25 +18,23 @@ const ui = new firebaseui.auth.AuthUI(auth);
 const db = firebase.firestore();
 // enable offline data
 db.enablePersistence();
-$('#title1').animate({ bottom: "40%" }, 900)
-
 // check if logged in
-auth.onAuthStateChanged(function (users) {
+auth.onAuthStateChanged(users => {
 	if (users) {
 		// logged in
+		isLogged = true;
 		document.getElementById('firebaseui-auth-container').style.display = 'none';
 		// get user pic & name
 		const profileImg = auth.currentUser.providerData.map(e => e.photoURL)[0]
 		const displayName = auth.currentUser.providerData.map(e => e.displayName)[0]
 		document.getElementById('profileImg').style.backgroundImage = `url(${profileImg})`
 		document.getElementById('userName').innerHTML = displayName;
-
 		// check if data exists
 		const userUid = auth.currentUser.uid;
 		const docRef = db.collection("users").doc(userUid);
-		docRef.get().then(function (doc) {
-			// data exists
+		docRef.get().then(doc => {
 			if (doc.exists) {
+				// data exists
 				user = doc.data()
 				$("#page4").fadeIn(250).css("display", "block");
 				$("#welcomePage").fadeOut(250).css("display", "none");
@@ -63,36 +64,15 @@ auth.onAuthStateChanged(function (users) {
 				// No data
 				topage1();
 			}
-		}).catch(function (error) {
-			console.log("Error getting document:", error);
-		});
+		}).catch(error => console.log("Error getting document:", error));
 	} else {
 		// not logged in
+		isLogged = false
 		$("#firebaseui-auth-container").fadeIn(1500).css("display", "block");
-		setTimeout(() => {
-			$("#addToHomePop").slideToggle(200);
-		}, 2500);
-
 	}
 });
-// signout function
-signOut = _ => {
-	auth.signOut().then(function () {
-		location.reload();
-		console.log('out')
-	}).catch(function (error) {
-		console.log(error)
-	});
-}
 // login ui
 const uiConfig = {
-	callbacks: {
-		signInSuccessWithAuthResult: (authResult, redirectUrl) => {
-			return false;
-		},
-		uiShown: _ => {
-		}
-	},
 	signInFlow: 'popup',
 	signInOptions: [
 		firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -101,6 +81,15 @@ const uiConfig = {
 	],
 };
 ui.start('#firebaseui-auth-container', uiConfig);
+// signOut function
+signOut = _ => {
+	auth.signOut().then(function () {
+		location.reload();
+		console.log('out')
+	}).catch(function (error) {
+		console.log(error)
+	});
+}
 
 var user = {
 	gender: "",
@@ -146,6 +135,11 @@ const results = {
 	let deferredPrompt;
 	window.addEventListener('beforeinstallprompt', (e) => {
 		deferredPrompt = e;
+		if (!isLogged) {
+			setTimeout(() => {
+				$("#addToHomePop").slideToggle(200);
+			}, 2500);
+		}
 	});
 	document.getElementById('addToHomebutt').addEventListener('click', (e) => {
 		deferredPrompt.prompt();
