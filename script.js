@@ -1,6 +1,5 @@
 $(document).ready( _=> {
 	const language = window.navigator.userLanguage || window.navigator.language;
-	alert(language);
 	if (language.match(/ar/i)) changeLan();
 	$('#title1').animate({ bottom: "40%" }, 900)
 });
