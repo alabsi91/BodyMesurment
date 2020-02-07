@@ -143,6 +143,7 @@ const results = {
 	});
 	document.getElementById('addToHomebutt').addEventListener('click', (e) => {
 		deferredPrompt.prompt();
+		$("#addToHomePop").css("display", "none")
 	});
 	document.documentElement.style.setProperty('--inner', window.innerHeight + 'px')
 	window.addEventListener('resize', _ => document.documentElement.style.setProperty('--inner', window.innerHeight + 'px'))
