@@ -30,7 +30,6 @@ body {
 	-ms-user-select: none;
 	touch-action: pan-y;
 	overscroll-behavior-y: contain;
-	white-space: nowrap;
 }
 .pg {
 	margin: auto;
