@@ -44,8 +44,8 @@ div {
 .calculator {
 	position: absolute;
 	left: 50%;
-	top: 45%;
-	transform: translate(-50%, -50%);
+	bottom: 0%;
+	transform: translate(-50%);
 	margin: auto;
 	font-size: 39px;
 	font-weight: bolder;
@@ -61,19 +61,21 @@ div {
 #welcomePage {
 	position: relative;
 	height: var(--inner);
-	min-height: 625px;
+	/* min-height: 560px; */
 	padding: 0;
 }
 #firebaseui-auth-container {
 	position: absolute;
 	left: 50%;
-	top: 77%;
-	transform: translate(-50%, -50%);
+	bottom: 7%;
+	transform: translate(-50%);
 	margin: 0;
 	padding: 0;
-	height: fit-content;
 	width: fit-content;
 	display: none;
+}
+.firebaseui-container {
+	padding: 0;
 }
 #profile {
 	position: relative;

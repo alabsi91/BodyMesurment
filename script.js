@@ -15,25 +15,26 @@ const ui = new firebaseui.auth.AuthUI(auth);
 const db = firebase.firestore();
 // enable offline data
 db.enablePersistence();
+$('#title1').animate({ bottom: "40%" }, 900)
 
 // check if logged in
 auth.onAuthStateChanged(function (users) {
 	if (users) {
-		console.log('logged in')
+		// logged in
 		document.getElementById('firebaseui-auth-container').style.display = 'none';
+		// get user pic & name
 		const profileImg = auth.currentUser.providerData.map(e => e.photoURL)[0]
 		const displayName = auth.currentUser.providerData.map(e => e.displayName)[0]
 		document.getElementById('profileImg').style.backgroundImage = `url(${profileImg})`
 		document.getElementById('userName').innerHTML = displayName;
 
 		// check if data exists
-		document.getElementById('firebaseui-auth-container').style.display = 'none';
 		const userUid = auth.currentUser.uid;
 		const docRef = db.collection("users").doc(userUid);
 		docRef.get().then(function (doc) {
+			// data exists
 			if (doc.exists) {
 				user = doc.data()
-				console.log(user)
 				$("#page4").fadeIn(250).css("display", "block");
 				$("#welcomePage").fadeOut(250).css("display", "none");
 				$("#profile").fadeOut(250).css("display", "none");
@@ -41,7 +42,7 @@ auth.onAuthStateChanged(function (users) {
 					bmi();
 					HarrisBenedictBMR();
 					activityMultipier();
-					ibwBroca();
+					ibwBroca(); ""
 					lbmBoer();
 					tbw();
 					document.getElementById("card3").style.display = "none";
@@ -59,15 +60,15 @@ auth.onAuthStateChanged(function (users) {
 					tbw();
 				}
 			} else {
-				console.log("No such document!");
+				// No data
 				topage1();
 			}
 		}).catch(function (error) {
 			console.log("Error getting document:", error);
 		});
 	} else {
-		console.log('not logged in')
-		document.getElementById('firebaseui-auth-container').style.display = 'block';
+		// not logged in
+		$("#firebaseui-auth-container").fadeIn(1500).css("display", "block");
 	}
 });
 // signout function
@@ -82,12 +83,10 @@ signOut = _ => {
 // login ui
 const uiConfig = {
 	callbacks: {
-		signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-			//document.getElementById('bm').style.display = 'block'
+		signInSuccessWithAuthResult: (authResult, redirectUrl) => {
 			return false;
 		},
-		uiShown: function () {
-			//document.getElementById('loader').style.display = 'none';
+		uiShown: _ => {
 		}
 	},
 	signInFlow: 'popup',
@@ -111,6 +110,7 @@ var user = {
 	system: "metric",
 	skipping: ""
 };
+
 const results = {
 	bmi: 0,
 	bmirange: 0,
@@ -841,8 +841,9 @@ tbw = _ => {
 
 topage1 = _ => {
 	$("#page1").fadeIn(250).css("display", "block");
-	$("#profile").fadeIn(250).css("display", "block");
-	$("#welcomePage").fadeOut(250).css("display", "none");
+	$("#page4").fadeOut(250).css("display", "none");
+	$("#profile").fadeOut(250).css("display", "block");
+	$("#back").fadeOut(250).css("display", "none");
 };
 
 topage2 = _ => {
@@ -869,6 +870,8 @@ topage2 = _ => {
 			} else {
 				$("#page2").fadeIn(250).css("display", "block");
 				$("#page1").fadeOut(250).css("display", "none");
+				$("#back").fadeIn(250).css("display", "block");
+
 			}
 			break;
 
@@ -882,6 +885,8 @@ topage2 = _ => {
 			} else {
 				$("#page2").fadeIn(250).css("display", "block");
 				$("#page1").fadeOut(250).css("display", "none");
+				$("#back").fadeIn(250).css("display", "block");
+
 			}
 			break;
 	}
@@ -984,27 +989,15 @@ skip = _ => {
 };
 
 toback = _ => {
-	if (document.getElementById("page1").style.display === "block") {
-		$("#welcomePage").fadeIn(250).css("display", "block");
-		$("#page1").fadeOut(250).css("display", "none");
-		$("#profile").fadeOut(250).css("display", "none");
-	} else if (document.getElementById("page2").style.display === "block") {
+	if (document.getElementById("page2").style.display === "block") {
 		$("#page1").fadeIn(250).css("display", "block");
 		$("#page2").fadeOut(250).css("display", "none");
+		$("#back").fadeOut(250).css("display", "none");
 	} else if (document.getElementById("page3").style.display === "block") {
 		$("#page2").fadeIn(250).css("display", "block");
 		$("#page3").fadeOut(250).css("display", "none");
 	}
 };
-
-// restart = _ => {
-// 	$("#welcomePage").fadeIn(250).css("display", "block");
-// 	$("#page4").fadeOut(250).css("display", "none");
-// 	document.getElementById("arrow").style.left = -7 + "px";
-// 	document.getElementById("Boer").selected = true;
-// 	document.getElementById("borca").selected = true;
-// 	document.getElementById("harris").selected = true;
-// };
 
 metricSystem = _ => {
 	document.getElementById("weight").placeholder = "Your Weight In Kilograms";
