@@ -1243,7 +1243,7 @@ changeLan = _ => {
 	$("#EditButton").text("تعديل المقاييس")
 	$("#SignOut").text("تسجيل الخروج")
 	// BMI Card
-	$("#card1").css("height", "185px")
+	$("#card1").css("height", "200px")
 	$("#card1 > h2:nth-child(3)").text("مؤشر كتلة جسم")
 	bmiRangeST = [
 		"نقص وزن",
