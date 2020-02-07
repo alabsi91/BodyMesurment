@@ -1243,6 +1243,7 @@ changeLan = _ => {
 	$("#EditButton").text("تعديل المقاييس")
 	$("#SignOut").text("تسجيل الخروج")
 	// BMI Card
+	$("#card1").css("height", "185px")
 	$("#card1 > h2:nth-child(3)").text("مؤشر كتلة جسم")
 	bmiRangeST = [
 		"نقص وزن",
@@ -1290,10 +1291,12 @@ changeLan = _ => {
 	poundST = " باوند "
 	// BFP Card
 	$("#card5 > h2:nth-child(4)").text("دهون الجسم (طريقة البحرية الأمريكية)")
+	$("#card5 > h2:nth-child(4)").css("font-size", "20px")
 	$("#card5 > h2:nth-child(6)").text("التصنيف حسب نسبة الدهون")
 	$("#card5 > h2:nth-child(8)").text("كتلة الدهون في الجسم")
 	$("#card5 > h2:nth-child(10)").text("كتلة العضلات في الجسم")
 	$("#card5 > h2:nth-child(12)").text("دهون الجسم (طريقة مؤشر كتلة الجسم)")
+	$("#card5 > h2:nth-child(12)").css("font-size", "20px")
 	bfprangeST = [
 		"نسبة دهون الضرورية",
 		"رياضي",
