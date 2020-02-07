@@ -1,8 +1,11 @@
-$(document).ready( _=> {
-	const language = window.navigator.userLanguage || window.navigator.language;
-	if (language.match(/ar/i)) changeLan();
+$(document).ready(_ => {
 	$('#title1').animate({ bottom: "40%" }, 900)
+	if (document.cookie.includes('lan=ar')) {
+		changeLan();
+		$("#arabic").text("English")
+	}
 });
+console.log(document.cookie.includes('lan=ar'))
 let isLogged;
 const firebaseConfig = {
 	apiKey: "AIzaSyB2zTBz8t8dpSfNpPDccAQ2tWUzvsHQs18",
@@ -1173,7 +1176,7 @@ changeLan = _ => {
 	$("#hippop > p").css("text-align", "right")
 	$("#hippop > p").css("direction", "rtl")
 	$("#hippop > button").text("حسناً")
-	
+
 	$("#skippop > h3").text("هل أنت متأكد؟")
 	$("#skippop > h3").css("text-align", "right")
 	$("#skippop > p").text(`من خلال تخطي إدخال مقاييس الرقبة والخصر والورك لن تكون قادر على حساب نسبة الخصر إلى الطول (WtHR) ونسبة الدهون في الجسم (BFP).`)
@@ -1193,7 +1196,7 @@ changeLan = _ => {
 	$("#bmrpop > p").css("direction", "rtl")
 	$("#bmrpop > p").css("text-align", "right")
 	$("#bmrpop > button").text("حسناً")
-	
+
 	$("#whtrpop > h3").text("نسبة الخصر إلى الطول")
 	$("#whtrpop > p").text(`نسبة الخصر إلى الطول تشير بشكل فعال إلى خطر السمنة المركزي وخطر على القلب. نسبة الخصر إلى الطول هو مقياس لتوزع الدهون في الجسم. حيث تشير القيم العالية إلى زيادة خطر الإصابة بأمراض القلب والأوعية الدموية المرتبطة بالسمنة.`)
 	$("#whtrpop > p").css("direction", "rtl")
@@ -1310,4 +1313,13 @@ changeLan = _ => {
 	$("#card7 > h2:nth-child(3)").text("الحجم الكلي للمياه في الجسم")
 	$("#tbw").css("direction", "rtl")
 	tbwST = " لتر "
+}
+changeLanButton = _ => {
+	if ($("#arabic").text() === "English") {
+		document.cookie = "lan=en"
+		location.reload();
+	} else {
+		document.cookie = "lan=ar"
+		location.reload();
+	}
 }

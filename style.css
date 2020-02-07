@@ -7,6 +7,17 @@ button,
 svg {
 	cursor: pointer;
 }
+#arabic {
+	position: absolute;
+	left: 50%;
+	top: 2%;
+	transform: translate(-50%);
+	background: none;
+	border: none;
+	color: white;
+	font-size: 20px;
+	font-weight: bolder;
+}
 body {
 	background-color: #071a23;
 	text-align: center;
