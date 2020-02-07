@@ -69,6 +69,10 @@ auth.onAuthStateChanged(function (users) {
 	} else {
 		// not logged in
 		$("#firebaseui-auth-container").fadeIn(1500).css("display", "block");
+		setTimeout(() => {
+			$("#addToHomePop").slideToggle(200);
+		}, 2500);
+
 	}
 });
 // signout function
@@ -142,7 +146,6 @@ const results = {
 	let deferredPrompt;
 	window.addEventListener('beforeinstallprompt', (e) => {
 		deferredPrompt = e;
-		$("#addToHomePop").slideToggle(100);
 	});
 	document.getElementById('addToHomebutt').addEventListener('click', (e) => {
 		deferredPrompt.prompt();
