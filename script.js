@@ -142,7 +142,7 @@ const results = {
 		deferredPrompt = e;
 		if (!isLogged) {
 			setTimeout(() => {
-				$("#addToHomePop").slideToggle(200);
+				$("#addToHomePop").slideDown(200);
 			}, 1500);
 		}
 	});
