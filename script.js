@@ -147,6 +147,7 @@ const results = {
 		}
 	});
 	document.getElementById('addToHomebutt').addEventListener('click', (e) => {
+		$("#addToHomePop").css("display", "none");
 		deferredPrompt.prompt();
 	});
 	document.documentElement.style.setProperty('--inner', window.innerHeight + 'px')
