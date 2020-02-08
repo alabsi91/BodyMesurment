@@ -1084,7 +1084,7 @@ waistalert = _ => $("#waistalert").slideToggle(100);
 hipalert = _ => $("#hipalert").slideToggle(100);
 skippop = _ => $("#skippop").slideToggle(100);
 changeLan = _ => {
-	$(body).css("font-family", "'Mirza', cursive")
+	$(body).css("font-family", "'Almarai', sans-serif")
 	// Main Page
 	$(".calculator").text("حاسبة مقاييس الجسم")
 	$("#addToHomePop > h3").text("هل تريد تثبيت التطبيق مجاناً")
