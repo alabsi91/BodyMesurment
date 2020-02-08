@@ -142,7 +142,9 @@ const results = {
 		e.preventDefault();
 		deferredPrompt = e;
 		if (!isLogged) {
-			$("#addToHomePop").slideDown(200);
+			setTimeout(() => {
+				$("#addToHomePop").slideDown(200);
+			}, 1500);
 		}
 	});
 	document.getElementById('addToHomebutt').addEventListener('click', (e) => {
