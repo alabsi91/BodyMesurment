@@ -21,9 +21,7 @@ firebase.analytics();
 const auth = firebase.auth();
 const ui = new firebaseui.auth.AuthUI(auth);
 const db = firebase.firestore();
-auth.useDeviceLanguage();
 auth.languageCode = 'ar'
-console.log(auth)
 // enable offline data
 db.enablePersistence();
 // check if logged in
