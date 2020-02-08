@@ -1085,6 +1085,7 @@ hipalert = _ => $("#hipalert").slideToggle(100);
 skippop = _ => $("#skippop").slideToggle(100);
 changeLan = _ => {
 	$(body).css("font-family", "'Almarai', sans-serif")
+	$("button").css("font-family", "'Almarai', sans-serif")
 	// Main Page
 	$(".calculator").text("حاسبة مقاييس الجسم")
 	$("#addToHomePop > h3").text("هل تريد تثبيت التطبيق مجاناً")
@@ -1244,7 +1245,6 @@ changeLan = _ => {
 	$("#EditButton").text("تعديل المقاييس")
 	$("#SignOut").text("تسجيل الخروج")
 	// BMI Card
-	// $("#card1").css("height", "200px")
 	$("#card1 > h2:nth-child(3)").text("مؤشر كتلة جسم")
 	bmiRangeST = [
 		"نقص وزن",
@@ -1260,7 +1260,6 @@ changeLan = _ => {
 		"عليك خسارة الوزن",
 	];
 	// BMR Crad
-	// $("#card2").css("height", "335px")
 	$("#card2 > h4:nth-child(3)").text("المعادلة المستخدمة في الحساب")
 	$("#card2 > h2:nth-child(7)").text("معدل الاستقلاب الأساسي")
 	kcalST = " سعرة/يوم "
@@ -1269,7 +1268,6 @@ changeLan = _ => {
 	$("#card2 > h2:nth-child(10)").text("السعرات الحرارية اليومية")
 	$("#card2 > h3:nth-child(11)").text("وفقاً لنشاطك اليومي")
 	// WHtR Card
-	// $("#card3").css("height", "180px")
 	$("#card3 > h2:nth-child(3)").text("نسبة الخصر إلى الطول")
 	whtrRangeST = [
 		"نحيف للغاية",
@@ -1287,21 +1285,19 @@ changeLan = _ => {
 		"عليك خسارة الوزن",
 	];
 	// IBW Card
-	// $("#card4").css("height", "165px")
 	$("#card4 > h4:nth-child(4)").text("المعادلة المستخدمة في الحساب")
 	$("#card4 > h2:nth-child(8)").text("الوزن المثالي للجسم")
 	$("#ibw").css("direction", "rtl")
 	kiloST = " كيلوغرام "
 	poundST = " باوند "
 	// BFP Card
-	// $("#card5").css("height", "460px")
 	$("#card5 > h2:nth-child(4)").text("دهون الجسم (طريقة البحرية الأمريكية)")
-	$("#card5 > h2:nth-child(4)").css("font-size", "20px")
+	$("#card5 > h2:nth-child(4)").css("font-size", "18px")
 	$("#card5 > h2:nth-child(6)").text("التصنيف حسب نسبة الدهون")
 	$("#card5 > h2:nth-child(8)").text("كتلة الدهون في الجسم")
 	$("#card5 > h2:nth-child(10)").text("كتلة العضلات في الجسم")
 	$("#card5 > h2:nth-child(12)").text("دهون الجسم (طريقة مؤشر كتلة الجسم)")
-	$("#card5 > h2:nth-child(12)").css("font-size", "20px")
+	$("#card5 > h2:nth-child(12)").css("font-size", "18px")
 	bfprangeST = [
 		"نسبة دهون الضرورية",
 		"رياضي",
@@ -1312,14 +1308,12 @@ changeLan = _ => {
 	$("#bfpFM").css("direction", "rtl")
 	$("#bfpLM").css("direction", "rtl")
 	// LBM Card
-	// $("#card6").css("height", "363px")
 	$("#card6 > h4:nth-child(4)").text("المعادلة المستخدمة في الحساب")
 	$("#card6 > h2:nth-child(8)").text("كتلة العضلات في الجسم")
 	$("#card6 > h2:nth-child(10)").text("نسبة كتلة العضلات في الجسم")
 	$("#card6 > h2:nth-child(12)").text("نسبة كتلة الدهون في الجسم")
 	$("#lbm").css("direction", "rtl")
 	// TBW
-	// $("#card7").css("height", "80px")
 	$("#card7 > h2:nth-child(3)").text("الحجم الكلي للمياه في الجسم")
 	$("#tbw").css("direction", "rtl")
 	tbwST = " لتر "
