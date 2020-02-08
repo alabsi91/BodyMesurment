@@ -139,6 +139,7 @@ const results = {
 	}
 	let deferredPrompt;
 	window.addEventListener('beforeinstallprompt', (e) => {
+		e.preventDefault();
 		deferredPrompt = e;
 		if (!isLogged) {
 			setTimeout(() => {
@@ -149,6 +150,15 @@ const results = {
 	document.getElementById('addToHomebutt').addEventListener('click', (e) => {
 		$("#addToHomePop").css("display", "none");
 		deferredPrompt.prompt();
+		deferredPrompt.userChoice
+			.then((choiceResult) => {
+				if (choiceResult.outcome === 'accepted') {
+					console.log('User accepted the A2HS prompt');
+				} else {
+					console.log('User dismissed the A2HS prompt');
+				}
+				deferredPrompt = null;
+			});
 	});
 	document.documentElement.style.setProperty('--inner', window.innerHeight + 'px')
 	window.addEventListener('resize', _ => document.documentElement.style.setProperty('--inner', window.innerHeight + 'px'))
