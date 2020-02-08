@@ -822,3 +822,6 @@ i {
 	border-radius: 50%;
 	background: white;
 }
+#page1,#page2,#page3,#page4,#profile{
+	display: none;
+}
