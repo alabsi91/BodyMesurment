@@ -1,6 +1,6 @@
 $(document).ready(_ => {
 	$('#title1').animate({ bottom: "40%" }, 900)
-	if (document.cookie.includes('lan=ar')) {
+	if (window.localStorage.getItem('lan') === "ar") {
 		changeLan();
 		$("#arabic").text("English")
 	}
@@ -1320,10 +1320,10 @@ changeLan = _ => {
 }
 changeLanButton = _ => {
 	if ($("#arabic").text() === "English") {
-		document.cookie = "lan=en"
+		window.localStorage.setItem("lan", "en")
 		location.reload();
 	} else {
-		document.cookie = "lan=ar"
+		window.localStorage.setItem("lan", "ar")
 		location.reload();
 	}
 }
