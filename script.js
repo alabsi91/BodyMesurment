@@ -5,7 +5,6 @@ $(document).ready(_ => {
 		$("#arabic").text("English")
 	}
 });
-console.log(document.cookie.includes('lan=ar'))
 let isLogged;
 const firebaseConfig = {
 	apiKey: "AIzaSyB2zTBz8t8dpSfNpPDccAQ2tWUzvsHQs18",
@@ -149,7 +148,6 @@ const results = {
 	});
 	document.getElementById('addToHomebutt').addEventListener('click', (e) => {
 		deferredPrompt.prompt();
-		$("#addToHomePop").css("display", "none")
 	});
 	document.documentElement.style.setProperty('--inner', window.innerHeight + 'px')
 	window.addEventListener('resize', _ => document.documentElement.style.setProperty('--inner', window.innerHeight + 'px'))
@@ -1089,7 +1087,7 @@ changeLan = _ => {
 	// Main Page
 	$(".calculator").text("حاسبة مقاييس الجسم")
 	$("#addToHomePop > h3").text("هل تريد تثبيت التطبيق مجاناً")
-	$("#addToHomebutt").text("تثيت")
+	$("#addToHomebutt").text("تثبيت")
 	$(".notnow").text("ليس الآن")
 	$(".topage").text("التالي")
 	// Page1
