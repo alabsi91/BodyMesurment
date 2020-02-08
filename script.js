@@ -21,6 +21,10 @@ firebase.analytics();
 const auth = firebase.auth();
 const ui = new firebaseui.auth.AuthUI(auth);
 const db = firebase.firestore();
+auth.languageCode = 'ar'
+auth.lc = 'ar'
+auth.Z = 'ar'
+console.log(auth)
 // enable offline data
 db.enablePersistence();
 // check if logged in
@@ -90,7 +94,6 @@ ui.start('#firebaseui-auth-container', uiConfig);
 signOut = _ => {
 	auth.signOut().then(function () {
 		location.reload();
-		console.log('out')
 	}).catch(function (error) {
 		console.log(error)
 	});
