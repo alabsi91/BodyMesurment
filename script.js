@@ -21,7 +21,6 @@ firebase.analytics();
 const auth = firebase.auth();
 const ui = new firebaseui.auth.AuthUI(auth);
 const db = firebase.firestore();
-auth.languageCode = 'ar'
 // enable offline data
 db.enablePersistence();
 // check if logged in
@@ -1084,8 +1083,9 @@ waistalert = _ => $("#waistalert").slideToggle(100);
 hipalert = _ => $("#hipalert").slideToggle(100);
 skippop = _ => $("#skippop").slideToggle(100);
 changeLan = _ => {
-	$(body).css("font-family", "'Almarai', sans-serif")
-	$("button").css("font-family", "'Almarai', sans-serif")
+	const font = isMobile() ? "'Tajawal', sans-serif" : "Arial, Helvetica, sans-serif"
+	$(body).css("font-family", font)
+	$("button").css("font-family", font)
 	// Main Page
 	$(".calculator").text("حاسبة مقاييس الجسم")
 	$("#addToHomePop > h3").text("هل تريد تثبيت التطبيق مجاناً")
@@ -1325,5 +1325,23 @@ changeLanButton = _ => {
 	} else {
 		window.localStorage.setItem("lan", "ar")
 		location.reload();
+	}
+}
+isMobile = _ => {
+	if (
+		navigator.userAgent.match(/Android/i) ||
+		navigator.userAgent.match(/webOS/i) ||
+		navigator.userAgent.match(/iPhone/i) ||
+		navigator.userAgent.match(/iPod/i) ||
+		navigator.userAgent.match(/iPad/i) ||
+		navigator.userAgent.match(/BlackBerry/i) ||
+		navigator.userAgent.match(/Windows Phone/i) ||
+		navigator.userAgent.match(/Opera Mini/i) ||
+		navigator.userAgent.match(/IEMobile/i) ||
+		navigator.userAgent.match(/WPDesktop/i)
+	) {
+		return true;
+	} else {
+		return false;
 	}
 }
