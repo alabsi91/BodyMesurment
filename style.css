@@ -7,6 +7,7 @@ button,
 svg {
 	cursor: pointer;
 }
+
 #arabic {
 	position: absolute;
 	left: 50%;
@@ -19,6 +20,7 @@ svg {
 	font-weight: bolder;
 }
 body {
+	min-width: 320px;
 	background-color: #071a23;
 	text-align: center;
 	font-family: 'Fira Sans', sans-serif;
@@ -606,9 +608,9 @@ i {
 	padding-right: 20px;
 	width: 70%;
 	max-width: 350px;
-	display: none;
 	font-family: sans-serif;
 	font-weight: normal;
+	display: none;
 	-webkit-box-shadow: 0px 4px 300px 200px rgba(0, 0, 0, 0.7);
 	-moz-box-shadow: 0px 4px 300px 200px rgba(0, 0, 0, 0.7);
 	box-shadow: 0px 4px 300px 200px rgba(0, 0, 0, 0.7);
