@@ -33,6 +33,17 @@ body {
 	touch-action: pan-y;
 	overscroll-behavior-y: contain;
 }
+#loading {
+	position: absolute;
+    left: 50%;
+	bottom: 7%;
+	height: 182px;
+    transform: translate(-50%);
+    margin: 0;
+    padding: 0;
+	width: fit-content;
+	display: none;
+}
 .pg {
 	margin: auto;
 	padding: 0px;

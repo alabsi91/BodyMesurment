@@ -4,6 +4,13 @@ $(document).ready(_ => {
 		changeLan();
 		$("#arabic").text("English")
 	}
+	bodymovin.loadAnimation({
+		container: document.getElementById('loading'),
+		renderer: 'svg',
+		loop: true,
+		autoplay: true,
+		path: 'data.json'
+	});
 });
 let isLogged;
 const firebaseConfig = {
@@ -29,6 +36,7 @@ auth.onAuthStateChanged(users => {
 		// logged in
 		isLogged = true;
 		document.getElementById('firebaseui-auth-container').style.display = 'none';
+		document.getElementById('loading').style.display = 'block';
 		// get user pic & name
 		const profileImg = auth.currentUser.providerData.map(e => e.photoURL)[0]
 		const displayName = auth.currentUser.providerData.map(e => e.displayName)[0]
@@ -74,6 +82,8 @@ auth.onAuthStateChanged(users => {
 		// not logged in
 		isLogged = false
 		$("#firebaseui-auth-container").fadeIn(1500).css("display", "block");
+		document.getElementById('loading').style.display = 'none';
+
 	}
 });
 // login ui

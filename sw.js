@@ -8,6 +8,8 @@ const resourcesToPrecache = [
     '/jquery.min.js',
     '/b1.jpg',
     '/user.png',
+    '/lottie.js',
+    '/data.json',
 ];
 
 self.addEventListener('install', event => {
