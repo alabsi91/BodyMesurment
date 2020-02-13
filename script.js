@@ -334,28 +334,28 @@ whtrRange = _ => {
 
 		case "female":
 			if (results.whtr <= 0.34 && user.age >= 20) {
-				results.whtrRange = "Extremely Slim";
+				results.whtrRange = whtrRangeST[0];
 				document.getElementById("whtrRange").style.color = "#dc2900";
-				document.getElementById("whtrGoal").innerHTML = "You Should Gain Weight";
+				document.getElementById("whtrGoal").innerHTML = whtrGoal[0];
 			} else if (results.whtr > 0.35 && 0.41 > results.whtr && user.age >= 20) {
-				results.whtrRange = "Slim";
+				results.whtrRange = whtrRangeST[1];
 				document.getElementById("whtrRange").style.color = "#d0a50b";
-				document.getElementById("whtrGoal").innerHTML = "You Should Gain Some Weight";
+				document.getElementById("whtrGoal").innerHTML = whtrGoal[1];
 			} else if (results.whtr > 0.42 && 0.48 > results.whtr && user.age >= 20) {
-				results.whtrRange = "Healthy";
+				results.whtrRange = whtrRangeST[2];
 				document.getElementById("whtrRange").style.color = "#40ff45";
-				document.getElementById("whtrGoal").innerHTML = "You Should Sustain Your Weight";
+				document.getElementById("whtrGoal").innerHTML = whtrGoal[2];
 			} else if (results.whtr > 0.49 && 0.53 > results.whtr && user.age >= 20) {
-				results.whtrRange = "Overweight";
+				results.whtrRange = whtrRangeST[3];
 				document.getElementById("whtrRange").style.color = "#d0a50b";
-				document.getElementById("whtrGoal").innerHTML = "You Should Lose Some Weight";
+				document.getElementById("whtrGoal").innerHTML = whtrGoal[3];
 			} else if (results.whtr > 0.54 && 0.57 > results.whtr && user.age >= 20) {
-				results.whtrRange = "Very overweight";
+				results.whtrRange = whtrRangeST[4];
 				document.getElementById("whtrRange").style.color = "#dc2900";
-				document.getElementById("whtrGoal").innerHTML = "You Should Lose Weight";
+				document.getElementById("whtrGoal").innerHTML = whtrGoal[4];
 			} else if (results.whtr >= 0.58 && user.age >= 20) {
-				results.whtrRange = "Obese";
-				document.getElementById("whtrGoal").innerHTML = "You Should Lose Weight";
+				results.whtrRange = whtrRangeST[5];
+				document.getElementById("whtrGoal").innerHTML = whtrGoal[4];
 				document.getElementById("whtrRange").style.color = "#dc2900";
 			}
 			break;
@@ -707,6 +707,8 @@ bfprange = _ => {
 				results.bfprange = bfprangeST[3];
 			} else if (results.bfp > 25) {
 				results.bfprange = bfprangeST[4];
+			} else {
+				results.bfprange = "..."
 			}
 			break;
 
@@ -721,6 +723,8 @@ bfprange = _ => {
 				results.bfprange = bfprangeST[3];
 			} else if (results.bfp > 32) {
 				results.bfprange = bfprangeST[4];
+			} else {
+				results.bfprange = "..."
 			}
 			break;
 	}
