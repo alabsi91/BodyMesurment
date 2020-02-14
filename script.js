@@ -1,6 +1,7 @@
-$(document).ready(_ => {
+
+$(document).ready( _ => {
 	$('#title1').animate({ bottom: "40%" }, 900)
-	if (window.localStorage.getItem('lan') === "ar") {
+	if (window.localStorage.getItem('lan') === "ar" || window.navigator.language.includes("ar") && window.localStorage.getItem('lan') === null) {
 		changeLan();
 		$("#arabic").text("English")
 	}
