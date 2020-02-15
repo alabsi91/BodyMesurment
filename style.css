@@ -228,6 +228,8 @@ div {
 	padding: 3px 10px;
 	margin-right: 0px;
 	margin-bottom: 0px;
+	-moz-appearance: none; 
+	-webkit-appearance: none; 
 }
 #age,
 #weight,
