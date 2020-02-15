@@ -1,12 +1,27 @@
-
+//S = s => document.querySelector(s);
+S = function (id) {
+	const nodes = document.querySelectorAll(id)
+	if (nodes.length > 1) {
+		return {
+			css: function css(p, v) {
+				for (let i = 0; i < nodes.length; i++) {
+					nodes[i].style[p] = v
+				}
+				return this
+			}
+		}
+	} else {
+		return nodes[0]
+	}
+}
 $(document).ready(_ => {
 	$('#title1').animate({ bottom: "40%" }, 900)
 	if (window.localStorage.getItem('lan') === "ar" || window.navigator.language.includes("ar") && window.localStorage.getItem('lan') === null) {
 		changeLan();
-		$("#arabic").text("English")
+		S("#arabic").innerHTML = "English"
 	}
 	bodymovin.loadAnimation({
-		container: document.getElementById('loading'),
+		container: S('#loading'),
 		renderer: 'svg',
 		loop: true,
 		autoplay: true,
@@ -36,13 +51,13 @@ auth.onAuthStateChanged(users => {
 	if (users) {
 		// logged in
 		isLogged = true;
-		document.getElementById('firebaseui-auth-container').style.display = 'none';
-		document.getElementById('loading').style.display = 'block';
+		S('#firebaseui-auth-container').style.display = 'none';
+		S('#loading').style.display = 'block';
 		// get user pic & name
 		const profileImg = auth.currentUser.providerData.map(e => e.photoURL)[0]
 		const displayName = auth.currentUser.providerData.map(e => e.displayName)[0]
-		document.getElementById('profileImg').style.backgroundImage = `url(${profileImg})`
-		document.getElementById('userName').innerHTML = displayName;
+		S('#profileImg').style.backgroundImage = `url(${profileImg})`
+		S('#userName').innerHTML = displayName;
 		// check if data exists
 		const userUid = auth.currentUser.uid;
 		const docRef = db.collection("users").doc(userUid);
@@ -60,11 +75,11 @@ auth.onAuthStateChanged(users => {
 					ibwBroca(); ""
 					lbmBoer();
 					tbw();
-					document.getElementById("card3").style.display = "none";
-					document.getElementById("card5").style.display = "none";
+					S("#card3").style.display = "none";
+					S("#card5").style.display = "none";
 				} else {
-					document.getElementById("card3").style.display = "block";
-					document.getElementById("card5").style.display = "block";
+					S("#card3").style.display = "block";
+					S("#card5").style.display = "block";
 					bmi();
 					HarrisBenedictBMR();
 					activityMultipier();
@@ -83,7 +98,7 @@ auth.onAuthStateChanged(users => {
 		// not logged in
 		isLogged = false
 		$("#firebaseui-auth-container").fadeIn(1500).css("display", "block");
-		document.getElementById('loading').style.display = 'none';
+		S('#loading').style.display = 'none';
 
 	}
 });
@@ -99,9 +114,9 @@ const uiConfig = {
 ui.start('#firebaseui-auth-container', uiConfig);
 // signOut function
 signOut = _ => {
-	auth.signOut().then(function () {
+	auth.signOut().then(_ => {
 		location.reload();
-	}).catch(function (error) {
+	}).catch(error => {
 		console.log(error)
 	});
 }
@@ -148,17 +163,17 @@ const results = {
 		})
 	}
 	let deferredPrompt;
-	window.addEventListener('beforeinstallprompt', (e) => {
+	window.addEventListener('beforeinstallprompt', e => {
 		e.preventDefault();
 		deferredPrompt = e;
 		if (!isLogged) {
 			setTimeout(() => {
-				$("#addToHomePop").slideDown(200);
+				toggle("#addToHomePop", 0.1);
 			}, 1500);
 		}
 	});
-	document.getElementById('addToHomebutt').addEventListener('click', (e) => {
-		$("#addToHomePop").css("visibility", "hidden");
+	S('#addToHomebutt').addEventListener('click', (e) => {
+		S("#addToHomePop").style.visibility = "hidden";
 		deferredPrompt.prompt();
 	});
 	document.documentElement.style.setProperty('--inner', window.innerHeight + 'px')
@@ -171,7 +186,7 @@ bmi = _ => {
 		? user.weight / Math.pow(user.height / 100, 2)
 		: (703 * user.weight) / Math.pow(user.height, 2);
 
-	const arrow = document.getElementById("arrow");
+	const arrow = S("#arrow");
 	if (bmi > 35) {
 		$("#arrow").animate({ left: '243px' }, 1000);
 	} else if (bmi < 0) {
@@ -181,7 +196,7 @@ bmi = _ => {
 		$("#arrow").animate({ left: bmibar + 'px' }, 1000);
 	}
 	results.bmi = Number(bmi.toFixed(1));
-	document.getElementById("bmi").innerHTML = results.bmi;
+	S("#bmi").innerHTML = results.bmi;
 	bmiRange();
 };
 let bmiRangeST = [
@@ -200,24 +215,24 @@ let bmiGoalST = [
 bmiRange = _ => {
 	if (results.bmi < 18.5 && user.age >= 20) {
 		results.bmirange = bmiRangeST[0];
-		document.getElementById("bmiRange").style.color = "#d0a50b";
-		document.getElementById("bmiGoal").innerHTML = bmiGoalST[0];
+		S("#bmiRange").style.color = "#d0a50b";
+		S("#bmiGoal").innerHTML = bmiGoalST[0];
 	} else if (results.bmi >= 18.5 && 24.9 > results.bmi && user.age >= 20) {
 		results.bmirange = bmiRangeST[1];
-		document.getElementById("bmiRange").style.color = "#40ff45";
-		document.getElementById("bmiGoal").innerHTML = bmiGoalST[1];
+		S("#bmiRange").style.color = "#40ff45";
+		S("#bmiGoal").innerHTML = bmiGoalST[1];
 	} else if (results.bmi > 25 && 29.9 > results.bmi && user.age >= 20) {
 		results.bmirange = bmiRangeST[2];
-		document.getElementById("bmiRange").style.color = "#d0a50b";
-		document.getElementById("bmiGoal").innerHTML = bmiGoalST[2];
+		S("#bmiRange").style.color = "#d0a50b";
+		S("#bmiGoal").innerHTML = bmiGoalST[2];
 	} else if (results.bmi > 30 && user.age >= 20) {
 		results.bmirange = bmiRangeST[3];
-		document.getElementById("bmiRange").style.color = "#dc2900";
-		document.getElementById("bmiGoal").innerHTML = bmiGoalST[3];
+		S("#bmiRange").style.color = "#dc2900";
+		S("#bmiGoal").innerHTML = bmiGoalST[3];
 	} else {
 		results.bmirange = bmiRangeST[4];
 	}
-	document.getElementById("bmiRange").innerHTML = results.bmirange;
+	S("#bmiRange").innerHTML = results.bmirange;
 };
 let kcalST = " kcal/day"
 HarrisBenedictBMR = _ => {
@@ -235,7 +250,7 @@ HarrisBenedictBMR = _ => {
 			break;
 	}
 	results.bmr = Number(bmr.toFixed(0));
-	document.getElementById("bmr").innerHTML = `${results.bmr}<span style='font-size: 15px; color: white'>${kcalST}</span>`;
+	S("#bmr").innerHTML = `${results.bmr}<span style='font-size: 15px; color: white'>${kcalST}</span>`;
 };
 
 MifflinStJeorBMR = _ => {
@@ -253,7 +268,7 @@ MifflinStJeorBMR = _ => {
 			break;
 	}
 	results.bmr = Number(bmr.toFixed(0));
-	document.getElementById("bmr").innerHTML = `${results.bmr}<span style='font-size: 15px; color: white'>${kcalST}</span>`;
+	S("#bmr").innerHTML = `${results.bmr}<span style='font-size: 15px; color: white'>${kcalST}</span>`;
 };
 
 activityMultipier = _ => {
@@ -269,11 +284,11 @@ activityMultipier = _ => {
 		results.dailykcal = results.bmr * 1.9;
 	}
 	results.dailykcal = Number(results.dailykcal.toFixed(0));
-	document.getElementById("intake").innerHTML = `${results.dailykcal}<span style='font-size: 15px; color: white'>${kcalST}</span>`;
+	S("#intake").innerHTML = `${results.dailykcal}<span style='font-size: 15px; color: white'>${kcalST}</span>`;
 };
 
 bmrmethod = _ => {
-	if (document.getElementById("bmrmethod").value === "harris") {
+	if (S("#bmrmethod").value === "harris") {
 		HarrisBenedictBMR();
 		activityMultipier();
 	} else {
@@ -285,7 +300,7 @@ bmrmethod = _ => {
 whtr = _ => {
 	results.whtr = user.waist / user.height;
 	results.whtr = Number(results.whtr.toFixed(2));
-	document.getElementById("whtr").innerHTML = results.whtr;
+	S("#whtr").innerHTML = results.whtr;
 	whtrRange();
 };
 let whtrRangeST = [
@@ -308,83 +323,83 @@ whtrRange = _ => {
 		case "male":
 			if (results.whtr <= 0.34 && user.age >= 20) {
 				results.whtrRange = whtrRangeST[0];
-				document.getElementById("whtrRange").style.color = "#dc2900";
-				document.getElementById("whtrGoal").innerHTML = whtrGoal[0];
+				S("#whtrRange").style.color = "#dc2900";
+				S("#whtrGoal").innerHTML = whtrGoal[0];
 			} else if (results.whtr > 0.35 && 0.42 > results.whtr && user.age >= 20) {
 				results.whtrRange = whtrRangeST[1];
-				document.getElementById("whtrRange").style.color = "#d0a50b";
-				document.getElementById("whtrGoal").innerHTML = whtrGoal[1];
+				S("#whtrRange").style.color = "#d0a50b";
+				S("#whtrGoal").innerHTML = whtrGoal[1];
 			} else if (results.whtr > 0.43 && 0.52 > results.whtr && user.age >= 20) {
 				results.whtrRange = whtrRangeST[2];
-				document.getElementById("whtrRange").style.color = "#40ff45";
-				document.getElementById("whtrGoal").innerHTML = whtrGoal[2];
+				S("#whtrRange").style.color = "#40ff45";
+				S("#whtrGoal").innerHTML = whtrGoal[2];
 			} else if (results.whtr > 0.53 && 0.57 > results.whtr && user.age >= 20) {
 				results.whtrRange = whtrRangeST[3];
-				document.getElementById("whtrRange").style.color = "#d0a50b";
-				document.getElementById("whtrGoal").innerHTML = whtrGoal[3];
+				S("#whtrRange").style.color = "#d0a50b";
+				S("#whtrGoal").innerHTML = whtrGoal[3];
 			} else if (results.whtr > 0.58 && 0.62 > results.whtr && user.age >= 20) {
 				results.whtrRange = whtrRangeST[4];
-				document.getElementById("whtrRange").style.color = "#dc2900";
-				document.getElementById("whtrGoal").innerHTML = whtrGoal[3];
+				S("#whtrRange").style.color = "#dc2900";
+				S("#whtrGoal").innerHTML = whtrGoal[3];
 			} else if (results.whtr >= 0.63 && user.age >= 20) {
 				results.whtrRange = whtrRangeST[5];
-				document.getElementById("whtrGoal").innerHTML = whtrGoal[4];
-				document.getElementById("whtrRange").style.color = "#dc2900";
+				S("#whtrGoal").innerHTML = whtrGoal[4];
+				S("#whtrRange").style.color = "#dc2900";
 			}
 			break;
 
 		case "female":
 			if (results.whtr <= 0.34 && user.age >= 20) {
 				results.whtrRange = whtrRangeST[0];
-				document.getElementById("whtrRange").style.color = "#dc2900";
-				document.getElementById("whtrGoal").innerHTML = whtrGoal[0];
+				S("#whtrRange").style.color = "#dc2900";
+				S("#whtrGoal").innerHTML = whtrGoal[0];
 			} else if (results.whtr > 0.35 && 0.41 > results.whtr && user.age >= 20) {
 				results.whtrRange = whtrRangeST[1];
-				document.getElementById("whtrRange").style.color = "#d0a50b";
-				document.getElementById("whtrGoal").innerHTML = whtrGoal[1];
+				S("#whtrRange").style.color = "#d0a50b";
+				S("#whtrGoal").innerHTML = whtrGoal[1];
 			} else if (results.whtr > 0.42 && 0.48 > results.whtr && user.age >= 20) {
 				results.whtrRange = whtrRangeST[2];
-				document.getElementById("whtrRange").style.color = "#40ff45";
-				document.getElementById("whtrGoal").innerHTML = whtrGoal[2];
+				S("#whtrRange").style.color = "#40ff45";
+				S("#whtrGoal").innerHTML = whtrGoal[2];
 			} else if (results.whtr > 0.49 && 0.53 > results.whtr && user.age >= 20) {
 				results.whtrRange = whtrRangeST[3];
-				document.getElementById("whtrRange").style.color = "#d0a50b";
-				document.getElementById("whtrGoal").innerHTML = whtrGoal[3];
+				S("#whtrRange").style.color = "#d0a50b";
+				S("#whtrGoal").innerHTML = whtrGoal[3];
 			} else if (results.whtr > 0.54 && 0.57 > results.whtr && user.age >= 20) {
 				results.whtrRange = whtrRangeST[4];
-				document.getElementById("whtrRange").style.color = "#dc2900";
-				document.getElementById("whtrGoal").innerHTML = whtrGoal[4];
+				S("#whtrRange").style.color = "#dc2900";
+				S("#whtrGoal").innerHTML = whtrGoal[4];
 			} else if (results.whtr >= 0.58 && user.age >= 20) {
 				results.whtrRange = whtrRangeST[5];
-				document.getElementById("whtrGoal").innerHTML = whtrGoal[4];
-				document.getElementById("whtrRange").style.color = "#dc2900";
+				S("#whtrGoal").innerHTML = whtrGoal[4];
+				S("#whtrRange").style.color = "#dc2900";
 			}
 			break;
 	}
 
 	if (results.whtr <= 0.34 && user.age < 20) {
-		results.whtrRange = "Extremely Slim";
-		document.getElementById("whtrRange").style.color = "#dc2900";
-		document.getElementById("whtrGoal").innerHTML = "You Should Gain Weight";
+		results.whtrRange = whtrRangeST[0];
+		S("#whtrRange").style.color = "#dc2900";
+		S("#whtrGoal").innerHTML = whtrGoal[0];
 	} else if (results.whtr > 0.35 && 0.45 > results.whtr && user.age < 20) {
-		results.whtrRange = "Slim";
-		document.getElementById("whtrRange").style.color = "#d0a50b";
-		document.getElementById("whtrGoal").innerHTML = "You Should Gain Some Weight";
+		results.whtrRange = whtrRangeST[1];
+		S("#whtrRange").style.color = "#d0a50b";
+		S("#whtrGoal").innerHTML = whtrGoal[1];
 	} else if (results.whtr > 0.46 && 0.51 > results.whtr && user.age < 20) {
-		results.whtrRange = "Healthy";
-		document.getElementById("whtrRange").style.color = "#40ff45";
-		document.getElementById("whtrGoal").innerHTML = "You Should Sustain Your Weight";
+		results.whtrRange = whtrRangeST[2];
+		S("#whtrRange").style.color = "#40ff45";
+		S("#whtrGoal").innerHTML = whtrGoal[2];
 	} else if (results.whtr > 0.52 && 0.63 > results.whtr && user.age < 20) {
-		results.whtrRange = "Overweight";
-		document.getElementById("whtrRange").style.color = "#d0a50b";
-		document.getElementById("whtrGoal").innerHTML = "You Should Lose Some Weight";
+		results.whtrRange = whtrRangeST[3];
+		S("#whtrRange").style.color = "#d0a50b";
+		S("#whtrGoal").innerHTML = whtrGoal[3];
 	} else if (results.whtr >= 0.64 && user.age < 20) {
-		results.whtrRange = "Obese";
-		document.getElementById("whtrRange").style.color = "#dc2900";
-		document.getElementById("whtrGoal").innerHTML = "You Should Lose Weight";
+		results.whtrRange = whtrRangeST[5];
+		S("#whtrRange").style.color = "#dc2900";
+		S("#whtrGoal").innerHTML = whtrGoal[4];
 	}
 
-	document.getElementById("whtrRange").innerHTML = results.whtrRange;
+	S("#whtrRange").innerHTML = results.whtrRange;
 };
 let kiloST = " Kilograms"
 let poundST = " Pounds"
@@ -396,14 +411,14 @@ ibwBroca = _ => {
 				results.ibw = user.height - 100;
 				results.ibw = results.ibw - (results.ibw / 100 * 10);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height * 2.54;
 				results.ibw = results.ibw - 100;
 				results.ibw = results.ibw - (results.ibw / 100 * 10);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 
@@ -412,14 +427,14 @@ ibwBroca = _ => {
 				results.ibw = user.height - 100;
 				results.ibw = results.ibw + (results.ibw / 100 * 15);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height * 2.54;
 				results.ibw = results.ibw - 100;
 				results.ibw = results.ibw + (results.ibw / 100 * 15);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
@@ -434,13 +449,13 @@ ibwDevine = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 50 + (results.ibw * 2.3);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 50 + (results.ibw * 2.3);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 
@@ -450,13 +465,13 @@ ibwDevine = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 45.5 + (results.ibw * 2.3);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 45.5 + (results.ibw * 2.3);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
@@ -471,13 +486,13 @@ ibwRobinson = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 52 + (results.ibw * 1.9);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 52 + (results.ibw * 1.9);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 
@@ -487,13 +502,13 @@ ibwRobinson = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 49 + (results.ibw * 1.7);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 49 + (results.ibw * 1.7);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
@@ -508,13 +523,13 @@ ibwMillier = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 56.2 + (results.ibw * 1.41);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 56.2 + (results.ibw * 1.41);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 
@@ -524,13 +539,13 @@ ibwMillier = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 53.1 + (results.ibw * 1.36);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 53.1 + (results.ibw * 1.36);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
@@ -545,13 +560,13 @@ ibwHamwi = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 48 + (results.ibw * 2.7);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 48 + (results.ibw * 2.7);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 
@@ -561,13 +576,13 @@ ibwHamwi = _ => {
 				results.ibw = results.ibw - 60;
 				results.ibw = 45.5 + (results.ibw * 2.2);
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 45.5 + (results.ibw * 2.2);
 				results.ibw = results.ibw * 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
-				document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
@@ -578,18 +593,18 @@ ibwLemmens = _ => {
 	if (user.system === "metric") {
 		results.ibw = 22 * Math.pow(user.height / 100, 2);
 		results.ibw = Number(results.ibw.toFixed(1));
-		document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+		S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 	} else if (user.system === "imperial") {
 		results.ibw = user.height / 39.37;
 		results.ibw = 22 * Math.pow(results.ibw, 2);
 		results.ibw = results.ibw * 2.205;
 		results.ibw = Number(results.ibw.toFixed(1));
-		document.getElementById("ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+		S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 	}
 };
 
 ibwmethod = _ => {
-	const formula = document.getElementById("ibwmethod").value;
+	const formula = S("#ibwmethod").value;
 	if (formula === "borca") {
 		ibwBroca();
 	} else if (formula === "davine") {
@@ -618,7 +633,7 @@ BFPbmi = _ => {
 			results.bfp = Number(results.bfp.toFixed(1));
 			break;
 	}
-	document.getElementById("bfpbmi").innerHTML = `${results.bfp}<span style='font-size: 18px; color: white'> %</span>`;
+	S("#bfpbmi").innerHTML = `${results.bfp}<span style='font-size: 18px; color: white'> %</span>`;
 };
 
 BFPnavy = _ => {
@@ -635,8 +650,8 @@ BFPnavy = _ => {
 				results.bfpLM = user.weight - results.bfpFM;
 				results.bfpLM = Number(results.bfpLM.toFixed(1));
 
-				document.getElementById("bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
-				document.getElementById("bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				S("#bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				S("#bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 
 			} else if (user.gender === "female") {
 				results.bfp = 495 / (1.29579 - 0.35004 * Math.log10(user.waist + user.hip - user.neck) + 0.22100 * Math.log10(user.height)) - 450;
@@ -648,8 +663,8 @@ BFPnavy = _ => {
 				results.bfpLM = user.weight - results.bfpFM;
 				results.bfpLM = Number(results.bfpLM.toFixed(1));
 
-				document.getElementById("bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
-				document.getElementById("bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				S("#bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
+				S("#bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 
 			}
 			break;
@@ -665,8 +680,8 @@ BFPnavy = _ => {
 				results.bfpLM = user.weight - results.bfpFM;
 				results.bfpLM = Number(results.bfpLM.toFixed(1));
 
-				document.getElementById("bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
-				document.getElementById("bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				S("#bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				S("#bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 
 			} else if (user.gender === "female") {
 				results.bfp = 163.205 * Math.log10(user.waist + user.hip - user.neck) - 97.684 * Math.log10(user.height) - 78.387;
@@ -678,12 +693,12 @@ BFPnavy = _ => {
 				results.bfpLM = user.weight - results.bfpFM;
 				results.bfpLM = Number(results.bfpLM.toFixed(1));
 
-				document.getElementById("bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
-				document.getElementById("bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				S("#bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
+				S("#bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
-	document.getElementById("bfp").innerHTML = `${results.bfp}<span style='font-size: 18px; color: white'> %</span>`;
+	S("#bfp").innerHTML = `${results.bfp}<span style='font-size: 18px; color: white'> %</span>`;
 	bfprange();
 	BFPbmi();
 };
@@ -729,7 +744,7 @@ bfprange = _ => {
 			}
 			break;
 	}
-	document.getElementById("bfpRange").innerHTML = results.bfprange;
+	S("#bfpRange").innerHTML = results.bfprange;
 };
 
 lbmBoer = _ => {
@@ -746,7 +761,7 @@ lbmBoer = _ => {
 
 			results.lbmP = (results.lbm * 100) / user.weight;
 			results.lbmP = Number(results.lbmP.toFixed(1));
-			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${kiloST}</span>`;
+			S("#lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${kiloST}</span>`;
 			break;
 
 		case "imperial":
@@ -764,13 +779,13 @@ lbmBoer = _ => {
 			}
 			results.lbmP = (results.lbm * 100) / user.weight;
 			results.lbmP = Number(results.lbmP.toFixed(1));
-			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${poundST}</span>`;
+			S("#lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${poundST}</span>`;
 			break;
 	}
 	results.lbmF = 100 - results.lbmP;
 	results.lbmF = Number(results.lbmF.toFixed(1));
-	document.getElementById("lbmP").innerHTML = `${results.lbmP}<span style='font-size: 18px; color: white'> %</span>`;
-	document.getElementById("lbmF").innerHTML = `${results.lbmF}<span style='font-size: 18px; color: white'> %</span>`;
+	S("#lbmP").innerHTML = `${results.lbmP}<span style='font-size: 18px; color: white'> %</span>`;
+	S("#lbmF").innerHTML = `${results.lbmF}<span style='font-size: 18px; color: white'> %</span>`;
 };
 
 lbmJames = _ => {
@@ -787,7 +802,7 @@ lbmJames = _ => {
 
 			results.lbmP = (results.lbm * 100) / user.weight;
 			results.lbmP = Number(results.lbmP.toFixed(1));
-			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${kiloST}</span>`;
+			S("#lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${kiloST}</span>`;
 			break;
 
 		case "imperial":
@@ -806,13 +821,13 @@ lbmJames = _ => {
 
 			results.lbmP = (results.lbm * 100) / user.weight;
 			results.lbmP = Number(results.lbmP.toFixed(1));
-			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${poundST}</span>`;
+			S("#lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${poundST}</span>`;
 			break;
 	}
 	results.lbmF = 100 - results.lbmP;
 	results.lbmF = Number(results.lbmF.toFixed(1));
-	document.getElementById("lbmP").innerHTML = `${results.lbmP}<span style='font-size: 18px; color: white'> %</span>`;
-	document.getElementById("lbmF").innerHTML = `${results.lbmF}<span style='font-size: 18px; color: white'> %</span>`;
+	S("#lbmP").innerHTML = `${results.lbmP}<span style='font-size: 18px; color: white'> %</span>`;
+	S("#lbmF").innerHTML = `${results.lbmF}<span style='font-size: 18px; color: white'> %</span>`;
 };
 
 lbmHume = _ => {
@@ -829,7 +844,7 @@ lbmHume = _ => {
 
 			results.lbmP = (results.lbm * 100) / user.weight;
 			results.lbmP = Number(results.lbmP.toFixed(1));
-			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${kiloST}</span>`;
+			S("#lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${kiloST}</span>`;
 			break;
 
 		case "imperial":
@@ -847,17 +862,17 @@ lbmHume = _ => {
 			}
 			results.lbmP = (results.lbm * 100) / user.weight;
 			results.lbmP = Number(results.lbmP.toFixed(1));
-			document.getElementById("lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${poundST}</span>`;
+			S("#lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${poundST}</span>`;
 			break;
 	}
 	results.lbmF = 100 - results.lbmP;
 	results.lbmF = Number(results.lbmF.toFixed(1));
-	document.getElementById("lbmP").innerHTML = `${results.lbmP}<span style='font-size: 18px; color: white'> %</span>`;
-	document.getElementById("lbmF").innerHTML = `${results.lbmF}<span style='font-size: 18px; color: white'> %</span>`;
+	S("#lbmP").innerHTML = `${results.lbmP}<span style='font-size: 18px; color: white'> %</span>`;
+	S("#lbmF").innerHTML = `${results.lbmF}<span style='font-size: 18px; color: white'> %</span>`;
 };
 
 lbmmethod = _ => {
-	const formula = document.getElementById("lbmmethod").value;
+	const formula = S("#lbmmethod").value;
 	if (formula === "Boer") {
 		lbmBoer();
 	} else if (formula === "James") {
@@ -887,7 +902,7 @@ tbw = _ => {
 			break;
 	}
 	results.tbw = Number(results.tbw.toFixed(1));
-	document.getElementById("tbw").innerHTML = `${results.tbw}<span style='font-size: 18px; color: white'>${tbwST}</span>`;
+	S("#tbw").innerHTML = `${results.tbw}<span style='font-size: 18px; color: white'>${tbwST}</span>`;
 };
 
 topage1 = _ => {
@@ -899,11 +914,11 @@ topage1 = _ => {
 };
 
 topage2 = _ => {
-	const age = document.getElementById("age").value;
-	const weight = document.getElementById("weight").value;
-	const height = document.getElementById("height").value;
-	const gender = document.getElementById("mgender").checked;
-	const selectsys = document.getElementById("metric").checked;
+	const age = S("#age").value;
+	const weight = S("#weight").value;
+	const height = S("#height").value;
+	const gender = S("#mgender").checked;
+	const selectsys = S("#metric").checked;
 
 	user.gender = gender === true ? "male" : "female";
 	user.system = selectsys === true ? "metric" : "imperial";
@@ -914,11 +929,11 @@ topage2 = _ => {
 	switch (user.system) {
 		case "metric":
 			if (age < 18 || age > 120) {
-				$("#agealert").slideToggle(100);
+				toggle("#agealert", 0.1);
 			} else if (weight < 20 || weight > 250) {
-				$("#weightalert").slideToggle(100);
+				toggle("#weightalert" , 0.1);
 			} else if (height < 91 || height > 360) {
-				$("#heightalert").slideToggle(100);
+				toggle("#heightalert", 0.1);
 			} else {
 				$("#page2").fadeIn(250).css("display", "block");
 				$("#page1").fadeOut(250).css("display", "none");
@@ -929,11 +944,11 @@ topage2 = _ => {
 
 		case "imperial":
 			if (age < 18 || age > 120) {
-				$("#agealert").slideToggle(100);
+				toggle("#agealert" , 0.1);
 			} else if (weight < 45 || weight > 560) {
-				$("#weightalert").slideToggle(100);
+				toggle("#weightalert" , 0.1);
 			} else if (height < 47 || height > 155) {
-				$("#heightalert").slideToggle(100);
+				toggle("#heightalert" , 0.1);
 			} else {
 				$("#page2").fadeIn(250).css("display", "block");
 				$("#page1").fadeOut(250).css("display", "none");
@@ -946,9 +961,9 @@ topage2 = _ => {
 
 topage3 = _ => {
 
-	const neck = document.getElementById("neck").value;
-	const waist = document.getElementById("waist").value;
-	const hip = document.getElementById("hip").value;
+	const neck = S("#neck").value;
+	const waist = S("#waist").value;
+	const hip = S("#hip").value;
 	user.neck = Number(neck);
 	user.waist = Number(waist);
 	user.hip = Number(hip);
@@ -956,11 +971,11 @@ topage3 = _ => {
 	switch (user.system) {
 		case "metric":
 			if (neck < 25 || neck > 245) {
-				$("#neckalert").slideToggle(100);
+				toggle("#neckalert" , 0.1);
 			} else if (waist < 56 || waist > 250) {
-				$("#waistalert").slideToggle(100);
+				toggle("#waistalert" , 0.1);
 			} else if (hip < 64 || hip > 250) {
-				$("#hipalert").slideToggle(100);
+				toggle("#hipalert" , 0.1);
 			} else {
 				$("#page3").fadeIn(250).css("display", "block");
 				$("#page2").fadeOut(250).css("display", "none");
@@ -968,11 +983,11 @@ topage3 = _ => {
 			break;
 		case "imperial":
 			if (neck < 10 || neck > 100) {
-				$("#neckalert").slideToggle(100);
+				toggle("#neckalert" , 0.1);
 			} else if (waist < 22 || waist > 100) {
-				$("#waistalert").slideToggle(100);
+				toggle("#waistalert" , 0.1);
 			} else if (hip < 25 || hip > 100) {
-				$("#hipalert").slideToggle(100);
+				toggle("#hipalert" , 0.1);
 			} else {
 				$("#page3").fadeIn(250).css("display", "block");
 				$("#page2").fadeOut(250).css("display", "none");
@@ -988,11 +1003,11 @@ topage4 = _ => {
 	$("#page3").fadeOut(250).css("display", "none");
 	$("#profile").fadeOut(250).css("display", "none");
 
-	const sedentary = document.getElementById("sedentary");
-	const light = document.getElementById("light");
-	const moderate = document.getElementById("moderate");
-	const very = document.getElementById("very");
-	const extra = document.getElementById("extra");
+	const sedentary = S("#sedentary");
+	const light = S("#light");
+	const moderate = S("#moderate");
+	const very = S("#very");
+	const extra = S("#extra");
 
 	if (sedentary.checked === true) {
 		user.activity = "sedentary";
@@ -1013,12 +1028,12 @@ topage4 = _ => {
 		ibwBroca();
 		lbmBoer();
 		tbw();
-		document.getElementById("card3").style.display = "none";
-		document.getElementById("card5").style.display = "none";
+		S("#card3").style.display = "none";
+		S("#card5").style.display = "none";
 
 	} else {
-		document.getElementById("card3").style.display = "block";
-		document.getElementById("card5").style.display = "block";
+		S("#card3").style.display = "block";
+		S("#card5").style.display = "block";
 		bmi();
 		HarrisBenedictBMR();
 		activityMultipier();
@@ -1036,16 +1051,16 @@ topage4 = _ => {
 skip = _ => {
 	$("#page3").fadeIn(250).css("display", "block");
 	$("#page2").fadeOut(250).css("display", "none");
-	$("#skippop").toggle(100);
+	toggle("#skippop" , 0.1);
 	user.skipping = true;
 };
 
 toback = _ => {
-	if (document.getElementById("page2").style.display === "block") {
+	if (S("#page2").style.display === "block") {
 		$("#page1").fadeIn(250).css("display", "block");
 		$("#page2").fadeOut(250).css("display", "none");
 		$("#back").fadeOut(250).css("display", "none");
-	} else if (document.getElementById("page3").style.display === "block") {
+	} else if (S("#page3").style.display === "block") {
 		$("#page2").fadeIn(250).css("display", "block");
 		$("#page3").fadeOut(250).css("display", "none");
 	}
@@ -1058,11 +1073,11 @@ let metricStrings = [
 	"Your Hip Size In Centimeters"
 ]
 metricSystem = _ => {
-	document.getElementById("weight").placeholder = metricStrings[0];
-	document.getElementById("height").placeholder = metricStrings[1];
-	document.getElementById("neck").placeholder = metricStrings[2];
-	document.getElementById("waist").placeholder = metricStrings[3];
-	document.getElementById("hip").placeholder = metricStrings[4];
+	S("#weight").placeholder = metricStrings[0];
+	S("#height").placeholder = metricStrings[1];
+	S("#neck").placeholder = metricStrings[2];
+	S("#waist").placeholder = metricStrings[3];
+	S("#hip").placeholder = metricStrings[4];
 };
 let imperialStrings = [
 	"Your Weight In Pounds",
@@ -1072,62 +1087,62 @@ let imperialStrings = [
 	"Your Hip Size In Inches",
 ]
 imperialSystem = _ => {
-	document.getElementById("weight").placeholder = imperialStrings[0];
-	document.getElementById("height").placeholder = imperialStrings[1];
-	document.getElementById("neck").placeholder = imperialStrings[2];
-	document.getElementById("waist").placeholder = imperialStrings[3];
-	document.getElementById("hip").placeholder = imperialStrings[4]
+	S("#weight").placeholder = imperialStrings[0];
+	S("#height").placeholder = imperialStrings[1];
+	S("#neck").placeholder = imperialStrings[2];
+	S("#waist").placeholder = imperialStrings[3];
+	S("#hip").placeholder = imperialStrings[4]
 };
 
-addToHomePop = _ => $("#addToHomePop").slideToggle(100);
-bmipop = _ => $("#bmipop").slideToggle(100);
-bmrpop = _ => $("#bmrpop").slideToggle(100);
-whtrpop = _ => $("#whtrpop").slideToggle(100);
-ibwpop = _ => $("#ibwpop").slideToggle(100);
-bfppop = _ => $("#bfppop").slideToggle(100);
-lbmpop = _ => $("#lbmpop").slideToggle(100);
-tbwpop = _ => $("#tbwpop").slideToggle(100);
-neckpop = _ => $("#neckpop").slideToggle(100);
-waistpop = _ => $("#waistpop").slideToggle(100);
-hippop = _ => $("#hippop").slideToggle(100);
-agealert = _ => $("#agealert").slideToggle(100);
-weightalert = _ => $("#weightalert").slideToggle(100);
-heightalert = _ => $("#heightalert").slideToggle(100);
-neckalert = _ => $("#neckalert").slideToggle(100);
-waistalert = _ => $("#waistalert").slideToggle(100);
-hipalert = _ => $("#hipalert").slideToggle(100);
-skippop = _ => $("#skippop").slideToggle(100);
+addToHomePop = _ => toggle("#addToHomePop", 0.1);
+bmipop = _ => toggle("#bmipop", 0.1);
+bmrpop = _ => toggle("#bmrpop", 0.1);
+whtrpop = _ => toggle("#whtrpop", 0.1);
+ibwpop = _ => toggle("#ibwpop", 0.1);
+bfppop = _ => toggle("#bfppop", 0.1);
+lbmpop = _ => toggle("#lbmpop", 0.1);
+tbwpop = _ => toggle("#tbwpop", 0.1);
+neckpop = _ => toggle("#neckpop", 0.1);
+waistpop = _ => toggle("#waistpop", 0.1);
+hippop = _ => toggle("#hippop", 0.1);
+agealert = _ => toggle("#agealert", 0.1);
+weightalert = _ => toggle("#weightalert", 0.1);
+heightalert = _ => toggle("#heightalert", 0.1);
+neckalert = _ => toggle("#neckalert", 0.1);
+waistalert = _ => toggle("#waistalert", 0.1);
+hipalert = _ => toggle("#hipalert", 0.1);
+skippop = _ => toggle("#skippop", 0.1);
 changeLan = _ => {
 	const font = isMobile() ? "'Tajawal', sans-serif" : "Arial, Helvetica, sans-serif"
-	$(body).css("font-family", font)
-	$("button").css("font-family", font)
+	document.body.style.fontFamily = font
+	S("button").css("fontFamily", font)
 	// Main Page
-	$(".calculator").text("حاسبة مقاييس الجسم")
-	$("#addToHomePop > h3").text("هل تريد تثبيت التطبيق مجاناً")
-	$("#addToHomebutt").text("تثبيت")
-	$(".notnow").text("ليس الآن")
-	$(".topage").text("التالي")
-	setTimeout ( _ => {
-		$(".firebaseui-idp-google > .firebaseui-idp-text-long").text("تسجيل الدخول عن طريق جوجل")
-		$(".firebaseui-idp-google > .firebaseui-idp-text-short").text("جوجل")
-		$(".firebaseui-idp-facebook > .firebaseui-idp-text-long").text("تسجيل الدخول عن طريق فيسبوك")
-		$(".firebaseui-idp-facebook > .firebaseui-idp-text-short").text("فيسبوك")
-		$(".firebaseui-idp-password > .firebaseui-idp-text-long").text("تسجيل الدخول عن طريق الإيميل")
-		$(".firebaseui-idp-password > .firebaseui-idp-text-short").text("إيميل")
-		$(".firebaseui-idp-text").css("font-family", font).css("text-align", "right").css("padding-right", "16px").css("padding-left", "0")
-		$(".firebaseui-idp-button").css("max-width", "300px").css("direction", "rtl")
-	} ,300) 
+	S(".calculator").innerHTML = "حاسبة مقاييس الجسم"
+	S("#addToHomePop > h3").innerHTML = "هل تريد تثبيت التطبيق مجاناً"
+	S("#addToHomebutt").innerHTML = "تثبيت"
+	S(".notnow").innerHTML = "ليس الآن"
+	S(".topage").innerHTML = "التالي"
+	setTimeout(_ => {
+		S(".firebaseui-idp-google > .firebaseui-idp-text-long").innerHTML = "تسجيل الدخول عن طريق جوجل"
+		S(".firebaseui-idp-google > .firebaseui-idp-text-short").innerHTML = "جوجل"
+		S(".firebaseui-idp-facebook > .firebaseui-idp-text-long").innerHTML = "تسجيل الدخول عن طريق فيسبوك"
+		S(".firebaseui-idp-facebook > .firebaseui-idp-text-short").innerHTML = "فيسبوك"
+		S(".firebaseui-idp-password > .firebaseui-idp-text-long").innerHTML = "تسجيل الدخول عن طريق الإيميل"
+		S(".firebaseui-idp-password > .firebaseui-idp-text-short").innerHTML = "إيميل"
+		S(".firebaseui-idp-text").css("fontFamily", font).css("textAlign", "right").css("paddingRight", "16px").css("paddingLeft", "0")
+		S(".firebaseui-idp-button").css("maxWidth", "300px").css("direction", "rtl")
+	}, 400)
 	// Page1
-	$(".ipg > h3:nth-child(1)").text("اختر نظام القياس")
-	$(".ipg > h3:nth-child(6)").text("اختر الجنس")
-	$(".ipg > label:nth-child(2)").html(`متري<input id = "metric" type = "radio" name = "system" checked = "checked" ><span class="checkmark"></span>`)
-	$(".ipg > label:nth-child(3)").html(`إنجليزي<input id="imperial" type="radio" name="system"><span class="checkmark"></span>`)
-	$(".ipg > label:nth-child(7)").html(`ذكر<input id="mgender" type="radio" name="gender" checked="checked"><span class="checkmark"></span>`)
-	$(".ipg > label:nth-child(8)").html(`انثى<input id="fgender" type="radio" name="gender"><span class="checkmark"></span>`)
-	$(".ipg3 > h2:nth-child(1)").text("العمر")
-	$(".ipg3 > h2:nth-child(5)").text("الوزن")
-	$(".ipg3 > h2:nth-child(9)").text("الطول")
-	$("#page1 h2").css("text-align", "right")
+	S(".ipg > h3:nth-child(1)").innerHTML = "اختر نظام القياس"
+	S(".ipg > h3:nth-child(6)").innerHTML = "اختر الجنس"
+	S(".ipg > label:nth-child(2)").innerHTML = `متري<input id = "metric" type = "radio" name = "system" checked = "checked" ><span class="checkmark"></span>`
+	S(".ipg > label:nth-child(3)").innerHTML = `إنجليزي<input id="imperial" type="radio" name="system"><span class="checkmark"></span>`
+	S(".ipg > label:nth-child(7)").innerHTML = `ذكر<input id="mgender" type="radio" name="gender" checked="checked"><span class="checkmark"></span>`
+	S(".ipg > label:nth-child(8)").innerHTML = `انثى<input id="fgender" type="radio" name="gender"><span class="checkmark"></span>`
+	S(".ipg3 > h2:nth-child(1)").innerHTML = "العمر"
+	S(".ipg3 > h2:nth-child(5)").innerHTML = "الوزن"
+	S(".ipg3 > h2:nth-child(9)").innerHTML = "الطول"
+	S("#page1 h2").css("textAlign", "right")
 	metricStrings = [
 		"وزنك بالكيلوغرام",
 		"طولك بالسنتيمتر",
@@ -1142,135 +1157,135 @@ changeLan = _ => {
 		"محيط خصرك بالإنش",
 		"محيط وركك بالإنش",
 	]
-	$('input').css("direction", "rtl")
-	document.getElementById("age").placeholder = "عمرك";
-	document.getElementById("weight").placeholder = metricStrings[0];
-	document.getElementById("height").placeholder = metricStrings[1];
+	S('input').css("direction", "rtl")
+	S("#age").placeholder = "عمرك";
+	S("#weight").placeholder = metricStrings[0];
+	S("#height").placeholder = metricStrings[1];
 	// Page2
-	document.getElementById("neck").placeholder = metricStrings[2];
-	document.getElementById("waist").placeholder = metricStrings[3];
-	document.getElementById("hip").placeholder = metricStrings[4];
-	$("#page2 > h1:nth-child(2)").text("لمزيد من النتائج الدقيقة")
-	$(".ipg6 > h2:nth-child(4)").text("محيط الرقبة")
-	$(".ipg6 > h2:nth-child(8)").text("محيط الخصر")
-	$(".ipg6 > h2:nth-child(12)").text("محيط الورك")
-	$("#page2 h2").css("text-align", "right")
-	$("#necktip").css("left", "7px")
-	$("#waisttip").css("left", "7px")
-	$("#hiptip").css("left", "7px")
-	$(".skip").text("تخطي")
+	S("#neck").placeholder = metricStrings[2];
+	S("#waist").placeholder = metricStrings[3];
+	S("#hip").placeholder = metricStrings[4];
+	S("#page2 > h1:nth-child(2)").innerHTML = "لمزيد من النتائج الدقيقة"
+	S(".ipg6 > h2:nth-child(4)").innerHTML = "محيط الرقبة"
+	S(".ipg6 > h2:nth-child(8)").innerHTML = "محيط الخصر"
+	S(".ipg6 > h2:nth-child(12)").innerHTML = "محيط الورك"
+	S("#page2 h2").css("textAlign", "right")
+	S("#necktip").style.left = "7px"
+	S("#waisttip").style.left = "7px"
+	S("#hiptip").style.left = "7px"
+	S(".skip").innerHTML = "تخطي"
 	// popUps
 	// Page1 PopUps
-	$("#agealert > h3").text("تحذير")
-	$("#agealert > p").text("الرجاء إدخال عمر فوق سن 18")
-	$("#agealert > button").text("حسناً")
-	$("#weightalert > h3").text("تحذير")
-	$("#weightalert > p").text("الرجاء إدخال الوزن بشكل صحيح")
-	$("#weightalert > button").text("حسناً")
-	$("#heightalert > h3").text("تحذير")
-	$("#heightalert > p").text("الرجاء إدخال الطول بشكل صحيح")
-	$("#heightalert > button").text("حسناً")
+	S("#agealert > h3").innerHTML = "تحذير"
+	S("#agealert > p").innerHTML = "الرجاء إدخال عمر فوق سن 18"
+	S("#agealert > button").innerHTML = "حسناً"
+	S("#weightalert > h3").innerHTML = "تحذير"
+	S("#weightalert > p").innerHTML = "الرجاء إدخال الوزن بشكل صحيح"
+	S("#weightalert > button").innerHTML = "حسناً"
+	S("#heightalert > h3").innerHTML = "تحذير"
+	S("#heightalert > p").innerHTML = "الرجاء إدخال الطول بشكل صحيح"
+	S("#heightalert > button").innerHTML = "حسناً"
 	// Page2 PopUps
-	$("#neckalert > h3").text("تحذير")
-	$("#neckalert > p").text("الرجاء إدخال محيط الرقبة بشكل صحيح")
-	$("#neckalert > button").text("حسناً")
+	S("#neckalert > h3").innerHTML = "تحذير"
+	S("#neckalert > p").innerHTML = "الرجاء إدخال محيط الرقبة بشكل صحيح"
+	S("#neckalert > button").innerHTML = "حسناً"
 
-	$("#waistalert > h3").text("تحذير")
-	$("#waistalert > p").text("الرجاء إدخال محيط الخصر بشكل صحيح")
-	$("#waistalert > button").text("حسناً")
+	S("#waistalert > h3").innerHTML = "تحذير"
+	S("#waistalert > p").innerHTML = "الرجاء إدخال محيط الخصر بشكل صحيح"
+	S("#waistalert > button").innerHTML = "حسناً"
 
-	$("#hipalert > h3").text("تحذير")
-	$("#hipalert > p").text("الرجاء إدخال محيط الورك بشكل صحيح")
-	$("#hipalert > button").text("حسناً")
+	S("#hipalert > h3").innerHTML = "تحذير"
+	S("#hipalert > p").innerHTML = "الرجاء إدخال محيط الورك بشكل صحيح"
+	S("#hipalert > button").innerHTML = "حسناً"
 
-	$("#neckpop > h3").text("قياس الرقبة")
-	$("#neckpop > h3").css("text-align", "right")
-	$("#neckpop > p").text(`لف شريط القياس حول الرقبة ، بدءً من إنش واحد تقريباً من مكان التقاء رقبتك بكتفيك. الذي قد يتوازى مع الجزء السفلي من الحنجرة. تأكد أن شريط القياس ليس مرخياً و أن الشريط مستوي وليس مائلاً.`)
-	$("#neckpop > p").css("text-align", "right")
-	$("#neckpop > p").css("direction", "rtl")
-	$("#neckpop > button").text("حسناً")
+	S("#neckpop > h3").innerHTML = "قياس الرقبة"
+	S("#neckpop > h3").style.textAlign = "right"
+	S("#neckpop > p").innerHTML = `لف شريط القياس حول الرقبة ، بدءً من إنش واحد تقريباً من مكان التقاء رقبتك بكتفيك. الذي قد يتوازى مع الجزء السفلي من الحنجرة. تأكد أن شريط القياس ليس مرخياً و أن الشريط مستوي وليس مائلاً.`
+	S("#neckpop > p").style.textAlign = "right"
+	S("#neckpop > p").style.direction = "rtl"
+	S("#neckpop > button").innerHTML = "حسناً"
 
-	$("#waistpop > h3").text("قياس الخصر")
-	$("#waistpop > h3").css("text-align", "right")
-	$("#waistpop > p").text(`ابدأ من الجزء العلوي من عظم الفخذ ، ثم لف شريط القياس حول  جسمك على مستوى زر البطن. تأكد من أن الشريط ليس ضيق جداً وأنه مستقيم في الخلف والأمام  وألا تحبس نفسك أثناء القياس. ثم تحقق من الرقم الموجود على شريط القياس مباشرة بعد الزفير.`)
-	$("#waistpop > p").css("text-align", "right")
-	$("#waistpop > p").css("direction", "rtl")
-	$("#waistpop > button").text("حسناً")
+	S("#waistpop > h3").innerHTML = "قياس الخصر"
+	S("#waistpop > h3").style.textAlign = "right"
+	S("#waistpop > p").innerHTML = `ابدأ من الجزء العلوي من عظم الفخذ ، ثم لف شريط القياس حول  جسمك على مستوى زر البطن. تأكد من أن الشريط ليس ضيق جداً وأنه مستقيم في الخلف والأمام  وألا تحبس نفسك أثناء القياس. ثم تحقق من الرقم الموجود على شريط القياس مباشرة بعد الزفير.`
+	S("#waistpop > p").style.textAlign = "right"
+	S("#waistpop > p").style.direction = "rtl"
+	S("#waistpop > button").innerHTML = "حسناً"
 
-	$("#hippop > h3").text("قياس الورك")
-	$("#hippop > h3").css("text-align", "right")
-	$("#hippop > p").text(`الخصر هو أضيق جزء من الجذع ، حيث ينحني الجسم عنده. الورك يكون تحت الخصر وعادة ما يكون أوسع من الخصر. قياس الورك يتضمن المؤخرة والفخذين حيث يؤخذ القياس من أوسع منطقة من الورك.`)
-	$("#hippop > p").css("text-align", "right")
-	$("#hippop > p").css("direction", "rtl")
-	$("#hippop > button").text("حسناً")
+	S("#hippop > h3").innerHTML = "قياس الورك"
+	S("#hippop > h3").style.textAlign = "right"
+	S("#hippop > p").innerHTML = `الخصر هو أضيق جزء من الجذع ، حيث ينحني الجسم عنده. الورك يكون تحت الخصر وعادة ما يكون أوسع من الخصر. قياس الورك يتضمن المؤخرة والفخذين حيث يؤخذ القياس من أوسع منطقة من الورك.`
+	S("#hippop > p").style.textAlign = "right"
+	S("#hippop > p").style.direction = "rtl"
+	S("#hippop > button").innerHTML = "حسناً"
 
-	$("#skippop > h3").text("هل أنت متأكد؟")
-	$("#skippop > h3").css("text-align", "right")
-	$("#skippop > p").text(`من خلال تخطي إدخال مقاييس الرقبة والخصر والورك لن تكون قادر على حساب نسبة الخصر إلى الطول (WtHR) ونسبة الدهون في الجسم (BFP).`)
-	$("#skippop > p").css("text-align", "right")
-	$("#skippop > p").css("direction", "rtl")
-	$("#cancel").css("left", "7px")
-	$("#skippop > button").text("تخطي")
+	S("#skippop > h3").innerHTML = "هل أنت متأكد؟"
+	S("#skippop > h3").style.textAlign = "right"
+	S("#skippop > p").innerHTML = `من خلال تخطي إدخال مقاييس الرقبة والخصر والورك لن تكون قادر على حساب نسبة الخصر إلى الطول (WtHR) ونسبة الدهون في الجسم (BFP).`
+	S("#skippop > p").style.textAlign = "right"
+	S("#skippop > p").style.direction = "rtl"
+	S("#cancel").style.left = "7px"
+	S("#skippop > button").innerHTML = "تخطي"
 	// Page4 PopUps
-	$("#bmipop > h3").text("مؤشر كتلة الجسم")
-	$("#bmipop > p").text(`يمكن لمؤشر كتلة الجسم إخبارك بالوزن الزائد ولكن لا يمكن أن يكون  معياراً دقيقاً لاخبارك بوزن الدهون الزائدة لأنه لا يميز الفرق بين الوزن الزائد للعضلات أو للدهون أو للعظام . على عكس الأطفال ،  مؤشر كتلة الجسم للبالغين لا يتأثر بالعمر أو الجنس أو الكتلة العضلية. الحمل يؤثر أيضاً على مؤشر كتلة الجسم لهذا السبب يجب استخدام الوزن ما قبل الحمل لحساب مؤشر كتلة الجسم.`)
-	$("#bmipop > p").css("direction", "rtl")
-	$("#bmipop > p").css("text-align", "right")
-	$("#bmipop > button").text("حسناً")
+	S("#bmipop > h3").innerHTML = "مؤشر كتلة الجسم"
+	S("#bmipop > p").innerHTML = `يمكن لمؤشر كتلة الجسم إخبارك بالوزن الزائد ولكن لا يمكن أن يكون  معياراً دقيقاً لاخبارك بوزن الدهون الزائدة لأنه لا يميز الفرق بين الوزن الزائد للعضلات أو للدهون أو للعظام . على عكس الأطفال ،  مؤشر كتلة الجسم للبالغين لا يتأثر بالعمر أو الجنس أو الكتلة العضلية. الحمل يؤثر أيضاً على مؤشر كتلة الجسم لهذا السبب يجب استخدام الوزن ما قبل الحمل لحساب مؤشر كتلة الجسم.`
+	S("#bmipop > p").style.direction = "rtl"
+	S("#bmipop > p").style.textAlign = "right"
+	S("#bmipop > button").innerHTML = "حسناً"
 
-	$("#bmrpop > h3").text("معدل الاستقلاب الأساسي")
-	$("#bmrpop > p").text(`معدل الأيض الأساسي أو معدل الاستقلاب الأساسي هو القيمة التي تستخدم لوصف الاستقلاب (الأيض) ، وهي قيمة الطاقة التي يتطلبها الجسم خلال يوم واحد لإعادة صيانة وظيفته في حين يكون الجسم في حالة راحة تامة وفي حال اليقظة صباحاً وفي حالة عدم نشاط عملية الهضم وتحت درجة الحرارة العادية للغرفة ( 28 درجة مئوية).`)
-	$("#bmrpop > p").css("direction", "rtl")
-	$("#bmrpop > p").css("text-align", "right")
-	$("#bmrpop > button").text("حسناً")
+	S("#bmrpop > h3").innerHTML = "معدل الاستقلاب الأساسي"
+	S("#bmrpop > p").innerHTML = `معدل الأيض الأساسي أو معدل الاستقلاب الأساسي هو القيمة التي تستخدم لوصف الاستقلاب (الأيض) ، وهي قيمة الطاقة التي يتطلبها الجسم خلال يوم واحد لإعادة صيانة وظيفته في حين يكون الجسم في حالة راحة تامة وفي حال اليقظة صباحاً وفي حالة عدم نشاط عملية الهضم وتحت درجة الحرارة العادية للغرفة ( 28 درجة مئوية).`
+	S("#bmrpop > p").style.direction = "rtl"
+	S("#bmrpop > p").style.textAlign = "right"
+	S("#bmrpop > button").innerHTML = "حسناً"
 
-	$("#whtrpop > h3").text("نسبة الخصر إلى الطول")
-	$("#whtrpop > p").text(`نسبة الخصر إلى الطول تشير بشكل فعال إلى خطر السمنة المركزي وخطر على القلب. نسبة الخصر إلى الطول هو مقياس لتوزع الدهون في الجسم. حيث تشير القيم العالية إلى زيادة خطر الإصابة بأمراض القلب والأوعية الدموية المرتبطة بالسمنة.`)
-	$("#whtrpop > p").css("direction", "rtl")
-	$("#whtrpop > p").css("text-align", "right")
-	$("#whtrpop > button").text("حسناً")
+	S("#whtrpop > h3").innerHTML = "نسبة الخصر إلى الطول"
+	S("#whtrpop > p").innerHTML = `نسبة الخصر إلى الطول تشير بشكل فعال إلى خطر السمنة المركزي وخطر على القلب. نسبة الخصر إلى الطول هو مقياس لتوزع الدهون في الجسم. حيث تشير القيم العالية إلى زيادة خطر الإصابة بأمراض القلب والأوعية الدموية المرتبطة بالسمنة.`
+	S("#whtrpop > p").style.direction = "rtl"
+	S("#whtrpop > p").style.textAlign = "right"
+	S("#whtrpop > button").innerHTML = "حسناً"
 
-	$("#ibwpop > h3").text("الوزن المثالي للجسم")
-	$("#ibwpop > p").text(`يشير IBW  إلى الوزن المثالي للجسم استنادًا إلى جنسك وطولك. يتم استخدام صيغ مختلفة لحساب IBW. يمكنك تغيير الصيغة من القائمة المنسدلة.`)
-	$("#ibwpop > p").css("direction", "rtl")
-	$("#ibwpop > p").css("text-align", "right")
-	$("#ibwpop > button").text("حسناً")
+	S("#ibwpop > h3").innerHTML = "الوزن المثالي للجسم"
+	S("#ibwpop > p").innerHTML = `يشير IBW  إلى الوزن المثالي للجسم استنادًا إلى جنسك وطولك. يتم استخدام صيغ مختلفة لحساب IBW. يمكنك تغيير الصيغة من القائمة المنسدلة.`
+	S("#ibwpop > p").style.direction = "rtl"
+	S("#ibwpop > p").style.textAlign = "right"
+	S("#ibwpop > button").innerHTML = "حسناً"
 
-	$("#bfppop > h3").text("نسبة دهون الجسم")
-	$("#bfppop > p").text(`من الناحية العلمية ، تعرف الدهون في الجسم باسم "الأنسجة الدهنية" ، والتي تشمل الدهون الأساسية   والدهون المخزنة في الجسم. الدهون الأساسية في الجسم هي المسؤولة عن الحفاظ على وظائف الحياة والتكاثر ، في حين أن الدهون المخزنة هي الدهون التي تتراكم في الأنسجة الدهنية. في حين أن بعض الدهون المخزنة مفيدة، إلا أن زيادة الدهون المخزنة يمكن أن تؤدي إلى آثار صحية خطيرة. يختلف معدل تراكم الدهون في الجسم من شخص لآخر ، وهذا يتوقف على العوامل الوراثية والسلوكية المختلفة ، بما في ذلك ممارسة الرياضة وتناول الطعام. بسبب اختلاف العوامل ، فقد يكون فقدان الدهون في الجسم أمراً صعباً بالنسبة لبعض الأشخاص. ومع ذلك ، يمكن لإدارة النظام الغذائي وممارسة الرياضة أن تساعد في الحد من الدهون. يختلف كل من الرجال والنساء في أماكن تخزين الدهون في الجسم. بعد سن الأربعين (أو بعد انقطاع الطمث عند النساء) ، يمكن أن يؤدي انخفاض الهرمونات الجنسية إلى زيادة الدهون في الجسم حول المعدة عند الرجال أو الفخذين والأرداف عند النساء.`)
-	$("#bfppop > p").css("direction", "rtl")
-	$("#bfppop > p").css("text-align", "right")
-	$("#bfppop > button").text("حسناً")
+	S("#bfppop > h3").innerHTML = "نسبة دهون الجسم"
+	S("#bfppop > p").innerHTML = `من الناحية العلمية ، تعرف الدهون في الجسم باسم "الأنسجة الدهنية" ، والتي تشمل الدهون الأساسية   والدهون المخزنة في الجسم. الدهون الأساسية في الجسم هي المسؤولة عن الحفاظ على وظائف الحياة والتكاثر ، في حين أن الدهون المخزنة هي الدهون التي تتراكم في الأنسجة الدهنية. في حين أن بعض الدهون المخزنة مفيدة، إلا أن زيادة الدهون المخزنة يمكن أن تؤدي إلى آثار صحية خطيرة. يختلف معدل تراكم الدهون في الجسم من شخص لآخر ، وهذا يتوقف على العوامل الوراثية والسلوكية المختلفة ، بما في ذلك ممارسة الرياضة وتناول الطعام. بسبب اختلاف العوامل ، فقد يكون فقدان الدهون في الجسم أمراً صعباً بالنسبة لبعض الأشخاص. ومع ذلك ، يمكن لإدارة النظام الغذائي وممارسة الرياضة أن تساعد في الحد من الدهون. يختلف كل من الرجال والنساء في أماكن تخزين الدهون في الجسم. بعد سن الأربعين (أو بعد انقطاع الطمث عند النساء) ، يمكن أن يؤدي انخفاض الهرمونات الجنسية إلى زيادة الدهون في الجسم حول المعدة عند الرجال أو الفخذين والأرداف عند النساء.`
+	S("#bfppop > p").style.direction = "rtl"
+	S("#bfppop > p").style.textAlign = "right"
+	S("#bfppop > button").innerHTML = "حسناً"
 
-	$("#lbmpop > h3").text("كتلة العضلات في الجسم")
-	$("#lbmpop > p").text(`تقوم حاسبة (LBM) بحساب كتلة العضلات في الجسم المقدرة للشخص بناءً على وزن الجسم والطول والجنس والعمر. لأغراض المقارنة ، توفر الآلة الحاسبة معادلات متعددة.`)
-	$("#lbmpop > p").css("direction", "rtl")
-	$("#lbmpop > p").css("text-align", "right")
-	$("#lbmpop > button").text("حسناً")
+	S("#lbmpop > h3").innerHTML = "كتلة العضلات في الجسم"
+	S("#lbmpop > p").innerHTML = `تقوم حاسبة (LBM) بحساب كتلة العضلات في الجسم المقدرة للشخص بناءً على وزن الجسم والطول والجنس والعمر. لأغراض المقارنة ، توفر الآلة الحاسبة معادلات متعددة.`
+	S("#lbmpop > p").style.direction = "rtl"
+	S("#lbmpop > p").style.textAlign = "right"
+	S("#lbmpop > button").innerHTML = "حسناً"
 
-	$("#tbwpop > h3").text("الحجم الكلي للمياه في الجسم")
-	$("#tbwpop > p").text(`تستخدم حاسبة حجم المياه الكلي في الجسم العمر والطول والوزن والجنس لتقدير حجم الماء في جسمك. لأنه يقوم على صيغة وضعها الدكتور واتسون وفريقه والتي وصفت في عام 1980.`)
-	$("#tbwpop > p").css("direction", "rtl")
-	$("#tbwpop > p").css("text-align", "right")
-	$("#tbwpop > button").text("حسناً")
+	S("#tbwpop > h3").innerHTML = "الحجم الكلي للمياه في الجسم"
+	S("#tbwpop > p").innerHTML = `تستخدم حاسبة حجم المياه الكلي في الجسم العمر والطول والوزن والجنس لتقدير حجم الماء في جسمك. لأنه يقوم على صيغة وضعها الدكتور واتسون وفريقه والتي وصفت في عام 1980.`
+	S("#tbwpop > p").style.direction = "rtl"
+	S("#tbwpop > p").style.textAlign = "right"
+	S("#tbwpop > button").innerHTML = "حسناً"
 	// Page3
-	$(".ipg9 > h1:nth-child(1)").text("اختر مستوى نشاطك")
-	$(".ipg9 > h4:nth-child(3)").text("نشاط قليل من دون أي تمارين رياضية كالعمل في مكتب")
-	$(".ipg9 > h4:nth-child(5)").text("تمارين رياضية بسيطة 1-3 أيام بالأسبوع")
-	$(".ipg9 > h4:nth-child(7)").text("تمارين رياضية متوسطة 6-7 أيام بالأسبوع")
-	$(".ipg9 > h4:nth-child(9)").text("تمارين صعبة كل يوم")
-	$(".ipg9 > h4:nth-child(11)").text("تمارين صعبة مرتين أو أكثر كل يوم")
-	$(".ipg9 > label:nth-child(2)").html(`كثير الجلوس<input id="sedentary" type="radio" name="activity" checked="checked" style="direction: rtl;"><span class="checkmark1"></span>`)
-	$(".ipg9 > label:nth-child(4)").html(`قليل النشاط<input id="light" type="radio" name="activity" style="direction: rtl;"><span class="checkmark1"></span>`)
-	$(".ipg9 > label:nth-child(6)").html(`متوسط النشاط<input id="moderate" type="radio" name="activity" style="direction: rtl;"><span class="checkmark1"></span>`)
-	$(".ipg9 > label:nth-child(8)").html(`كثير النشاط<input id="very" type="radio" name="activity" style="direction: rtl;"><span class="checkmark1"></span>`)
-	$(".ipg9 > label:nth-child(10)").html(`عالي النشاط<input id="extra" type="radio" name="activity" style="direction: rtl;"><span class="checkmark1"></span>`)
-	$("#page3 > .topage").text("أحسب")
+	S(".ipg9 > h1:nth-child(1)").innerHTML = "اختر مستوى نشاطك"
+	S(".ipg9 > h4:nth-child(3)").innerHTML = "نشاط قليل من دون أي تمارين رياضية كالعمل في مكتب"
+	S(".ipg9 > h4:nth-child(5)").innerHTML = "تمارين رياضية بسيطة 1-3 أيام بالأسبوع"
+	S(".ipg9 > h4:nth-child(7)").innerHTML = "تمارين رياضية متوسطة 6-7 أيام بالأسبوع"
+	S(".ipg9 > h4:nth-child(9)").innerHTML = "تمارين صعبة كل يوم"
+	S(".ipg9 > h4:nth-child(11)").innerHTML = "تمارين صعبة مرتين أو أكثر كل يوم"
+	S(".ipg9 > label:nth-child(2)").innerHTML = `كثير الجلوس<input id="sedentary" type="radio" name="activity" checked="checked" style="direction: rtl;"><span class="checkmark1"></span>`
+	S(".ipg9 > label:nth-child(4)").innerHTML = `قليل النشاط<input id="light" type="radio" name="activity" style="direction: rtl;"><span class="checkmark1"></span>`
+	S(".ipg9 > label:nth-child(6)").innerHTML = `متوسط النشاط<input id="moderate" type="radio" name="activity" style="direction: rtl;"><span class="checkmark1"></span>`
+	S(".ipg9 > label:nth-child(8)").innerHTML = `كثير النشاط<input id="very" type="radio" name="activity" style="direction: rtl;"><span class="checkmark1"></span>`
+	S(".ipg9 > label:nth-child(10)").innerHTML = `عالي النشاط<input id="extra" type="radio" name="activity" style="direction: rtl;"><span class="checkmark1"></span>`
+	S("#page3 > .topage").innerHTML = "أحسب"
 	// infoCard
-	$("#EditButton").text("تعديل المقاييس")
-	$("#SignOut").text("تسجيل الخروج")
+	S("#EditButton").innerHTML = "تعديل المقاييس"
+	S("#SignOut").innerHTML = "تسجيل الخروج"
 	// BMI Card
-	$("#card1 > h2:nth-child(3)").text("مؤشر كتلة جسم")
+	S("#card1 > h2:nth-child(3)").innerHTML = "مؤشر كتلة جسم"
 	bmiRangeST = [
 		"نقص وزن",
 		"وزن طبيعي",
@@ -1285,15 +1300,15 @@ changeLan = _ => {
 		"عليك خسارة الوزن",
 	];
 	// BMR Crad
-	$("#card2 > h4:nth-child(3)").text("اختر المعادلة المستخدمة في الحساب")
-	$("#card2 > h2:nth-child(7)").text("معدل الاستقلاب الأساسي")
+	S("#card2 > h4:nth-child(3)").innerHTML = "اختر المعادلة المستخدمة في الحساب"
+	S("#card2 > h2:nth-child(7)").innerHTML = "معدل الاستقلاب الأساسي"
 	kcalST = " سعرة في يوم "
-	$("#bmr").css("direction", "rtl")
-	$("#intake").css("direction", "rtl")
-	$("#card2 > h2:nth-child(10)").text("السعرات الحرارية اليومية")
-	$("#card2 > h3:nth-child(11)").text("وفقاً لنشاطك اليومي")
+	S("#bmr").style.direction = "rtl"
+	S("#intake").style.direction = "rtl"
+	S("#card2 > h2:nth-child(10)").innerHTML = "السعرات الحرارية اليومية"
+	S("#card2 > h3:nth-child(11)").innerHTML = "وفقاً لنشاطك اليومي"
 	// WHtR Card
-	$("#card3 > h2:nth-child(3)").text("نسبة الخصر إلى الطول")
+	S("#card3 > h2:nth-child(3)").innerHTML = "نسبة الخصر إلى الطول"
 	whtrRangeST = [
 		"نحيف للغاية",
 		"نحيف",
@@ -1310,21 +1325,21 @@ changeLan = _ => {
 		"عليك خسارة الوزن",
 	];
 	// IBW Card
-	$("#card4 > h4:nth-child(4)").text("اختر المعادلة المستخدمة في الحساب")
-	$("#card4 > h2:nth-child(8)").text("الوزن المثالي للجسم")
-	$("#ibw").css("direction", "rtl")
+	S("#card4 > h4:nth-child(4)").innerHTML = "اختر المعادلة المستخدمة في الحساب"
+	S("#card4 > h2:nth-child(8)").innerHTML = "الوزن المثالي للجسم"
+	S("#ibw").style.direction = "rtl"
 	kiloST = " كيلوغرام "
 	poundST = " باوند "
 	// BFP Card
-	$("#card5 > h2:nth-child(4)").text("دهون الجسم (طريقة البحرية الأمريكية)")
-	$("#card5 > h2:nth-child(4)").css("font-size", "18px")
-	$("#card5 > h1:nth-child(5)").css("direction", "rtl")
-	$("#card5 > h2:nth-child(6)").text("التصنيف حسب نسبة الدهون")
-	$("#card5 > h2:nth-child(8)").text("كتلة الدهون في الجسم")
-	$("#card5 > h2:nth-child(10)").text("كتلة العضلات في الجسم")
-	$("#card5 > h2:nth-child(12)").text("دهون الجسم (طريقة مؤشر كتلة الجسم)")
-	$("#card5 > h2:nth-child(12)").css("font-size", "18px")
-	$("#card5 > h1:nth-child(13)").css("direction", "rtl")
+	S("#card5 > h2:nth-child(4)").innerHTML = "دهون الجسم (طريقة البحرية الأمريكية)"
+	S("#card5 > h2:nth-child(4)").style.fontSize = "18px"
+	S("#card5 > h1:nth-child(5)").style.direction = "rtl"
+	S("#card5 > h2:nth-child(6)").innerHTML = "التصنيف حسب نسبة الدهون"
+	S("#card5 > h2:nth-child(8)").innerHTML = "كتلة الدهون في الجسم"
+	S("#card5 > h2:nth-child(10)").innerHTML = "كتلة العضلات في الجسم"
+	S("#card5 > h2:nth-child(12)").innerHTML = "دهون الجسم (طريقة مؤشر كتلة الجسم)"
+	S("#card5 > h2:nth-child(12)").style.fontSize = "18px"
+	S("#card5 > h1:nth-child(13)").style.direction = "rtl"
 	bfprangeST = [
 		"نسبة دهون الضرورية",
 		"رياضي",
@@ -1332,23 +1347,23 @@ changeLan = _ => {
 		"عادي",
 		"بدانة",
 	];
-	$("#bfpFM").css("direction", "rtl")
-	$("#bfpLM").css("direction", "rtl")
+	S("#bfpFM").style.direction = "rtl"
+	S("#bfpLM").style.direction = "rtl"
 	// LBM Card
-	$("#card6 > h4:nth-child(4)").text("اختر المعادلة المستخدمة في الحساب")
-	$("#card6 > h2:nth-child(8)").text("كتلة العضلات في الجسم")
-	$("#card6 > h2:nth-child(10)").text("نسبة كتلة العضلات في الجسم")
-	$("#card6 > h1:nth-child(11)").css("direction", "rtl")
-	$("#card6 > h2:nth-child(12)").text("نسبة كتلة الدهون في الجسم")
-	$("#card6 > h1:nth-child(13)").css("direction", "rtl")
-	$("#lbm").css("direction", "rtl")
+	S("#card6 > h4:nth-child(4)").innerHTML = "اختر المعادلة المستخدمة في الحساب"
+	S("#card6 > h2:nth-child(8)").innerHTML = "كتلة العضلات في الجسم"
+	S("#card6 > h2:nth-child(10)").innerHTML = "نسبة كتلة العضلات في الجسم"
+	S("#card6 > h1:nth-child(11)").innerHTML = "direction", "rtl"
+	S("#card6 > h2:nth-child(12)").innerHTML = "نسبة كتلة الدهون في الجسم"
+	S("#card6 > h1:nth-child(13)").style.direction = "rtl"
+	S("#lbm").style.direction = "rtl"
 	// TBW
-	$("#card7 > h2:nth-child(3)").text("الحجم الكلي للمياه في الجسم")
-	$("#tbw").css("direction", "rtl")
+	S("#card7 > h2:nth-child(3)").innerHTML = "الحجم الكلي للمياه في الجسم"
+	S("#tbw").style.direction = "rtl"
 	tbwST = " لتر "
 }
 changeLanButton = _ => {
-	if ($("#arabic").text() === "English") {
+	if (S("#arabic").innerHTML === "English") {
 		window.localStorage.setItem("lan", "en")
 		location.reload();
 	} else {
@@ -1372,5 +1387,28 @@ isMobile = _ => {
 		return true;
 	} else {
 		return false;
+	}
+}
+toggle = (Element, duration = 0.2, animation = "scale") => {
+	if (Element === "info") {
+		console.log(`function(\nelement selector,\nduration = 0.2,\nanimation = "scale" || "scaleY" || "scaleX" || "fade" || "none",\n);`)
+	} else {
+		const el = document.querySelector(Element)
+
+		if (window.getComputedStyle(el).getPropertyValue('display') !== "none") {
+			const hide =
+				animation === "scaleY" ? gsap.to(el, { duration: duration, display: "none", transformOrigin: "50%", scaleY: 0, })
+					: animation === "scaleX" ? gsap.to(el, { duration: duration, display: "none", transformOrigin: "50%", scaleX: 0, })
+						: animation === "scale" ? gsap.to(el, { duration: duration, display: "none", transformOrigin: "50%", scale: 0, })
+							: animation === "fade" ? gsap.to(el, { duration: duration, display: "none", opacity: 0, })
+								: el.style.display = "none";
+		} else {
+			const show =
+				animation === "scaleY" ? gsap.to(el, { duration: duration, display: "block", transformOrigin: "50%", scaleY: 1, })
+					: animation === "scaleX" ? gsap.to(el, { duration: duration, display: "block", transformOrigin: "50%", scaleX: 1, })
+						: animation === "scale" ? gsap.to(el, { duration: duration, display: "block", transformOrigin: "50%", scale: 1, })
+							: animation === "fade" ? gsap.to(el, { duration: duration, display: "block", opacity: 1, })
+								: el.style.display = "block"
+		}
 	}
 }
