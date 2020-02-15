@@ -4,10 +4,10 @@
 	--width: 45vw;
 }
 button,
-svg {
+svg,
+select {
 	cursor: pointer;
 }
-
 #arabic {
 	position: absolute;
 	left: 50%;
@@ -114,33 +114,10 @@ div {
 }
 #back {
 	position: absolute;
-	top: 50%;
-	left: 8%;
-	transform: translate(-50%, -50%);
+	top: 20%;
+	left: 5%;
 	fill: white;
-}
-#back:hover {
-	fill: black;
-}
-.restartbg {
-	position: relative;
-	left: 50%;
-	transform: translate(-50%);
-	height: 47px;
-	width: 100%;
-	max-width: 450px;
-	margin: 0;
-	padding: 1px 0px;
-}
-#restartbutt {
-	position: absolute;
-	top: 50%;
-	left: 8%;
-	transform: translate(-50%, -50%);
-	fill: #bebebe;
-}
-#restartbutt:hover {
-	fill: #ff5200;
+	transition: transform ease-out 200ms;
 }
 #bmitip,
 #bmrtip,
@@ -149,11 +126,13 @@ div {
 #bfptip,
 #lbmtip,
 #tbwtip,
+#tbwtip,
 #cancel {
 	fill: #bebebe;
 	position: absolute;
 	right: 7px;
 	top: 7px;
+	transition: all ease-out 200ms;
 }
 #bmitip:hover,
 #bmrtip:hover,
@@ -161,31 +140,29 @@ div {
 #ibwtip:hover,
 #bfptip:hover,
 #lbmtip:hover,
-#cancel:hover {
-	fill: #ff5200;
-}
-#necktip {
-	position: absolute;
-	right: 7px;
-	top: 35px;
-	fill: #bebebe;
-}
+#tbwtip:hover,
+#cancel:hover,
 #necktip:hover,
 #waisttip:hover,
-#hiptip:hover {
-	fill: #ff5200;
+#hiptip:hover,
+#back:hover {
+	fill: #F5AF19;
+	transform: scale(1.2);
+}
+#necktip, #waisttip , #hiptip {
+	position: absolute;
+	right: 7px;
+	fill: #bebebe;
+	transition: all ease-out 200ms;
+}
+#necktip {
+	top: 35px;
 }
 #waisttip {
-	position: absolute;
-	right: 7px;
 	top: 143px;
-	fill: #bebebe;
 }
 #hiptip {
-	position: absolute;
-	right: 7px;
 	top: 253px;
-	fill: #bebebe;
 }
 
 .topage {

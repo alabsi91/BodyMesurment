@@ -1,5 +1,5 @@
 
-$(document).ready( _ => {
+$(document).ready(_ => {
 	$('#title1').animate({ bottom: "40%" }, 900)
 	if (window.localStorage.getItem('lan') === "ar" || window.navigator.language.includes("ar") && window.localStorage.getItem('lan') === null) {
 		changeLan();
@@ -1107,6 +1107,16 @@ changeLan = _ => {
 	$("#addToHomebutt").text("تثبيت")
 	$(".notnow").text("ليس الآن")
 	$(".topage").text("التالي")
+	setTimeout ( _ => {
+		$(".firebaseui-idp-google > .firebaseui-idp-text-long").text("تسجيل الدخول عن طريق جوجل")
+		$(".firebaseui-idp-google > .firebaseui-idp-text-short").text("جوجل")
+		$(".firebaseui-idp-facebook > .firebaseui-idp-text-long").text("تسجيل الدخول عن طريق فيسبوك")
+		$(".firebaseui-idp-facebook > .firebaseui-idp-text-short").text("فيسبوك")
+		$(".firebaseui-idp-password > .firebaseui-idp-text-long").text("تسجيل الدخول عن طريق الإيميل")
+		$(".firebaseui-idp-password > .firebaseui-idp-text-short").text("إيميل")
+		$(".firebaseui-idp-text").css("font-family", font).css("text-align", "right").css("padding-right", "16px").css("padding-left", "0")
+		$(".firebaseui-idp-button").css("max-width", "300px").css("direction", "rtl")
+	} ,300) 
 	// Page1
 	$(".ipg > h3:nth-child(1)").text("اختر نظام القياس")
 	$(".ipg > h3:nth-child(6)").text("اختر الجنس")
@@ -1277,7 +1287,7 @@ changeLan = _ => {
 	// BMR Crad
 	$("#card2 > h4:nth-child(3)").text("المعادلة المستخدمة في الحساب")
 	$("#card2 > h2:nth-child(7)").text("معدل الاستقلاب الأساسي")
-	kcalST = " سعرة/يوم "
+	kcalST = " سعرة في يوم "
 	$("#bmr").css("direction", "rtl")
 	$("#intake").css("direction", "rtl")
 	$("#card2 > h2:nth-child(10)").text("السعرات الحرارية اليومية")
@@ -1308,11 +1318,13 @@ changeLan = _ => {
 	// BFP Card
 	$("#card5 > h2:nth-child(4)").text("دهون الجسم (طريقة البحرية الأمريكية)")
 	$("#card5 > h2:nth-child(4)").css("font-size", "18px")
+	$("#card5 > h1:nth-child(5)").css("direction", "rtl")
 	$("#card5 > h2:nth-child(6)").text("التصنيف حسب نسبة الدهون")
 	$("#card5 > h2:nth-child(8)").text("كتلة الدهون في الجسم")
 	$("#card5 > h2:nth-child(10)").text("كتلة العضلات في الجسم")
 	$("#card5 > h2:nth-child(12)").text("دهون الجسم (طريقة مؤشر كتلة الجسم)")
 	$("#card5 > h2:nth-child(12)").css("font-size", "18px")
+	$("#card5 > h1:nth-child(13)").css("direction", "rtl")
 	bfprangeST = [
 		"نسبة دهون الضرورية",
 		"رياضي",
@@ -1326,7 +1338,9 @@ changeLan = _ => {
 	$("#card6 > h4:nth-child(4)").text("المعادلة المستخدمة في الحساب")
 	$("#card6 > h2:nth-child(8)").text("كتلة العضلات في الجسم")
 	$("#card6 > h2:nth-child(10)").text("نسبة كتلة العضلات في الجسم")
+	$("#card6 > h1:nth-child(11)").css("direction", "rtl")
 	$("#card6 > h2:nth-child(12)").text("نسبة كتلة الدهون في الجسم")
+	$("#card6 > h1:nth-child(13)").css("direction", "rtl")
 	$("#lbm").css("direction", "rtl")
 	// TBW
 	$("#card7 > h2:nth-child(3)").text("الحجم الكلي للمياه في الجسم")
