@@ -229,7 +229,8 @@ div {
 	margin-right: 0px;
 	margin-bottom: 0px;
 	-moz-appearance: none; 
-	-webkit-appearance: none; 
+	-webkit-appearance: none;
+	text-align-last: center;
 }
 #age,
 #weight,

@@ -1285,7 +1285,7 @@ changeLan = _ => {
 		"عليك خسارة الوزن",
 	];
 	// BMR Crad
-	$("#card2 > h4:nth-child(3)").text("المعادلة المستخدمة في الحساب")
+	$("#card2 > h4:nth-child(3)").text("اختر المعادلة المستخدمة في الحساب")
 	$("#card2 > h2:nth-child(7)").text("معدل الاستقلاب الأساسي")
 	kcalST = " سعرة في يوم "
 	$("#bmr").css("direction", "rtl")
@@ -1310,7 +1310,7 @@ changeLan = _ => {
 		"عليك خسارة الوزن",
 	];
 	// IBW Card
-	$("#card4 > h4:nth-child(4)").text("المعادلة المستخدمة في الحساب")
+	$("#card4 > h4:nth-child(4)").text("اختر المعادلة المستخدمة في الحساب")
 	$("#card4 > h2:nth-child(8)").text("الوزن المثالي للجسم")
 	$("#ibw").css("direction", "rtl")
 	kiloST = " كيلوغرام "
@@ -1335,7 +1335,7 @@ changeLan = _ => {
 	$("#bfpFM").css("direction", "rtl")
 	$("#bfpLM").css("direction", "rtl")
 	// LBM Card
-	$("#card6 > h4:nth-child(4)").text("المعادلة المستخدمة في الحساب")
+	$("#card6 > h4:nth-child(4)").text("اختر المعادلة المستخدمة في الحساب")
 	$("#card6 > h2:nth-child(8)").text("كتلة العضلات في الجسم")
 	$("#card6 > h2:nth-child(10)").text("نسبة كتلة العضلات في الجسم")
 	$("#card6 > h1:nth-child(11)").css("direction", "rtl")
