@@ -20,8 +20,8 @@ S = function (id) {
 		return nodes[0]
 	}
 }
+gsap.to('#title1', { duration: 0.9, bottom: "40%" })
 window.addEventListener("load", _ => {
-	gsap.to('#title1', { duration: 0.9, bottom: "40%" })
 	if (window.localStorage.getItem('lan') === "ar" || window.navigator.language.includes("ar") && window.localStorage.getItem('lan') === null) {
 		changeLan();
 		S("#arabic").innerHTML = "English"
