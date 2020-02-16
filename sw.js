@@ -5,7 +5,6 @@ const resourcesToPrecache = [
     '/index.html',
     '/style.css',
     'script.js',
-    '/jquery.min.js',
     '/b1.jpg',
     '/user.png',
     '/lottie.js',

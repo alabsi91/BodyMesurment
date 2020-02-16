@@ -1,4 +1,4 @@
-//S = s => document.querySelector(s);
+
 S = function (id) {
 	const nodes = document.querySelectorAll(id)
 	if (nodes.length > 1) {
@@ -8,14 +8,20 @@ S = function (id) {
 					nodes[i].style[p] = v
 				}
 				return this
+			},
+			text: function text(v) {
+				for (let i = 0; i < nodes.length; i++) {
+					nodes[i].innerHTML = v
+				}
+				return this
 			}
 		}
 	} else {
 		return nodes[0]
 	}
 }
-$(document).ready(_ => {
-	$('#title1').animate({ bottom: "40%" }, 900)
+window.addEventListener("load", _ => {
+	gsap.to('#title1', { duration: 0.9, bottom: "40%" })
 	if (window.localStorage.getItem('lan') === "ar" || window.navigator.language.includes("ar") && window.localStorage.getItem('lan') === null) {
 		changeLan();
 		S("#arabic").innerHTML = "English"
@@ -27,7 +33,8 @@ $(document).ready(_ => {
 		autoplay: true,
 		path: 'data.json'
 	});
-});
+
+})
 let isLogged;
 const firebaseConfig = {
 	apiKey: "AIzaSyB2zTBz8t8dpSfNpPDccAQ2tWUzvsHQs18",
@@ -65,9 +72,9 @@ auth.onAuthStateChanged(users => {
 			if (doc.exists) {
 				// data exists
 				user = doc.data()
-				$("#page4").fadeIn(250).css("display", "block");
-				$("#welcomePage").fadeOut(250).css("display", "none");
-				$("#profile").fadeOut(250).css("display", "none");
+				toggle("#page4", 0.25, "fade")
+				toggle("#welcomePage", 0.25, "fade")
+				S("#profile").style.display = "none"
 				if (user.skipping === true) {
 					bmi();
 					HarrisBenedictBMR();
@@ -91,13 +98,16 @@ auth.onAuthStateChanged(users => {
 				}
 			} else {
 				// No data
-				topage1();
+				toggle("#welcomePage", 0.25, "fade")
+				toggle("#page1", 0.25, "fade")
+				S("#profile").style.display = "block"
+				S("#back").style.display = "none"
 			}
 		}).catch(error => console.log("Error getting document:", error));
 	} else {
 		// not logged in
 		isLogged = false
-		$("#firebaseui-auth-container").fadeIn(1500).css("display", "block");
+		toggle("#firebaseui-auth-container", 1.5, "fade")
 		S('#loading').style.display = 'none';
 
 	}
@@ -188,12 +198,12 @@ bmi = _ => {
 
 	const arrow = S("#arrow");
 	if (bmi > 35) {
-		$("#arrow").animate({ left: '243px' }, 1000);
+		gsap.to("#arrow", { duration: 1, left: '243px'})
 	} else if (bmi < 0) {
 		arrow.style.left = -7 + "px";
 	} else {
 		const bmibar = Math.round(bmi * 7.142857);
-		$("#arrow").animate({ left: bmibar + 'px' }, 1000);
+		gsap.to("#arrow", { duration: 1, left: bmibar + 'px' })
 	}
 	results.bmi = Number(bmi.toFixed(1));
 	S("#bmi").innerHTML = results.bmi;
@@ -906,11 +916,10 @@ tbw = _ => {
 };
 
 topage1 = _ => {
-	$("#page1").fadeIn(250).css("display", "block");
-	$("#page4").fadeOut(250).css("display", "none");
-	$("#welcomePage").fadeOut(250).css("display", "none");
-	$("#profile").fadeOut(250).css("display", "block");
-	$("#back").fadeOut(250).css("display", "none");
+	toggle("#page1", 0.25, "fade")
+	toggle("#page4", 0.25, "fade")
+	S("#profile").style.display = "block"
+	S("#back").style.display = "none"
 };
 
 topage2 = _ => {
@@ -931,29 +940,27 @@ topage2 = _ => {
 			if (age < 18 || age > 120) {
 				toggle("#agealert", 0.1);
 			} else if (weight < 20 || weight > 250) {
-				toggle("#weightalert" , 0.1);
+				toggle("#weightalert", 0.1);
 			} else if (height < 91 || height > 360) {
 				toggle("#heightalert", 0.1);
 			} else {
-				$("#page2").fadeIn(250).css("display", "block");
-				$("#page1").fadeOut(250).css("display", "none");
-				$("#back").fadeIn(250).css("display", "block");
-
+				toggle("#page1", 0.25, "fade")
+				toggle("#page2", 0.25, "fade")
+				S("#back").style.display = "block"
 			}
 			break;
 
 		case "imperial":
 			if (age < 18 || age > 120) {
-				toggle("#agealert" , 0.1);
+				toggle("#agealert", 0.1);
 			} else if (weight < 45 || weight > 560) {
-				toggle("#weightalert" , 0.1);
+				toggle("#weightalert", 0.1);
 			} else if (height < 47 || height > 155) {
-				toggle("#heightalert" , 0.1);
+				toggle("#heightalert", 0.1);
 			} else {
-				$("#page2").fadeIn(250).css("display", "block");
-				$("#page1").fadeOut(250).css("display", "none");
-				$("#back").fadeIn(250).css("display", "block");
-
+				toggle("#page1", 0.25, "fade")
+				toggle("#page2", 0.25, "fade")
+				S("#back").style.display = "block"
 			}
 			break;
 	}
@@ -971,26 +978,26 @@ topage3 = _ => {
 	switch (user.system) {
 		case "metric":
 			if (neck < 25 || neck > 245) {
-				toggle("#neckalert" , 0.1);
+				toggle("#neckalert", 0.1);
 			} else if (waist < 56 || waist > 250) {
-				toggle("#waistalert" , 0.1);
+				toggle("#waistalert", 0.1);
 			} else if (hip < 64 || hip > 250) {
-				toggle("#hipalert" , 0.1);
+				toggle("#hipalert", 0.1);
 			} else {
-				$("#page3").fadeIn(250).css("display", "block");
-				$("#page2").fadeOut(250).css("display", "none");
+				toggle("#page3", 0.25, "fade")
+				toggle("#page2", 0.25, "fade")
 			}
 			break;
 		case "imperial":
 			if (neck < 10 || neck > 100) {
-				toggle("#neckalert" , 0.1);
+				toggle("#neckalert", 0.1);
 			} else if (waist < 22 || waist > 100) {
-				toggle("#waistalert" , 0.1);
+				toggle("#waistalert", 0.1);
 			} else if (hip < 25 || hip > 100) {
-				toggle("#hipalert" , 0.1);
+				toggle("#hipalert", 0.1);
 			} else {
-				$("#page3").fadeIn(250).css("display", "block");
-				$("#page2").fadeOut(250).css("display", "none");
+				toggle("#page3", 0.25, "fade")
+				toggle("#page2", 0.25, "fade")
 			}
 			break;
 	}
@@ -999,9 +1006,9 @@ topage3 = _ => {
 
 topage4 = _ => {
 
-	$("#page4").fadeIn(250).css("display", "block");
-	$("#page3").fadeOut(250).css("display", "none");
-	$("#profile").fadeOut(250).css("display", "none");
+	toggle("#page3", 0.25, "fade")
+	toggle("#page4", 0.25, "fade")
+	S("#profile").style.display = "none"
 
 	const sedentary = S("#sedentary");
 	const light = S("#light");
@@ -1049,20 +1056,20 @@ topage4 = _ => {
 };
 
 skip = _ => {
-	$("#page3").fadeIn(250).css("display", "block");
-	$("#page2").fadeOut(250).css("display", "none");
-	toggle("#skippop" , 0.1);
+	toggle("#page3", 0.25, "fade")
+	toggle("#page2", 0.25, "fade")
+	toggle("#skippop", 0.1);
 	user.skipping = true;
 };
 
 toback = _ => {
 	if (S("#page2").style.display === "block") {
-		$("#page1").fadeIn(250).css("display", "block");
-		$("#page2").fadeOut(250).css("display", "none");
-		$("#back").fadeOut(250).css("display", "none");
+		toggle("#page1", 0.25, "fade")
+		toggle("#page2", 0.25, "fade")
+		S("#back").style.display = "none"
 	} else if (S("#page3").style.display === "block") {
-		$("#page2").fadeIn(250).css("display", "block");
-		$("#page3").fadeOut(250).css("display", "none");
+		toggle("#page3", 0.25, "fade")
+		toggle("#page2", 0.25, "fade")
 	}
 };
 let metricStrings = [
@@ -1121,8 +1128,9 @@ changeLan = _ => {
 	S("#addToHomePop > h3").innerHTML = "هل تريد تثبيت التطبيق مجاناً"
 	S("#addToHomebutt").innerHTML = "تثبيت"
 	S(".notnow").innerHTML = "ليس الآن"
-	S(".topage").innerHTML = "التالي"
-	setTimeout(_ => {
+	S(".topage").text("التالي");
+	(function waitToLoad() {
+		if (S(".firebaseui-container") !== undefined) {
 		S(".firebaseui-idp-google > .firebaseui-idp-text-long").innerHTML = "تسجيل الدخول عن طريق جوجل"
 		S(".firebaseui-idp-google > .firebaseui-idp-text-short").innerHTML = "جوجل"
 		S(".firebaseui-idp-facebook > .firebaseui-idp-text-long").innerHTML = "تسجيل الدخول عن طريق فيسبوك"
@@ -1131,7 +1139,10 @@ changeLan = _ => {
 		S(".firebaseui-idp-password > .firebaseui-idp-text-short").innerHTML = "إيميل"
 		S(".firebaseui-idp-text").css("fontFamily", font).css("textAlign", "right").css("paddingRight", "16px").css("paddingLeft", "0")
 		S(".firebaseui-idp-button").css("maxWidth", "300px").css("direction", "rtl")
-	}, 400)
+		} else {
+			setTimeout(waitToLoad, 15);
+		}
+	}())
 	// Page1
 	S(".ipg > h3:nth-child(1)").innerHTML = "اختر نظام القياس"
 	S(".ipg > h3:nth-child(6)").innerHTML = "اختر الجنس"
@@ -1285,7 +1296,7 @@ changeLan = _ => {
 	S("#EditButton").innerHTML = "تعديل المقاييس"
 	S("#SignOut").innerHTML = "تسجيل الخروج"
 	// BMI Card
-	S("#card1 > h2:nth-child(3)").innerHTML = "مؤشر كتلة جسم"
+	S("#card1 > h2:nth-child(3)").innerHTML = "مؤشر كتلة الجسم"
 	bmiRangeST = [
 		"نقص وزن",
 		"وزن طبيعي",
@@ -1353,7 +1364,7 @@ changeLan = _ => {
 	S("#card6 > h4:nth-child(4)").innerHTML = "اختر المعادلة المستخدمة في الحساب"
 	S("#card6 > h2:nth-child(8)").innerHTML = "كتلة العضلات في الجسم"
 	S("#card6 > h2:nth-child(10)").innerHTML = "نسبة كتلة العضلات في الجسم"
-	S("#card6 > h1:nth-child(11)").innerHTML = "direction", "rtl"
+	S("#card6 > h1:nth-child(11)").style.direction = "rtl"
 	S("#card6 > h2:nth-child(12)").innerHTML = "نسبة كتلة الدهون في الجسم"
 	S("#card6 > h1:nth-child(13)").style.direction = "rtl"
 	S("#lbm").style.direction = "rtl"
