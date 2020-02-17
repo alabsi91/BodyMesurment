@@ -415,19 +415,16 @@ whtrRange = _ => {
 let kiloST = " Kilograms"
 let poundST = " Pounds"
 ibwBroca = _ => {
-
+	const impHeight = user.height * 2.54;
 	switch (user.gender) {
 		case "male":
 			if (user.system === "metric") {
-				results.ibw = user.height - 100;
-				results.ibw = results.ibw - (results.ibw / 100 * 10);
+				results.ibw = (user.height - 100) - ((user.height - 100) * 0.1);
 				results.ibw = Number(results.ibw.toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
-				results.ibw = user.height * 2.54;
-				results.ibw = results.ibw - 100;
-				results.ibw = results.ibw - (results.ibw / 100 * 10);
-				results.ibw = results.ibw * 2.205;
+				results.ibw = (impHeight - 100) - ((impHeight - 100) * 0.1)
+				results.ibw *= 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
@@ -435,15 +432,12 @@ ibwBroca = _ => {
 
 		case "female":
 			if (user.system === "metric") {
-				results.ibw = user.height - 100;
-				results.ibw = results.ibw + (results.ibw / 100 * 15);
+				results.ibw = (user.height - 100) + ((user.height - 100) * 0.15);
 				results.ibw = Number(results.ibw.toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
-				results.ibw = user.height * 2.54;
-				results.ibw = results.ibw - 100;
-				results.ibw = results.ibw + (results.ibw / 100 * 15);
-				results.ibw = results.ibw * 2.205;
+				results.ibw = (impHeight - 100) + ((impHeight - 100) * 0.15)
+				results.ibw *= 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
@@ -464,7 +458,7 @@ ibwDevine = _ => {
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 50 + (results.ibw * 2.3);
-				results.ibw = results.ibw * 2.205;
+				results.ibw *= 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
@@ -480,7 +474,7 @@ ibwDevine = _ => {
 			} else if (user.system === "imperial") {
 				results.ibw = user.height - 60;
 				results.ibw = 45.5 + (results.ibw * 2.3);
-				results.ibw = results.ibw * 2.205;
+				results.ibw *= 2.205;
 				results.ibw = Number(results.ibw.toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
@@ -1068,6 +1062,7 @@ topage4 = _ => {
 		tbw();
 	}
 	// upload data
+	const email = auth.currentUser.providerData.map(e => e.email)[0]
 	const userUid = auth.currentUser.uid;
 	db.collection("users").doc(`${email} ${userUid}`).set(user);
 };
