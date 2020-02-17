@@ -198,7 +198,7 @@ bmi = _ => {
 
 	const arrow = S("#arrow");
 	if (bmi > 35) {
-		gsap.to("#arrow", { duration: 1, left: '243px'})
+		gsap.to("#arrow", { duration: 1, left: '243px' })
 	} else if (bmi < 0) {
 		arrow.style.left = -7 + "px";
 	} else {
@@ -1131,14 +1131,14 @@ changeLan = _ => {
 	S(".topage").text("التالي");
 	(function waitToLoad() {
 		if (S(".firebaseui-container") !== undefined) {
-		S(".firebaseui-idp-google > .firebaseui-idp-text-long").innerHTML = "تسجيل الدخول عن طريق جوجل"
-		S(".firebaseui-idp-google > .firebaseui-idp-text-short").innerHTML = "جوجل"
-		S(".firebaseui-idp-facebook > .firebaseui-idp-text-long").innerHTML = "تسجيل الدخول عن طريق فيسبوك"
-		S(".firebaseui-idp-facebook > .firebaseui-idp-text-short").innerHTML = "فيسبوك"
-		S(".firebaseui-idp-password > .firebaseui-idp-text-long").innerHTML = "تسجيل الدخول عن طريق الإيميل"
-		S(".firebaseui-idp-password > .firebaseui-idp-text-short").innerHTML = "إيميل"
-		S(".firebaseui-idp-text").css("fontFamily", font).css("textAlign", "right").css("paddingRight", "16px").css("paddingLeft", "0")
-		S(".firebaseui-idp-button").css("maxWidth", "300px").css("direction", "rtl")
+			S(".firebaseui-idp-google > .firebaseui-idp-text-long").innerHTML = "تسجيل الدخول عن طريق جوجل"
+			S(".firebaseui-idp-google > .firebaseui-idp-text-short").innerHTML = "جوجل"
+			S(".firebaseui-idp-facebook > .firebaseui-idp-text-long").innerHTML = "تسجيل الدخول عن طريق فيسبوك"
+			S(".firebaseui-idp-facebook > .firebaseui-idp-text-short").innerHTML = "فيسبوك"
+			S(".firebaseui-idp-password > .firebaseui-idp-text-long").innerHTML = "تسجيل الدخول عن طريق الإيميل"
+			S(".firebaseui-idp-password > .firebaseui-idp-text-short").innerHTML = "إيميل"
+			S(".firebaseui-idp-text").css("fontFamily", font).css("textAlign", "right").css("paddingRight", "16px").css("paddingLeft", "0")
+			S(".firebaseui-idp-button").css("maxWidth", "300px").css("direction", "rtl")
 		} else {
 			setTimeout(waitToLoad, 15);
 		}
@@ -1423,3 +1423,11 @@ toggle = (Element, duration = 0.2, animation = "scale") => {
 		}
 	}
 }
+function tipAnimate(id) {
+	gsap.timeline({ repeat: -1, repeatDelay: 4 })
+	.to(id, { duration: 0.3, rotate: "90deg" })
+	.to(id, { duration: 0.3, rotate: "-90deg" })
+	.to(id, { duration: 0.3, rotate: "0deg" })
+	return tipAnimate
+}
+tipAnimate("#bmitip")("#bmrtip")("#ibwtip")("#lbmtip")("#bfptip")("#whtrtip")("#tbwtip")("#necktip")("#waisttip")("#hiptip")
