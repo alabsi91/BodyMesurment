@@ -63,11 +63,12 @@ auth.onAuthStateChanged(users => {
 		// get user pic & name
 		const profileImg = auth.currentUser.providerData.map(e => e.photoURL)[0]
 		const displayName = auth.currentUser.providerData.map(e => e.displayName)[0]
+		const email = auth.currentUser.providerData.map(e => e.email)[0]
 		S('#profileImg').style.backgroundImage = `url(${profileImg})`
 		S('#userName').innerHTML = displayName;
 		// check if data exists
 		const userUid = auth.currentUser.uid;
-		const docRef = db.collection("users").doc(userUid);
+		const docRef = db.collection("users").doc(`${email} ${userUid}`);
 		docRef.get().then(doc => {
 			if (doc.exists) {
 				// data exists
@@ -931,7 +932,7 @@ topage1 = _ => {
 			: user.activity === "moderate" ? S("#moderate").checked = true
 				: user.activity === "very" ? S("#very").checked = true
 					: S("#extra").checked = true
-					
+
 	toggle("#page1", 0.25, "fade")
 	toggle("#page4", 0.25, "fade")
 	S("#profile").style.display = "block"
@@ -1068,7 +1069,7 @@ topage4 = _ => {
 	}
 	// upload data
 	const userUid = auth.currentUser.uid;
-	db.collection("users").doc(userUid).set(user);
+	db.collection("users").doc(`${email} ${userUid}`).set(user);
 };
 
 skip = _ => {
