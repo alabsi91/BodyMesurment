@@ -33,7 +33,7 @@ window.addEventListener("load", _ => {
 		autoplay: true,
 		path: 'data.json'
 	});
-
+	tipAnimate("#bmitip")("#bmrtip")("#ibwtip")("#lbmtip")("#bfptip")("#whtrtip")("#tbwtip")("#necktip")("#waisttip")("#hiptip")
 })
 let isLogged;
 const firebaseConfig = {
@@ -916,6 +916,22 @@ tbw = _ => {
 };
 
 topage1 = _ => {
+	S("#age").value = user.age;
+	S("#weight").value = user.weight;
+	S("#height").value = user.height;
+	user.gender === "male" ? S("#mgender").checked = true : S("#fgender").checked = true;
+	user.system === "metric" ? S("#metric").checked = true : S("#imperial").checked = true;
+
+	if (user.neck !== 0 && !user.skipping) S("#neck").value = user.neck;
+	if (user.waist !== 0 && !user.skipping) S("#waist").value = user.waist;
+	if (user.hip !== 0 && !user.skipping) S("#hip").value = user.hip;
+
+	user.activity === "sedentary" ? S("#sedentary").checked = true
+		: user.activity === "light" ? S("#light").checked = true
+			: user.activity === "moderate" ? S("#moderate").checked = true
+				: user.activity === "very" ? S("#very").checked = true
+					: S("#extra").checked = true
+					
 	toggle("#page1", 0.25, "fade")
 	toggle("#page4", 0.25, "fade")
 	S("#profile").style.display = "block"
@@ -1425,9 +1441,8 @@ toggle = (Element, duration = 0.2, animation = "scale") => {
 }
 function tipAnimate(id) {
 	gsap.timeline({ repeat: -1, repeatDelay: 4 })
-	.to(id, { duration: 0.3, rotate: "90deg" })
-	.to(id, { duration: 0.3, rotate: "-90deg" })
-	.to(id, { duration: 0.3, rotate: "0deg" })
+		.to(id, { duration: 0.3, rotate: "90deg" })
+		.to(id, { duration: 0.3, rotate: "-90deg" })
+		.to(id, { duration: 0.3, rotate: "0deg" })
 	return tipAnimate
 }
-tipAnimate("#bmitip")("#bmrtip")("#ibwtip")("#lbmtip")("#bfptip")("#whtrtip")("#tbwtip")("#necktip")("#waisttip")("#hiptip")
