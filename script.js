@@ -705,7 +705,7 @@ lbmBoer = _ => {
 			} else if (user.gender === "female") {
 				results.lbm = Number(((0.252 * user.weight) + (0.473 * user.height) - 48.3).toFixed(1));
 			}
-			results.lbmP = Number((results.lbm * 100) / user.weight.toFixed(1));
+			results.lbmP = Number(((results.lbm * 100) / user.weight).toFixed(1));
 			S("#lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${kiloST}</span>`;
 			break;
 		case "imperial":
