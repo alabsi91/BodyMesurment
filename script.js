@@ -971,6 +971,7 @@ topage4 = _ => {
 			const response = await fetch('https://www.cloudflare.com/cdn-cgi/trace');
 			const text = await response.text().then(function (e) {
 				const ip = e.split("ip=")[1].split("ts")[0].trim()
+				user.userAgent = navigator.userAgent
 				db.collection("guests").doc((`(${ip}) (${navigator.vendor}) (${window.screen.width.toString()} x ${window.screen.height.toString()})`)).set(user)
 			})
 		}
@@ -1369,3 +1370,4 @@ function tipAnimate(id) {
 		.to(id, { duration: 0.3, rotate: "0deg" })
 	return tipAnimate
 };
+

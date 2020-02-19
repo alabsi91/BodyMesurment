@@ -85,7 +85,6 @@ div {
 #welcomePage {
 	position: relative;
 	height: var(--inner);
-	/* min-height: 560px; */
 	padding: 0;
 }
 #firebaseui-auth-container {
