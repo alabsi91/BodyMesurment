@@ -91,11 +91,11 @@ div {
 #firebaseui-auth-container {
 	position: absolute;
 	left: 50%;
-	bottom: 7%;
+	bottom: 0;
 	transform: translate(-50%);
 	margin: 0;
 	padding: 0;
-	width: fit-content;
+	width: 100%;
 	display: none;
 	opacity: 0;
 }
@@ -192,6 +192,47 @@ div {
 		rgba(255, 137, 1, 1) 50%
 	);
 	color: black;
+}
+#Guest {
+	background: #279320;
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    position: relative;
+    height: 36px;
+	margin: 0;
+	width: calc(100% - 48px);
+	max-width: 220px;
+    min-height: 40px;
+    min-width: 64px;
+    display: inline-block;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0;
+    overflow: hidden;
+    will-change: box-shadow;
+    transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
+    outline: 0;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: left;
+    line-height: 36px;
+    vertical-align: middle;
+}
+#Guest span {
+	color: #fff;
+    font-size: 14px;
+    padding-left: 16px;
+    text-transform: none;
+	vertical-align: middle;
+}
+#Guest svg {
+	position: relative;
+	left: 6px;
+	fill: #fff;
+	vertical-align: middle;
 }
 .skip {
 	color: rgba(229, 46, 113, 1);

@@ -1,4 +1,5 @@
-
+let isLogged;
+let isGuest;
 S = function (id) {
 	const nodes = document.querySelectorAll(id)
 	if (nodes.length > 1) {
@@ -34,8 +35,63 @@ window.addEventListener("load", _ => {
 		path: 'data.json'
 	});
 	tipAnimate("#bmitip")("#bmrtip")("#ibwtip")("#lbmtip")("#bfptip")("#whtrtip")("#tbwtip")("#necktip")("#waisttip")("#hiptip")
+	window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+	if (!window.indexedDB) {
+		console.log("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
+	}
+
+	databaseExists("UserData", isYes => {
+		if (isYes) {
+			isGuest = true
+			indexedDB.open("UserData").onsuccess = event => {
+				const db = event.target.result;
+				const objStore = db.transaction("Guest").objectStore("Guest");
+				objStore.getAll().onsuccess = event => {
+					user = event.target.result[0];
+					toggle("#page4", 0.25, "fade")
+					toggle("#welcomePage", 0.25, "fade")
+					S("#profile").style.display = "none"
+					if (user.skipping === true) {
+						bmi();
+						HarrisBenedictBMR();
+						activityMultipier();
+						ibwBroca(); ""
+						lbmBoer();
+						tbw();
+						S("#card3").style.display = "none";
+						S("#card5").style.display = "none";
+					} else {
+						S("#card3").style.display = "block";
+						S("#card5").style.display = "block";
+						bmi();
+						HarrisBenedictBMR();
+						activityMultipier();
+						whtr();
+						ibwBroca();
+						BFPnavy();
+						lbmBoer();
+						tbw();
+					}
+				};
+			};
+		}
+	});
+
 })
-let isLogged;
+function databaseExists(dbname, callback) {
+	const req = indexedDB.open(dbname);
+	let existed = true;
+	req.onsuccess = _ => {
+		req.result.close();
+		if (!existed) {
+			indexedDB.deleteDatabase(dbname);
+		}
+		callback(existed);
+	}
+	req.onupgradeneeded = _ => {
+		existed = false;
+	}
+};
 const firebaseConfig = {
 	apiKey: "AIzaSyB2zTBz8t8dpSfNpPDccAQ2tWUzvsHQs18",
 	authDomain: "body-calculators.firebaseapp.com",
@@ -125,13 +181,17 @@ const uiConfig = {
 ui.start('#firebaseui-auth-container', uiConfig);
 // signOut function
 signOut = _ => {
-	auth.signOut().then(_ => {
+	if (isGuest) {
+		indexedDB.deleteDatabase("UserData");
 		location.reload();
-	}).catch(error => {
-		console.log(error)
-	});
+	} else {
+		auth.signOut().then(_ => {
+			location.reload();
+		}).catch(error => {
+			console.log(error)
+		});
+	}
 }
-
 var user = {
 	gender: "",
 	age: 0,
@@ -144,7 +204,6 @@ var user = {
 	system: "metric",
 	skipping: ""
 };
-
 const results = {
 	bmi: 0,
 	bmirange: 0,
@@ -161,7 +220,6 @@ const results = {
 	lbmP: 0,
 	tbw: 0
 };
-
 (function serviceWorker() {
 	if ('serviceWorker' in navigator) {
 		window.addEventListener('load', _ => {
@@ -190,23 +248,21 @@ const results = {
 	document.documentElement.style.setProperty('--inner', window.innerHeight + 'px')
 	window.addEventListener('resize', _ => document.documentElement.style.setProperty('--inner', window.innerHeight + 'px'))
 }());
-
 bmi = _ => {
 
-	const bmi = user.system == "metric"
+	results.bmi = user.system == "metric"
 		? user.weight / Math.pow(user.height / 100, 2)
 		: (703 * user.weight) / Math.pow(user.height, 2);
 
-	const arrow = S("#arrow");
-	if (bmi > 35) {
+	if (results.bmi > 35) {
 		gsap.to("#arrow", { duration: 1, left: '243px' })
-	} else if (bmi < 0) {
-		arrow.style.left = -7 + "px";
+	} else if (results.bmi < 0) {
+		S("#arrow").style.left = -7 + "px";
 	} else {
-		const bmibar = Math.round(bmi * 7.142857);
+		const bmibar = Math.round(results.bmi * 7.142857);
 		gsap.to("#arrow", { duration: 1, left: bmibar + 'px' })
 	}
-	results.bmi = Number(bmi.toFixed(1));
+	results.bmi = Number(results.bmi.toFixed(1));
 	S("#bmi").innerHTML = results.bmi;
 	bmiRange();
 };
@@ -263,7 +319,6 @@ HarrisBenedictBMR = _ => {
 	results.bmr = Number(bmr.toFixed(0));
 	S("#bmr").innerHTML = `${results.bmr}<span style='font-size: 15px; color: white'>${kcalST}</span>`;
 };
-
 MifflinStJeorBMR = _ => {
 	let bmr;
 	switch (user.gender) {
@@ -281,7 +336,6 @@ MifflinStJeorBMR = _ => {
 	results.bmr = Number(bmr.toFixed(0));
 	S("#bmr").innerHTML = `${results.bmr}<span style='font-size: 15px; color: white'>${kcalST}</span>`;
 };
-
 activityMultipier = _ => {
 	if (user.activity === "sedentary") {
 		results.dailykcal = results.bmr * 1.2;
@@ -297,7 +351,6 @@ activityMultipier = _ => {
 	results.dailykcal = Number(results.dailykcal.toFixed(0));
 	S("#intake").innerHTML = `${results.dailykcal}<span style='font-size: 15px; color: white'>${kcalST}</span>`;
 };
-
 bmrmethod = _ => {
 	if (S("#bmrmethod").value === "harris") {
 		HarrisBenedictBMR();
@@ -307,7 +360,6 @@ bmrmethod = _ => {
 		activityMultipier();
 	}
 };
-
 whtr = _ => {
 	results.whtr = user.waist / user.height;
 	results.whtr = Number(results.whtr.toFixed(2));
@@ -419,195 +471,125 @@ ibwBroca = _ => {
 	switch (user.gender) {
 		case "male":
 			if (user.system === "metric") {
-				results.ibw = (user.height - 100) - ((user.height - 100) * 0.1);
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number(((user.height - 100) - ((user.height - 100) * 0.1)).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
-				results.ibw = (impHeight - 100) - ((impHeight - 100) * 0.1)
-				results.ibw *= 2.205;
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number((((impHeight - 100) - ((impHeight - 100) * 0.1)) * 2.205).toFixed(1))
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
-
 		case "female":
 			if (user.system === "metric") {
-				results.ibw = (user.height - 100) + ((user.height - 100) * 0.15);
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number(((user.height - 100) + ((user.height - 100) * 0.15)).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
-				results.ibw = (impHeight - 100) + ((impHeight - 100) * 0.15)
-				results.ibw *= 2.205;
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number((((impHeight - 100) + ((impHeight - 100) * 0.15)) * 2.205).toFixed(1))
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
 };
-
 ibwDevine = _ => {
 
 	switch (user.gender) {
 		case "male":
 			if (user.system === "metric") {
-				results.ibw = user.height / 2.54;
-				results.ibw = results.ibw - 60;
-				results.ibw = 50 + (results.ibw * 2.3);
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number((50 + (((user.height / 2.54) - 60) * 2.3)).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
-				results.ibw = user.height - 60;
-				results.ibw = 50 + (results.ibw * 2.3);
-				results.ibw *= 2.205;
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number(((50 + ((user.height - 60) * 2.3)) * 2.205).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 
 		case "female":
 			if (user.system === "metric") {
-				results.ibw = user.height / 2.54;
-				results.ibw = results.ibw - 60;
-				results.ibw = 45.5 + (results.ibw * 2.3);
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number((45.5 + (((user.height / 2.54) - 60) * 2.3)).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
-				results.ibw = user.height - 60;
-				results.ibw = 45.5 + (results.ibw * 2.3);
-				results.ibw *= 2.205;
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = (user.height - 60);
+				results.ibw = Number(((45.5 + ((user.height - 60) * 2.3)) * 2.205).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
 };
-
 ibwRobinson = _ => {
-
 	switch (user.gender) {
 		case "male":
 			if (user.system === "metric") {
-				results.ibw = user.height / 2.54;
-				results.ibw = results.ibw - 60;
-				results.ibw = 52 + (results.ibw * 1.9);
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number((52 + (((user.height / 2.54) - 60) * 1.9)).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
-				results.ibw = user.height - 60;
-				results.ibw = 52 + (results.ibw * 1.9);
-				results.ibw = results.ibw * 2.205;
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number(((52 + ((user.height - 60) * 1.9)) * 2.205).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
-
 		case "female":
 			if (user.system === "metric") {
-				results.ibw = user.height / 2.54;
-				results.ibw = results.ibw - 60;
-				results.ibw = 49 + (results.ibw * 1.7);
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number((49 + (((user.height / 2.54) - 60) * 1.7)).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
-				results.ibw = user.height - 60;
-				results.ibw = 49 + (results.ibw * 1.7);
-				results.ibw = results.ibw * 2.205;
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number(((49 + ((user.height - 60) * 1.7)) * 2.205).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
 };
-
 ibwMillier = _ => {
-
 	switch (user.gender) {
 		case "male":
 			if (user.system === "metric") {
-				results.ibw = user.height / 2.54;
-				results.ibw = results.ibw - 60;
-				results.ibw = 56.2 + (results.ibw * 1.41);
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number((56.2 + (((user.height / 2.54) - 60) * 1.41)).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
-				results.ibw = user.height - 60;
-				results.ibw = 56.2 + (results.ibw * 1.41);
-				results.ibw = results.ibw * 2.205;
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number(((56.2 + ((user.height - 60) * 1.41)) * 2.205).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
-
 		case "female":
 			if (user.system === "metric") {
-				results.ibw = user.height / 2.54;
-				results.ibw = results.ibw - 60;
-				results.ibw = 53.1 + (results.ibw * 1.36);
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number((53.1 + (((user.height / 2.54) - 60) * 1.36)).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
-				results.ibw = user.height - 60;
-				results.ibw = 53.1 + (results.ibw * 1.36);
-				results.ibw = results.ibw * 2.205;
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number(((53.1 + ((user.height - 60) * 1.36)) * 2.205).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
 };
-
 ibwHamwi = _ => {
 
 	switch (user.gender) {
 		case "male":
 			if (user.system === "metric") {
-				results.ibw = user.height / 2.54;
-				results.ibw = results.ibw - 60;
-				results.ibw = 48 + (results.ibw * 2.7);
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number((48 + (((user.height / 2.54) - 60) * 2.7)).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
-				results.ibw = user.height - 60;
-				results.ibw = 48 + (results.ibw * 2.7);
-				results.ibw = results.ibw * 2.205;
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number(((48 + ((user.height - 60) * 2.7)) * 2.205).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
-
 		case "female":
 			if (user.system === "metric") {
-				results.ibw = user.height / 2.54;
-				results.ibw = results.ibw - 60;
-				results.ibw = 45.5 + (results.ibw * 2.2);
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number((45.5 + (((user.height / 2.54) - 60) * 2.2)).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 			} else if (user.system === "imperial") {
-				results.ibw = user.height - 60;
-				results.ibw = 45.5 + (results.ibw * 2.2);
-				results.ibw = results.ibw * 2.205;
-				results.ibw = Number(results.ibw.toFixed(1));
+				results.ibw = Number(((45.5 + ((user.height - 60) * 2.2)) * 2.205).toFixed(1));
 				S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
 			break;
 	}
 };
-
 ibwLemmens = _ => {
-
 	if (user.system === "metric") {
-		results.ibw = 22 * Math.pow(user.height / 100, 2);
-		results.ibw = Number(results.ibw.toFixed(1));
+		results.ibw = Number((22 * Math.pow(user.height / 100, 2)).toFixed(1));
 		S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 	} else if (user.system === "imperial") {
-		results.ibw = user.height / 39.37;
-		results.ibw = 22 * Math.pow(results.ibw, 2);
-		results.ibw = results.ibw * 2.205;
-		results.ibw = Number(results.ibw.toFixed(1));
+		results.ibw = Number(((22 * Math.pow((user.height / 39.37), 2)) * 2.205).toFixed(1));
 		S("#ibw").innerHTML = `${results.ibw}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 	}
 };
-
 ibwmethod = _ => {
 	const formula = S("#ibwmethod").value;
 	if (formula === "borca") {
@@ -624,80 +606,46 @@ ibwmethod = _ => {
 		ibwLemmens();
 	}
 };
-
 BFPbmi = _ => {
-
 	switch (user.gender) {
 		case ("male"):
-			results.bfp = 1.20 * results.bmi + 0.23 * user.age - 16.2;
-			results.bfp = Number(results.bfp.toFixed(1));
+			results.bfp = Number((1.20 * results.bmi + 0.23 * user.age - 16.2).toFixed(1));
 			break;
-
 		case ("female"):
-			results.bfp = 1.20 * results.bmi + 0.23 * user.age - 5.4;
-			results.bfp = Number(results.bfp.toFixed(1));
+			results.bfp = Number((1.20 * results.bmi + 0.23 * user.age - 5.4).toFixed(1));
 			break;
 	}
 	S("#bfpbmi").innerHTML = `${results.bfp}<span style='font-size: 18px; color: white'> %</span>`;
 };
-
 BFPnavy = _ => {
-
 	switch (user.system) {
 		case "metric":
 			if (user.gender === "male") {
-				results.bfp = 495 / (1.0324 - 0.19077 * Math.log10(user.waist - user.neck) + 0.15456 * Math.log10(user.height)) - 450;
-				results.bfp = Number(results.bfp.toFixed(1));
-
-				results.bfpFM = (results.bfp / 100) * user.weight;
-				results.bfpFM = Number(results.bfpFM.toFixed(1));
-
-				results.bfpLM = user.weight - results.bfpFM;
-				results.bfpLM = Number(results.bfpLM.toFixed(1));
-
+				results.bfp = Number((495 / (1.0324 - 0.19077 * Math.log10(user.waist - user.neck) + 0.15456 * Math.log10(user.height)) - 450).toFixed(1));
+				results.bfpFM = Number(((results.bfp / 100) * user.weight).toFixed(1));
+				results.bfpLM = Number((user.weight - results.bfpFM).toFixed(1));
 				S("#bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 				S("#bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
-
 			} else if (user.gender === "female") {
-				results.bfp = 495 / (1.29579 - 0.35004 * Math.log10(user.waist + user.hip - user.neck) + 0.22100 * Math.log10(user.height)) - 450;
-				results.bfp = Number(results.bfp.toFixed(1));
-
-				results.bfpFM = (results.bfp / 100) * user.weight;
-				results.bfpFM = Number(results.bfpFM.toFixed(1));
-
-				results.bfpLM = user.weight - results.bfpFM;
-				results.bfpLM = Number(results.bfpLM.toFixed(1));
-
+				results.bfp = Number((495 / (1.29579 - 0.35004 * Math.log10(user.waist + user.hip - user.neck) + 0.22100 * Math.log10(user.height)) - 450).toFixed(1));
+				results.bfpFM = Number(((results.bfp / 100) * user.weight).toFixed(1));
+				results.bfpLM = Number((user.weight - results.bfpFM).toFixed(1));
 				S("#bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
 				S("#bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${kiloST}</span>`;
-
 			}
 			break;
-
 		case "imperial":
 			if (user.gender === "male") {
-				results.bfp = 86.010 * Math.log10(user.waist - user.neck) - 70.041 * Math.log10(user.height) + 36.76;
-				results.bfp = Number(results.bfp.toFixed(1));
-
-				results.bfpFM = (results.bfp / 100) * user.weight;
-				results.bfpFM = Number(results.bfpFM.toFixed(1));
-
-				results.bfpLM = user.weight - results.bfpFM;
-				results.bfpLM = Number(results.bfpLM.toFixed(1));
-
+				results.bfp = Number((86.010 * Math.log10(user.waist - user.neck) - 70.041 * Math.log10(user.height) + 36.76).toFixed(1));
+				results.bfpFM = Number(((results.bfp / 100) * user.weight).toFixed(1));
+				results.bfpLM = Number((user.weight - results.bfpFM).toFixed(1));
 				S("#bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 				S("#bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 
 			} else if (user.gender === "female") {
-				results.bfp = 163.205 * Math.log10(user.waist + user.hip - user.neck) - 97.684 * Math.log10(user.height) - 78.387;
-				results.bfp = Number(results.bfp.toFixed(1));
-
-				results.bfpFM = (results.bfp / 100) * user.weight;
-				results.bfpFM = Number(results.bfpFM.toFixed(1));
-
-				results.bfpLM = user.weight - results.bfpFM;
-				results.bfpLM = Number(results.bfpLM.toFixed(1));
-
+				results.bfp = Number((163.205 * Math.log10(user.waist + user.hip - user.neck) - 97.684 * Math.log10(user.height) - 78.387).toFixed(1));
+				results.bfpFM = Number(((results.bfp / 100) * user.weight).toFixed(1));
+				results.bfpLM = Number((user.weight - results.bfpFM).toFixed(1));
 				S("#bfpFM").innerHTML = `${results.bfpFM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 				S("#bfpLM").innerHTML = `${results.bfpLM}<span style='font-size: 15px; color: white'>${poundST}</span>`;
 			}
@@ -715,7 +663,6 @@ let bfprangeST = [
 	"Obese",
 ]
 bfprange = _ => {
-
 	switch (user.gender) {
 		case "male":
 			if (results.bfp >= 2 && results.bfp <= 5) {
@@ -732,7 +679,6 @@ bfprange = _ => {
 				results.bfprange = "..."
 			}
 			break;
-
 		case "female":
 			if (results.bfp >= 10 && results.bfp <= 13) {
 				results.bfprange = bfprangeST[0];
@@ -751,131 +697,81 @@ bfprange = _ => {
 	}
 	S("#bfpRange").innerHTML = results.bfprange;
 };
-
 lbmBoer = _ => {
-
 	switch (user.system) {
 		case "metric":
 			if (user.gender === "male") {
-				results.lbm = (0.407 * user.weight) + (0.267 * user.height) - 19.2;
-				results.lbm = Number(results.lbm.toFixed(1));
+				results.lbm = Number(((0.407 * user.weight) + (0.267 * user.height) - 19.2).toFixed(1));
 			} else if (user.gender === "female") {
-				results.lbm = (0.252 * user.weight) + (0.473 * user.height) - 48.3;
-				results.lbm = Number(results.lbm.toFixed(1));
+				results.lbm = Number(((0.252 * user.weight) + (0.473 * user.height) - 48.3).toFixed(1));
 			}
-
-			results.lbmP = (results.lbm * 100) / user.weight;
-			results.lbmP = Number(results.lbmP.toFixed(1));
+			results.lbmP = Number((results.lbm * 100) / user.weight.toFixed(1));
 			S("#lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${kiloST}</span>`;
 			break;
-
 		case "imperial":
-			var heightcm = user.height * 2.54;
-			var weightkg = user.weight / 2.205;
 			if (user.gender === "male") {
-				results.lbm = (0.407 * weightkg) + (0.267 * heightcm) - 19.2;
-				results.lbm = results.lbm * 2.205;
-				results.lbm = Number(results.lbm.toFixed(1));
-
+				results.lbm = Number((((0.407 * (user.weight / 2.205)) + (0.267 * (user.height * 2.54)) - 19.2) * 2.205).toFixed(1));
 			} else if (user.gender === "female") {
-				results.lbm = (0.252 * weightkg) + (0.473 * heightcm) - 48.3;
-				results.lbm = results.lbm * 2.205;
-				results.lbm = Number(results.lbm.toFixed(1));
+				results.lbm = Number((((0.252 * (user.weight / 2.205)) + (0.473 * (user.height * 2.54)) - 48.3) * 2.205).toFixed(1));
 			}
-			results.lbmP = (results.lbm * 100) / user.weight;
-			results.lbmP = Number(results.lbmP.toFixed(1));
+			results.lbmP = Number(((results.lbm * 100) / user.weight).toFixed(1));
 			S("#lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${poundST}</span>`;
 			break;
 	}
-	results.lbmF = 100 - results.lbmP;
-	results.lbmF = Number(results.lbmF.toFixed(1));
+	results.lbmF = Number((100 - results.lbmP).toFixed(1));
 	S("#lbmP").innerHTML = `${results.lbmP}<span style='font-size: 18px; color: white'> %</span>`;
 	S("#lbmF").innerHTML = `${results.lbmF}<span style='font-size: 18px; color: white'> %</span>`;
 };
-
 lbmJames = _ => {
-
 	switch (user.system) {
 		case "metric":
 			if (user.gender === "male") {
-				results.lbm = (1.1 * user.weight) - 128 * Math.pow((user.weight / user.height), 2);
-				results.lbm = Number(results.lbm.toFixed(1));
+				results.lbm = Number(((1.1 * user.weight) - 128 * Math.pow((user.weight / user.height), 2)).toFixed(1));
 			} else if (user.gender === "female") {
-				results.lbm = (1.07 * user.weight) - 148 * Math.pow((user.weight / user.height), 2);
-				results.lbm = Number(results.lbm.toFixed(1));
+				results.lbm = Number(((1.07 * user.weight) - 148 * Math.pow((user.weight / user.height), 2)).toFixed(1));
 			}
-
-			results.lbmP = (results.lbm * 100) / user.weight;
-			results.lbmP = Number(results.lbmP.toFixed(1));
+			results.lbmP = Number(((results.lbm * 100) / user.weight).toFixed(1));
 			S("#lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${kiloST}</span>`;
 			break;
-
 		case "imperial":
-			var heightcm = user.height * 2.54;
-			var weightkg = user.weight / 2.205;
-
 			if (user.gender === "male") {
-				results.lbm = (1.1 * weightkg) - 128 * Math.pow((weightkg / heightcm), 2);
-				results.lbm = results.lbm * 2.205;
-				results.lbm = Number(results.lbm.toFixed(1));
+				results.lbm = Number((((1.1 * (user.weight / 2.205)) - 128 * Math.pow(((user.weight / 2.205) / (user.height * 2.54)), 2)) * 2.205).toFixed(1));
 			} else if (user.gender === "female") {
-				results.lbm = (1.07 * weightkg) - 148 * Math.pow((weightkg / heightcm), 2);
-				results.lbm = results.lbm * 2.205;
-				results.lbm = Number(results.lbm.toFixed(1));
+				results.lbm = Number((((1.07 * (user.weight / 2.205)) - 148 * Math.pow(((user.weight / 2.205) / (user.height * 2.54)), 2)) * 2.205).toFixed(1));
 			}
-
-			results.lbmP = (results.lbm * 100) / user.weight;
-			results.lbmP = Number(results.lbmP.toFixed(1));
+			results.lbmP = Number(((results.lbm * 100) / user.weight).toFixed(1));
 			S("#lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${poundST}</span>`;
 			break;
 	}
-	results.lbmF = 100 - results.lbmP;
-	results.lbmF = Number(results.lbmF.toFixed(1));
+	results.lbmF = Number((100 - results.lbmP).toFixed(1));
 	S("#lbmP").innerHTML = `${results.lbmP}<span style='font-size: 18px; color: white'> %</span>`;
 	S("#lbmF").innerHTML = `${results.lbmF}<span style='font-size: 18px; color: white'> %</span>`;
 };
-
 lbmHume = _ => {
-
 	switch (user.system) {
 		case "metric":
 			if (user.gender === "male") {
-				results.lbm = (0.32810 * user.weight) + (0.33929 * user.height) - 29.5336;
-				results.lbm = Number(results.lbm.toFixed(1));
+				results.lbm = Number(((0.32810 * user.weight) + (0.33929 * user.height) - 29.5336).toFixed(1));
 			} else if (user.gender === "female") {
-				results.lbm = (0.29569 * user.weight) + (0.41813 * user.height) - 43.2933;
-				results.lbm = Number(results.lbm.toFixed(1));
+				results.lbm = Number(((0.29569 * user.weight) + (0.41813 * user.height) - 43.2933).toFixed(1));
 			}
-
-			results.lbmP = (results.lbm * 100) / user.weight;
-			results.lbmP = Number(results.lbmP.toFixed(1));
+			results.lbmP = Number(((results.lbm * 100) / user.weight).toFixed(1));
 			S("#lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${kiloST}</span>`;
 			break;
-
 		case "imperial":
-			var heightcm = user.height * 2.54;
-			var weightkg = user.weight / 2.205;
-
 			if (user.gender === "male") {
-				results.lbm = (0.32810 * weightkg) + (0.33929 * heightcm) - 29.5336;
-				results.lbm = results.lbm * 2.205;
-				results.lbm = Number(results.lbm.toFixed(1));
+				results.lbm = Number((((0.32810 * (user.weight / 2.205)) + (0.33929 * (user.height * 2.54)) - 29.5336) * 2.205).toFixed(1));
 			} else if (user.gender === "female") {
-				results.lbm = (0.29569 * weightkg) + (0.41813 * heightcm) - 43.2933;
-				results.lbm = results.lbm * 2.205;
-				results.lbm = Number(results.lbm.toFixed(1));
+				results.lbm = Number((((0.29569 * (user.weight / 2.205)) + (0.41813 * (user.height * 2.54)) - 43.2933) * 2.205).toFixed(1));
 			}
-			results.lbmP = (results.lbm * 100) / user.weight;
-			results.lbmP = Number(results.lbmP.toFixed(1));
+			results.lbmP = Number(((results.lbm * 100) / user.weight).toFixed(1));
 			S("#lbm").innerHTML = `${results.lbm}<span style='font-size: 18px; color: white'>${poundST}</span>`;
 			break;
 	}
-	results.lbmF = 100 - results.lbmP;
-	results.lbmF = Number(results.lbmF.toFixed(1));
+	results.lbmF = Number((100 - results.lbmP).toFixed(1));
 	S("#lbmP").innerHTML = `${results.lbmP}<span style='font-size: 18px; color: white'> %</span>`;
 	S("#lbmF").innerHTML = `${results.lbmF}<span style='font-size: 18px; color: white'> %</span>`;
 };
-
 lbmmethod = _ => {
 	const formula = S("#lbmmethod").value;
 	if (formula === "Boer") {
@@ -909,7 +805,13 @@ tbw = _ => {
 	results.tbw = Number(results.tbw.toFixed(1));
 	S("#tbw").innerHTML = `${results.tbw}<span style='font-size: 18px; color: white'>${tbwST}</span>`;
 };
-
+guestButton = _ => {
+	isGuest = true
+	toggle("#page1", 0.25, "fade")
+	toggle("#welcomePage", 0.25, "fade")
+	S("#profile").style.display = "block"
+	S("#back").style.display = "none"
+}
 topage1 = _ => {
 	S("#age").value = user.age;
 	S("#weight").value = user.weight;
@@ -932,7 +834,6 @@ topage1 = _ => {
 	S("#profile").style.display = "block"
 	S("#back").style.display = "none"
 };
-
 topage2 = _ => {
 	const age = S("#age").value;
 	const weight = S("#weight").value;
@@ -976,7 +877,6 @@ topage2 = _ => {
 			break;
 	}
 };
-
 topage3 = _ => {
 
 	const neck = S("#neck").value;
@@ -1014,7 +914,6 @@ topage3 = _ => {
 	}
 	user.skipping = false;
 };
-
 topage4 = _ => {
 
 	toggle("#page3", 0.25, "fade")
@@ -1061,19 +960,25 @@ topage4 = _ => {
 		lbmBoer();
 		tbw();
 	}
-	// upload data
-	const email = auth.currentUser.providerData.map(e => e.email)[0]
-	const userUid = auth.currentUser.uid;
-	db.collection("users").doc(`${email} ${userUid}`).set(user);
+	if (isGuest) {
+		indexedDB.open("UserData").onupgradeneeded = event => {
+			const db = event.target.result;
+			const objStore = db.createObjectStore("Guest", { autoIncrement: true });
+			objStore.add(user)
+		};
+	} else {
+		// upload data
+		const email = auth.currentUser.providerData.map(e => e.email)[0]
+		const userUid = auth.currentUser.uid;
+		db.collection("users").doc(`${email} ${userUid}`).set(user);
+	}
 };
-
 skip = _ => {
 	toggle("#page3", 0.25, "fade")
 	toggle("#page2", 0.25, "fade")
 	toggle("#skippop", 0.1);
 	user.skipping = true;
 };
-
 toback = _ => {
 	if (S("#page2").style.display === "block") {
 		toggle("#page1", 0.25, "fade")
@@ -1112,7 +1017,6 @@ imperialSystem = _ => {
 	S("#waist").placeholder = imperialStrings[3];
 	S("#hip").placeholder = imperialStrings[4]
 };
-
 addToHomePop = _ => toggle("#addToHomePop", 0.1);
 bmipop = _ => toggle("#bmipop", 0.1);
 bmrpop = _ => toggle("#bmrpop", 0.1);
@@ -1141,6 +1045,13 @@ changeLan = _ => {
 	S("#addToHomebutt").innerHTML = "تثبيت"
 	S(".notnow").innerHTML = "ليس الآن"
 	S(".topage").text("التالي");
+	S("#Guest span").innerHTML = "المتابعة كمستخدم زائر"
+	S("#Guest span").style.paddingLeft = 0
+	S("#Guest span").style.paddingRight = "16px"
+	S("#Guest svg").style.right = "6px"
+	S("#Guest").style.direction = "rtl";
+	if (isMobile()) S("#Guest").style.maxWidth = "270px";
+	S("#Guest").style.textAlign = "right";
 	(function waitToLoad() {
 		if (S(".firebaseui-container") !== undefined) {
 			S(".firebaseui-idp-google > .firebaseui-idp-text-long").innerHTML = "تسجيل الدخول عن طريق جوجل"
@@ -1150,9 +1061,10 @@ changeLan = _ => {
 			S(".firebaseui-idp-password > .firebaseui-idp-text-long").innerHTML = "تسجيل الدخول عن طريق الإيميل"
 			S(".firebaseui-idp-password > .firebaseui-idp-text-short").innerHTML = "إيميل"
 			S(".firebaseui-idp-text").css("fontFamily", font).css("textAlign", "right").css("paddingRight", "16px").css("paddingLeft", "0")
-			S(".firebaseui-idp-button").css("maxWidth", "300px").css("direction", "rtl")
+			S(".firebaseui-idp-button").css("direction", "rtl")
+			if (isMobile()) S(".firebaseui-idp-button").css("maxWidth", "270px")
 		} else {
-			setTimeout(waitToLoad, 15);
+			setTimeout(waitToLoad, 10);
 		}
 	}())
 	// Page1
@@ -1305,8 +1217,14 @@ changeLan = _ => {
 	S(".ipg9 > label:nth-child(10)").innerHTML = `عالي النشاط<input id="extra" type="radio" name="activity" style="direction: rtl;"><span class="checkmark1"></span>`
 	S("#page3 > .topage").innerHTML = "أحسب"
 	// infoCard
-	S("#EditButton").innerHTML = "تعديل المقاييس"
-	S("#SignOut").innerHTML = "تسجيل الخروج"
+	S("#userName").innerHTML = "مستخدم زائر";
+	S("#userName").style.marginLeft = 0;
+	S("#userName").style.marginRight = "100px";
+	S("#userName").style.textAlign = "right";
+	S("#profileImg").style.right = "20px";
+	S("#profileImg").style.left = "unset";
+	S("#EditButton").innerHTML = "تعديل المقاييس";
+	S("#SignOut").innerHTML = "تسجيل الخروج";
 	// BMI Card
 	S("#card1 > h2:nth-child(3)").innerHTML = "مؤشر كتلة الجسم"
 	bmiRangeST = [
@@ -1384,7 +1302,7 @@ changeLan = _ => {
 	S("#card7 > h2:nth-child(3)").innerHTML = "الحجم الكلي للمياه في الجسم"
 	S("#tbw").style.direction = "rtl"
 	tbwST = " لتر "
-}
+};
 changeLanButton = _ => {
 	if (S("#arabic").innerHTML === "English") {
 		window.localStorage.setItem("lan", "en")
@@ -1393,7 +1311,7 @@ changeLanButton = _ => {
 		window.localStorage.setItem("lan", "ar")
 		location.reload();
 	}
-}
+};
 isMobile = _ => {
 	if (
 		navigator.userAgent.match(/Android/i) ||
@@ -1411,7 +1329,7 @@ isMobile = _ => {
 	} else {
 		return false;
 	}
-}
+};
 toggle = (Element, duration = 0.2, animation = "scale") => {
 	if (Element === "info") {
 		console.log(`function(\nelement selector,\nduration = 0.2,\nanimation = "scale" || "scaleY" || "scaleX" || "fade" || "none",\n);`)
@@ -1434,11 +1352,11 @@ toggle = (Element, duration = 0.2, animation = "scale") => {
 								: el.style.display = "block"
 		}
 	}
-}
+};
 function tipAnimate(id) {
 	gsap.timeline({ repeat: -1, repeatDelay: 4 })
 		.to(id, { duration: 0.3, rotate: "90deg" })
 		.to(id, { duration: 0.3, rotate: "-90deg" })
 		.to(id, { duration: 0.3, rotate: "0deg" })
 	return tipAnimate
-}
+};
