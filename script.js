@@ -166,6 +166,7 @@ auth.onAuthStateChanged(users => {
 		// not logged in
 		isLogged = false
 		toggle("#firebaseui-auth-container", 1.5, "fade")
+		S('#firebaseui-auth-container').style.display = 'block';
 		S('#loading').style.display = 'none';
 
 	}
