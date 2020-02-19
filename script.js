@@ -110,6 +110,16 @@ const ui = new firebaseui.auth.AuthUI(auth);
 const db = firebase.firestore();
 // enable offline data
 db.enablePersistence();
+// login ui
+const uiConfig = {
+	signInFlow: 'popup',
+	signInOptions: [
+		firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+		firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+		firebase.auth.EmailAuthProvider.PROVIDER_ID,
+	],
+};
+ui.start('#firebaseui-auth-container', uiConfig);
 // check if logged in
 auth.onAuthStateChanged(users => {
 	if (users) {
@@ -166,21 +176,11 @@ auth.onAuthStateChanged(users => {
 		// not logged in
 		isLogged = false
 		toggle("#firebaseui-auth-container", 1.5, "fade")
-		S('#firebaseui-auth-container').style.display = 'block';
 		S('#loading').style.display = 'none';
 
 	}
 });
-// login ui
-const uiConfig = {
-	signInFlow: 'popup',
-	signInOptions: [
-		firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-		firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-		firebase.auth.EmailAuthProvider.PROVIDER_ID,
-	],
-};
-ui.start('#firebaseui-auth-container', uiConfig);
+
 // signOut function
 signOut = _ => {
 	if (isGuest) {
