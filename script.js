@@ -971,7 +971,7 @@ topage4 = _ => {
 			const response = await fetch('https://www.cloudflare.com/cdn-cgi/trace');
 			const text = await response.text().then(function (e) {
 				const ip = e.split("ip=")[1].split("ts")[0].trim()
-				db.collection("guests").doc(ip).set(user)
+				db.collection("guests").doc((`(${ip}) (${navigator.vendor}) (${window.screen.width.toString()} x ${window.screen.height.toString()})`)).set(user)
 			})
 		}
 		getIp();
