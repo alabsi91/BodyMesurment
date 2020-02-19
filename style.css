@@ -91,7 +91,7 @@ div {
 #firebaseui-auth-container {
 	position: absolute;
 	left: 50%;
-	bottom: 0;
+	bottom: 4%;
 	transform: translate(-50%);
 	margin: 0;
 	padding: 0;
