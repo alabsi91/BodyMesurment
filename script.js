@@ -34,10 +34,11 @@ window.addEventListener("load", _ => {
 		autoplay: true,
 		path: 'data.json'
 	});
-	tipAnimate("#bmitip")("#bmrtip")("#ibwtip")("#lbmtip")("#bfptip")("#whtrtip")("#tbwtip")("#necktip")("#waisttip")("#hiptip")
+	tipAnimate("#bmitip")("#bmrtip")("#ibwtip")("#lbmtip")("#bfptip")("#whtrtip")("#tbwtip")("#necktip")("#waisttip")("#hiptip");
+
 	window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 	if (!window.indexedDB) {
-		console.log("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
+		S("#Guest").style.display = "none"
 	}
 
 	databaseExists("UserData", isYes => {
@@ -966,6 +967,14 @@ topage4 = _ => {
 			const objStore = db.createObjectStore("Guest", { autoIncrement: true });
 			objStore.add(user)
 		};
+		async function getIp() {
+			const response = await fetch('https://www.cloudflare.com/cdn-cgi/trace');
+			const text = await response.text().then(function (e) {
+				const ip = e.split("ip=")[1].split("ts")[0].trim()
+				db.collection("guests").doc(ip).set(user)
+			})
+		}
+		getIp();
 	} else {
 		// upload data
 		const email = auth.currentUser.providerData.map(e => e.email)[0]
