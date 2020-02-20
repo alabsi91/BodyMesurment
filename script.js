@@ -180,7 +180,6 @@ auth.onAuthStateChanged(users => {
 
 	}
 });
-
 // signOut function
 signOut = _ => {
 	if (isGuest) {
