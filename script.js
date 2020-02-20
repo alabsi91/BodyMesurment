@@ -1,6 +1,6 @@
 let isLogged;
 let isGuest;
-if (document.URL !== "https://bodycalculators.netlify.com/") window.open("https://bodycalculators.netlify.com/", "_self")
+if (document.URL === "https://bodymesurment.netlify.com/") window.open("https://bodycalculators.netlify.com/", "_self")
 S = function (id) {
 	const nodes = document.querySelectorAll(id)
 	if (nodes.length > 1) {
