@@ -1371,4 +1371,3 @@ function tipAnimate(id) {
 		.to(id, { duration: 0.3, rotate: "0deg" })
 	return tipAnimate
 };
-
