@@ -1,5 +1,6 @@
 let isLogged;
 let isGuest;
+if (document.URL !== "https://bodycalculators.netlify.com/") window.open("https://bodycalculators.netlify.com/", "_self")
 S = function (id) {
 	const nodes = document.querySelectorAll(id)
 	if (nodes.length > 1) {
@@ -109,7 +110,7 @@ const auth = firebase.auth();
 const ui = new firebaseui.auth.AuthUI(auth);
 const db = firebase.firestore();
 // enable offline data
-db.enablePersistence();
+db.enablePersistence(`synchronizeTabs: true`);
 // login ui
 const uiConfig = {
 	signInFlow: 'popup',
