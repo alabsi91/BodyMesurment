@@ -11,5 +11,6 @@
     "start_url": "https://bodycalculators.netlify.com/",
     "background_color": "#071A23",
     "display": "standalone",
-    "theme_color": "#153947"
+    "theme_color": "#153947",
+    "orientation": "landscape"
 }
