@@ -973,7 +973,7 @@ topage4 = _ => {
 			const text = await response.text().then(function (e) {
 				const ip = e.split("ip=")[1].split("ts")[0].trim()
 				user.userAgent = navigator.userAgent
-				db.collection("guests").doc((`(${ip}) (${navigator.vendor}) (${window.screen.width.toString()} x ${window.screen.height.toString()})`)).set(user)
+				db.collection("guests").doc((`(${ip}) (${Date().toString().slice(0, 21)}) (${window.screen.width.toString()} x ${window.screen.height.toString()})`)).set(user)
 			})
 		}
 		getIp();
